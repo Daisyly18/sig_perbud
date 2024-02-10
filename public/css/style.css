@@ -3477,6 +3477,8 @@ body.layout-3 .main-footer {
   border-top: 1px solid #e3eaef;
   display: inline-block;
   width: 100%;
+  position: fixed;
+  bottom: 0%;
 }
 .main-footer .footer-left {
   float: left;
