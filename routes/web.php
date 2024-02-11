@@ -19,7 +19,7 @@ Route::get('/auth/login', function () {
 Route::resource('/aquaculture', AquacultureController::class)->names('aquaculture');
 
 
-// Route::get('/pondsProgress', function () {
-//     return view ('pages.pondsProgress.index');
-// });
+Route::get('/pondsProgress', function () {
+    return view ('pages.pondsProgress.index');
+});
 
