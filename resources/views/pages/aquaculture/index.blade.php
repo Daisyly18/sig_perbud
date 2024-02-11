@@ -67,8 +67,7 @@
                       @csrf
                       @method('DELETE')
                       <button type="submit" class="btn btn-icon icon-left btn-danger"><i class="fas fa-trash"></i></button>
-                  </form>
-                    {{-- <a href="#" class="btn btn-icon icon-left btn-danger"><i class="fas fa-trash"></i></a> --}}
+                  </form>          
                   </td>
                 </tr>
                 @endforeach

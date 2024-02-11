@@ -2,12 +2,12 @@
     <aside id="sidebar-wrapper">
       <div class="sidebar-brand">
         <a href="index.html">
-            <img src="{{ asset('/img/logo.png') }}" alt="logo" width="45" height="45">
+            <img src="{{ asset('/img/logo_pohuwato.png') }}" alt="logo" width="45" height="45">
             SIGPERBUD</a>
       </div>
       <div class="sidebar-brand sidebar-brand-sm -mt-20">
         <a href="index.html">
-            <img src="{{ asset('/img/logo.png') }}" alt="logo" width="50" height="50" style="margin-top: 10px">
+            <img src="{{ asset('/img/logo_pohuwato.png') }}" alt="logo" width="50" height="50" style="margin-top: 10px">
         </a>
       </div>
       <ul class="sidebar-menu">

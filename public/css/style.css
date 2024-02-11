@@ -727,21 +727,22 @@ select.form-control:not([size]):not([multiple]) {
 .card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
   background-color: #fff;
-  border-radius: 3px;
+  border-radius: 5px;
   border: none;
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
+  
 }
 .card .card-header, .card .card-body, .card .card-footer {
   background-color: transparent;
-  padding: 20px 25px;
+  padding: 10px 30px;
 }
 .card .navbar {
   position: static;
 }
 .card .card-body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 30px;
+  padding-bottom: 10px;
 }
 .card .card-body .section-title {
   margin: 30px 0 10px 0;
@@ -3472,13 +3473,14 @@ body.layout-3 .main-footer {
 
 .main-footer {
   padding: 20px 30px 20px 280px;
-  margin-top: 40px;
+  margin-top: 20px;
+  margin-bottom: -10px;
   color: #98a6ad;
   border-top: 1px solid #e3eaef;
   display: inline-block;
   width: 100%;
-  position: fixed;
-  bottom: 0%;
+  position: absolute;
+  bottom: 1;
 }
 .main-footer .footer-left {
   float: left;
@@ -3490,7 +3492,7 @@ body.layout-3 .main-footer {
 .simple-footer {
   text-align: center;
   margin-top: 40px;
-  margin-bottom: 40px;
+  margin-bottom: auto;
 }
 
 body:not(.sidebar-mini) .sidebar-style-1 .sidebar-menu li.active a {

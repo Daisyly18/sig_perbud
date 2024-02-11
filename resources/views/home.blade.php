@@ -40,6 +40,10 @@
         color: #ffffff;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
         font-weight: bold;
+        
+    }
+    .buttons a {
+      color: #ffffff;
     }
   </style>
 </head>
@@ -55,11 +59,15 @@
                     <h1 data-aos="fade-up" data-aos-delay="100">Sistem Informasi Geografis <br>Persebaran Perikanan Budi Daya</h1>
                     <h3 data-aos="fade-up" data-aos-delay="200">Kabupaten Pohuwato</h3>
                   </div>
-                  <div class="col-lg-5">
-                    <form action="#" class="sign-up-form d-flex" data-aos="fade-up" data-aos-delay="300">
+                  <div class="col-lg-10">
+                    <div class="buttons" data-aos="fade-up" data-aos-delay="300">
+                      <a href="{{route('map')}}" class="btn btn-primary m-1">Peta</a>
+                      <a href="{{route('login')}}" class="btn btn-info">Login</a>
+                    </div>
+                    {{-- <form action="#" class="sign-up-form d-flex" >
                       <input type="text" class="form-control" placeholder="Enter email address">
                       <input type="submit" class="btn btn-primary" value="Sign up">
-                    </form>
+                    </form> --}}
                   </div>
                 </div>
               </div>
