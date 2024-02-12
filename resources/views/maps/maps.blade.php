@@ -31,19 +31,35 @@
 
   //Batas Kabupaten
   const stylebataskab = {
-    "color" : "#BCA37F"
+    "color" : "#F58B54",
+    "weight" : 5,
+    "fillOpacity" :0
   }
   const bataskab = L.geoJSON(batas_kabJSON, {
     style: stylebataskab
   }).addTo(map);
 
-    //Batas Kecamatan 
-  const stylebataskec = {
-    "color": "#FDE767"
-  }
+  //Batas Kecamatan
   const bataskec = L.geoJSON(batas_kecJSON, {
-    style: stylebataskec
+    style: function(feature) {
+      switch (feature.properties.KECAMATAN) {
+        case 'PAGUAT' : return {fillColor: "#F28585", weight: 2, fillOpacity:0.7};
+        case 'DENGILO' : return {fillColor: "#FFA447", weight: 2, fillOpacity:0.7};
+        case 'MARISA' : return {fillColor: "#FFFC9B", weight: 2, fillOpacity:0.7};
+        case 'BUNTULIA' : return {fillColor: "#FF6B6B", weight: 2, fillOpacity:0.7};
+        case 'DUHIADAA' : return {fillColor: "#FFD93D", weight: 2, fillOpacity:0.7};
+        case 'PATILANGGIO' : return {fillColor: "#6BCB77", weight: 2, fillOpacity:0.7};
+        case 'TALUDITI' : return {fillColor: "#573391", weight: 2, fillOpacity:0.7};
+        case 'LEMITO' : return {fillColor: "#681313", weight: 2, fillOpacity:0.7};
+        case 'RANDANGAN' : return {fillColor: "#E1396C", weight: 2, fillOpacity:0.7};
+        case 'WANGGARASI' : return {fillColor: "#C3B9EA", weight: 2, fillOpacity:0.7};
+        case 'POPAYATO' : return {fillColor: "#A03C78", weight: 2, fillOpacity:0.7};
+        case 'POPAYATO BARAT' : return {fillColor: "#FFF47D", weight: 2, fillOpacity:0.7};
+        case 'POPAYATO TIMUR' : return {fillColor: "#B1DEB1", weight: 2, fillOpacity:0.7};
+      }
+    }
   }).addTo(map);
+
 
   //Kawasan Hutan
   const stylekawasan = {
@@ -70,7 +86,8 @@
         
   //Tambak
   const styletambak = {
-    "color": "#706233"
+    "color": "#706233",
+    "fillOpacity":0.9
   };
 
   // Fungsi untuk menampilkan popup dengan data dari database
@@ -107,22 +124,23 @@
   }).addTo(map);
 
   
-
-
   // LayerControl
   const baseLayers = {
       "OpenStreetMap": osm,
       "Esri": Esri_WorldImagery
   };
   const overlays = {
-      "Adm Kabupaten": bataskab,
-      "Adm Kecamatan": bataskec,
-      "Tambak": tambak,
-      "Sungai": sungai,
-      "Jalan": jalan,      
-      "Kawasan Hutan": kawasan
-  };
-  L.control.layers(baseLayers, overlays).addTo(map);             
+  "Tambak": tambak,
+  "Adm Kabupaten": bataskab,
+  "Adm Kecamatan": bataskec,
+  "Sungai": sungai,
+  "Jalan": jalan,
+  "Kawasan Hutan": kawasan
+};
+
+
+L.control.layers(baseLayers, overlays).addTo(map);
+            
 
 //Zoom Extent
 const customControl = L.Control.extend({
