@@ -27,4 +27,5 @@ class PondsProgress extends Model
     protected $attributes = [
         'geojsonPonds' => null,     
     ];
+    
 }

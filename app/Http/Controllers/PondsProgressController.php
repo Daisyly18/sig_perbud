@@ -12,7 +12,7 @@ class PondsProgressController extends Controller
 {
     public function index () 
     {
-        $pondsProgress = PondsProgress::all();
+        $pondsProgress = PondsProgress::all();        
         return view('pages.pondsProgress.index', compact('pondsProgress'));
     }
 
@@ -44,6 +44,26 @@ class PondsProgressController extends Controller
             return redirect()->back()->withInput()->withErrors($th->getMessage());
         }
     }
+
+    public function show($number) {
+        $pondsProgress = PondsProgress::where('number', $number)->first();
+        if ($pondsProgress) {
+            return response()->json([
+                'ponds' => $pondsProgress->ponds,
+                'gender' => $pondsProgress->gender,
+                'district' => $pondsProgress->district,
+                'village' => $pondsProgress->village,
+                'imagePonds' => $pondsProgress->imagePonds,
+                'cultivationType' => $pondsProgress->cultivationType,
+                'cultivationStage' => $pondsProgress->cultivationStage,
+                'status' => $pondsProgress->status,
+                'number' => $pondsProgress->number,
+            ]);
+        } else {
+            return response()->json(['error' => 'Data tambak tidak ditemukan'], 404);
+        }
+    }
+    
 
     public function edit (PondsProgress $pondsProgress)
     {
