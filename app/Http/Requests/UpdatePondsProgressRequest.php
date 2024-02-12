@@ -23,7 +23,8 @@ class UpdatePondsProgressRequest extends FormRequest
             'imagePonds' => 'required|image|mimes:jpeg,jpg,png',
             'cultivationType'  => 'required',
             'cultivationStage'  => 'required',
-            'status'  => 'required'
+            'status'  => 'required',
+            'number'  => 'required'
         ];
     }
 }

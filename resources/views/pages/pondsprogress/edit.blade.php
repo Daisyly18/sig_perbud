@@ -110,6 +110,14 @@
             </select>
           </div>
         </div>
+        <div class="row mb-3">
+          <div class="label col-sm-2 col-form-label">
+            <label style="font-weight:bold" for="number">Number</label>
+          </div>
+          <div class="col-sm-10">
+            <input type="text" class="form-control @error('number') border-danger @enderror" id="number" name="number" value="{{$pondsProgress->number}}">
+          </div>
+        </div>
         <div class="card-footer text-right">
           <button class="btn btn-primary mr-1" type="submit">Update</button>
           <button class="btn btn-danger" type="reset">Batal</button>

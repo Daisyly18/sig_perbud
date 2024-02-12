@@ -36,6 +36,7 @@ class PondsProgressController extends Controller
                 'cultivationType' => $request->cultivationType,
                 'cultivationStage' => $request->cultivationStage,
                 'status' => $request->status,
+                'number' => $request->number,
             ]);
             return redirect()->route('pondsProgress.index')->with(['success' => 'Data Berhasil Disimpan!']);
 
@@ -74,6 +75,7 @@ class PondsProgressController extends Controller
             $pondsProgress->cultivationType = $request->cultivationType;
             $pondsProgress->cultivationStage = $request->cultivationStage;
             $pondsProgress->status = $request->status;
+            $pondsProgress->status = $request->number;
             $pondsProgress->update();
             
             return redirect()->route('pondsProgress.index')->with(['success' => 'Data Berhasil Diupdate!']);
@@ -88,4 +90,5 @@ class PondsProgressController extends Controller
 
         return redirect()->route('pondsProgress.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
+
 }

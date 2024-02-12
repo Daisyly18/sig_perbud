@@ -23,7 +23,7 @@ return new class extends Migration
         $table->string('cultivationStage');
         $table->string('status'); 
         $table->string('geojsonPonds')->nullable(); 
-        $table->unsignedBigInteger('number')->nullable();
+        $table->integer('number');
         $table->timestamps();
     });
 }

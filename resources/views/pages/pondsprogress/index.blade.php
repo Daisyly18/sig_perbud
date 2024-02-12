@@ -23,6 +23,7 @@
                   <th class="text-nowrap">Jenis Budidaya</th>            
                   <th class="text-nowrap">Tahap Budi Daya</th>
                   <th>Status</th>
+                  <th>Number</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -38,6 +39,7 @@
                   <td>{{$pondsProgress->cultivationType}}</td>
                   <td>{{$pondsProgress->cultivationStage}}</td>
                   <td><div class="badge badge-success">{{$pondsProgress->status}}</div></td>
+                  <td>{{$pondsProgress->number}}</td>
                   <td class="text-nowrap  d-flex align-items-center">
                     <a href="{{route('pondsProgress.edit', $pondsProgress->id) }}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-edit"></i></a>                               
                     <form method="POST" action="{{route('pondsProgress.destroy', $pondsProgress->id) }}">   
