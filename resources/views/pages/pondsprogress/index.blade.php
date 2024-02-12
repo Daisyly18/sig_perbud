@@ -4,7 +4,8 @@
 <div class="section-body">
     <div class="card">
       <div class="card-header">
-        <div class="buttons">   
+        <div class="buttons">
+          <a href="{{route('pondsProgress.create')}}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Tambah</a> 
           <a href="#" class="btn btn-sm btn-success"><i class="fas fa-file-export"></i> Eksport</a>
         </div>
       </div>
@@ -26,25 +27,27 @@
                 </tr>
               </thead>
               <tbody>
-                {{-- @foreach --}}
+                @foreach ($pondsProgress as $pondsProgress)
                 <tr>  
-                  <td></td>
-                  <td class="text-nowrap"></td>
-                  <td></td>                  
-                  <td></td>
-                  <td></td>                
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td><div class="badge badge-success"></div></td>
+                  <td>{{ $loop->iteration }}</td>
+                  <td class="text-nowrap">{{$pondsProgress->ponds}}</td>
+                  <td>{{$pondsProgress->gender}}</td>                  
+                  <td>{{$pondsProgress->district}}</td>
+                  <td>{{$pondsProgress->village}}</td>                
+                  <td>{{$pondsProgress->imagePonds}}</td>
+                  <td>{{$pondsProgress->cultivationType}}</td>
+                  <td>{{$pondsProgress->cultivationStage}}</td>
+                  <td><div class="badge badge-success">{{$pondsProgress->status}}</div></td>
                   <td class="text-nowrap  d-flex align-items-center">
-                    <a href="#" class="btn btn-icon icon-left btn-warning"><i class="fas fa-edit"></i></a>                               
-                    <form method="POST" action="#">                      
+                    <a href="{{route('pondsProgress.edit', $pondsProgress->id) }}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-edit"></i></a>                               
+                    <form method="POST" action="{{route('pondsProgress.destroy', $pondsProgress->id) }}">   
+                      @csrf
+                      @method('DELETE')                   
                       <button type="submit" class="btn btn-icon icon-left btn-danger"><i class="fas fa-trash"></i></button>
                   </form>          
                   </td>
                 </tr>
-                {{-- @endforeach --}}
+                @endforeach
               </tbody>
               
             </table>

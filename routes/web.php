@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AquacultureController;
+use App\Http\Controllers\PondsProgressController;
+use App\Models\PondsProgress;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,9 +19,10 @@ Route::get('/auth/login', function () {
 
 
 Route::resource('/aquaculture', AquacultureController::class)->names('aquaculture');
+Route::resource('/pondsProgress', PondsProgressController::class)->names('pondsProgress');
 
 
-Route::get('/pondsProgress', function () {
-    return view ('pages.pondsProgress.index');
-});
+// Route::get('/pondsProgress', function () {
+//     return view ('pages.pondsProgress.index');
+// });
 
