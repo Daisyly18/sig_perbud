@@ -44,6 +44,7 @@
                   <th class="text-nowrap">Luas Tambak</th>
                   <th class="text-nowrap">Tahap Budi Daya</th>
                   <th>Status</th>
+                  <th>Number</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -61,6 +62,7 @@
                   <td>{{$aquaculture->pondArea}}</td>
                   <td>{{$aquaculture->cultivationStage}}</td>
                   <td><div class="badge badge-success">{{$aquaculture->status}}</div></td>
+                  <td>{{$aquaculture->number}}</td>
                   <td class="text-nowrap  d-flex align-items-center">
                     <a href="{{route('aquaculture.edit', $aquaculture->id) }}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-edit"></i></a>                
                     <form method="POST" action="{{ route('aquaculture.destroy', $aquaculture->id) }}">
@@ -68,7 +70,7 @@
                       @method('DELETE')
                       <button type="submit" class="btn btn-icon icon-left btn-danger"><i class="fas fa-trash"></i></button>
                   </form>          
-                  </td>
+                  </td>                
                 </tr>
                 @endforeach
               </tbody>

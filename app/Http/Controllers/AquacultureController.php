@@ -44,6 +44,8 @@ class AquacultureController extends Controller
                 'pondArea' => $request->pondArea,
                 'cultivationStage' => $request->cultivationStage,
                 'status' => $request->status,
+                'number' => $request->number,
+
             ]);
             
 
@@ -59,9 +61,6 @@ class AquacultureController extends Controller
     
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Aquaculture $aquaculture)
     {        
         return view('pages.aquaculture.edit', compact('aquaculture'));
@@ -106,6 +105,7 @@ class AquacultureController extends Controller
             $aquaculture->pondArea = $request->pondArea;
             $aquaculture->cultivationStage = $request->cultivationStage;
             $aquaculture->status = $request->status;
+            $aquaculture->status = $request->number;
             $aquaculture->update();
 
             return redirect()->route('aquaculture.index')->with(['success' => 'Data Berhasil Diupdate!']);
@@ -113,10 +113,6 @@ class AquacultureController extends Controller
             return redirect()->back()->withInput()->withErrors($th->getMessage());
         }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Aquaculture $aquaculture)
     {
         $aquaculture->delete();

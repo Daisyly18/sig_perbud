@@ -23,5 +23,6 @@ class aquaculture extends Model
         'pondArea',
         'cultivationStage',
         'status',
+        'number',
     ];
 }

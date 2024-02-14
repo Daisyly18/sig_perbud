@@ -6,14 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('aquacultures', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->default(\Illuminate\Support\Str::uuid());
+            $table->uuid('uuid')->default(\Illuminate\Support\Str::uuid());    
             $table->string('ponds');
             $table->string('gender');
             $table->string('district');
@@ -24,6 +21,7 @@ return new class extends Migration
             $table->float('pondArea');
             $table->string('cultivationStage');
             $table->string('status');        
+            $table->integer('number');            
             
             $table->timestamps();
         });
