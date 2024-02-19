@@ -97,5 +97,10 @@
       </div> --}}
     </div>
   </div>
+  <div class="card">
+    <div id="map" style="height: 500px">
+       @include('maps.maps')
+    </div>
+  </div>
     
 @endsection

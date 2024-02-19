@@ -80,16 +80,15 @@
           </div> 
           <div class="row mb-3">
             <div class="label col-sm-2 col-form-label">
-              <label style="font-weight:bold" class="text-nowrap" for="geojsonPonds">Data Geojson Tambak</label>
+                <label style="font-weight:bold" class="text-nowrap" for="geojsonPonds">Data Geojson Tambak</label>
             </div>
             <div class="col-sm-10">
-              <input type="file" class="form-control @error('geojsonPonds') border-danger @enderror" id="geojsonPonds" accept=".geojson, .json. js"
-              name="geojsonPonds" value="{{old('geojsonPonds')}}">
-              @error('geojsonPonds')
-              <span class="text-danger">{{ $message }}</span>
-              @enderror
+                <textarea class="form-control @error('geojsonPonds') border-danger @enderror" id="geojsonPonds" name="geojsonPonds" rows="5">{{ old('geojsonPonds') }}</textarea>
+                @error('geojsonPonds')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
-          </div>        
+          </div>           
           <div class="row mb-3">
             <div class="label col-sm-2 col-form-label">
               <label style="font-weight:bold" for="imagePonds">Foto Tambak</label>
@@ -101,19 +100,7 @@
               <span class="text-danger">{{ $message }}</span>
               @enderror
             </div>
-          </div>        
-          <div class="row mb-3">
-            <div class="col-sm-2">
-              <label style="font-weight:bold" for="cultivationType">Jenis Budi Daya</label>
-            </div>
-            <div class="col-sm-10">
-              <input type="text" class="form-control @error('cultivationType') border-danger @enderror" id="cultivationType" 
-              name="cultivationType" value="{{old('cultivationType')}}">
-              @error('cultivationType')
-              <span class="text-danger">{{ $message }}</span>
-              @enderror
-            </div>
-          </div>
+          </div>      
           <div class="row mb-3">
             <div class="label col-sm-2 col-form-label">
               <label style="font-weight:bold" for="pondArea">Luas Tambak</label>
@@ -125,23 +112,7 @@
               <span class="text-danger">{{ $message }}</span>
               @enderror
             </div>
-          </div>
-          <div class="row mb-3">
-            <div class="label col-sm-2 col-form-label">
-              <label style="font-weight:bold" for="cultivationStage">Tahap Budi Daya</label>
-            </div>
-            <div class="col-sm-10">
-              <select class="form-control @error('cultivationStage') border-danger @enderror" id="cultivationStage" 
-              name="cultivationStage" value="{{old('cultivationStage')}}">
-              @error('cultivationStage')
-              <span class="text-danger">{{ $message }}</span>
-              @enderror
-                <option>Tahap Awal</option>
-                <option>Tahap Pembesaran</option>
-                <option>Tahap Panen</option>
-              </select>
-            </div>
-          </div>
+          </div>  
           <div class="row mb-3">
             <div class="label col-sm-2 col-form-label">
               <label style="font-weight:bold" for="status">Status</label>
@@ -157,6 +128,34 @@
               </select>
             </div>
           </div>
+          <div class="row mb-3">
+            <div class="col-sm-2">
+              <label style="font-weight:bold" for="cultivationType">Jenis Budi Daya</label>
+            </div>
+            <div class="col-sm-10">
+              <input type="text" class="form-control @error('cultivationType') border-danger @enderror" id="cultivationType" 
+              name="cultivationType" value="{{old('cultivationType')}}">
+              @error('cultivationType')
+              <span class="text-danger">{{ $message }}</span>
+              @enderror
+            </div>
+          </div>          
+          <div class="row mb-3">
+            <div class="label col-sm-2 col-form-label">
+              <label style="font-weight:bold" for="cultivationStage">Tahap Budi Daya</label>
+            </div>
+            <div class="col-sm-10">
+              <select class="form-control @error('cultivationStage') border-danger @enderror" id="cultivationStage" 
+              name="cultivationStage" value="{{old('cultivationStage')}}">
+              @error('cultivationStage')
+              <span class="text-danger">{{ $message }}</span>
+              @enderror
+                <option>Tahap Awal</option>
+                <option>Tahap Pembesaran</option>
+                <option>Tahap Panen</option>
+              </select>
+            </div>
+          </div>          
           <div class="row mb-3">
             <div class="label col-sm-2 col-form-label">
               <label style="font-weight:bold" for="number">Number</label>

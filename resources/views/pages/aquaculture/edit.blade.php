@@ -86,21 +86,33 @@
           </div>
         </div>        
         <div class="row mb-3">
-          <div class="col-sm-2">
-            <label style="font-weight:bold" for="cultivationType">Jenis Budi Daya</label>
-          </div>
-          <div class="col-sm-10">
-            <input type="text" class="form-control @error('cultivationType') border-danger @enderror" id="cultivationType" 
-            name="cultivationType" value="{{$aquaculture->cultivationType}}">
-          </div>
-        </div>
-        <div class="row mb-3">
           <div class="label col-sm-2 col-form-label">
             <label style="font-weight:bold" for="pondArea">Luas Tambak</label>
           </div>
           <div class="col-sm-10">
             <input type="text" class="form-control @error('pondArea') border-danger @enderror" id="pondArea" 
             name="pondArea" value="{{$aquaculture->pondArea}}">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="label col-sm-2 col-form-label">
+            <label style="font-weight:bold" for="status">Status</label>
+          </div>
+          <div class="col-sm-10">
+            <select class="form-control @error('status') border-danger @enderror" id="status" 
+            name="status" value="{{$aquaculture->status}}">        
+              <option>Aktif</option>
+              <option>Tidak Aktif</option>
+            </select>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-2">
+            <label style="font-weight:bold" for="cultivationType">Jenis Budi Daya</label>
+          </div>
+          <div class="col-sm-10">
+            <input type="text" class="form-control @error('cultivationType') border-danger @enderror" id="cultivationType" 
+            name="cultivationType" value="{{$aquaculture->cultivationType}}">
           </div>
         </div>
         <div class="row mb-3">
@@ -118,18 +130,6 @@
         </div>
         <div class="row mb-3">
           <div class="label col-sm-2 col-form-label">
-            <label style="font-weight:bold" for="status">Status</label>
-          </div>
-          <div class="col-sm-10">
-            <select class="form-control @error('status') border-danger @enderror" id="status" 
-            name="status" value="{{$aquaculture->status}}">        
-              <option>Aktif</option>
-              <option>Tidak Aktif</option>
-            </select>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="label col-sm-2 col-form-label">
             <label style="font-weight:bold" for="number">Number</label>
           </div>
           <div class="col-sm-10">
@@ -138,7 +138,7 @@
           </div>
         </div>
         <div class="card-footer text-right">
-          <button class="btn btn-primary mr-1" type="submit">Tambah</button>
+          <button class="btn btn-primary mr-1" type="submit">Update</button>
           <button class="btn btn-danger" type="reset">Batal</button>
         </div>
       </form>

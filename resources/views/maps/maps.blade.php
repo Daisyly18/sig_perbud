@@ -69,7 +69,7 @@
     style: stylekawasan
   }).addTo(map);
 
-  //jalan
+  // //jalan
   const jalan = L.geoJSON(jalanJSON, {
     style: function(feature) {
       switch (feature.properties.REMARK) {
@@ -83,7 +83,7 @@
 
   //Sungai 
   const sungai = L.geoJSON(sungaiJSON).addTo(map);
-        
+    
   //Tambak
   const styletambak = {
     "color": "#706233",
@@ -112,6 +112,8 @@
       })
       .catch(error => console.error('Error:', error));
   }
+
+  
 
   // Membuat layer GeoJSON dan menambahkan style dan fungsi onEachFeature
   const tambak = L.geoJSON(tambakJSON, {
@@ -178,4 +180,89 @@ const Measure = L.control.polylineMeasure({
         position: 'topleft',
         title: 'Measure'
 }).addTo(map);
+
+// Variabel global untuk menyimpan koordinat vertex polygon yang sedang digambar
+var tempPolygonCoordinates = [];
+
+// Variabel global untuk menyimpan polygon yang sedang digambar
+var tempPolygon;
+
+// Fungsi untuk memulai pembuatan polygon
+function startDrawingPolygon() {
+    tempPolygonCoordinates = []; // Mengosongkan array koordinat sementara
+    tempPolygon = L.polyline([]).addTo(map); // Membuat polyline baru (polygon yang belum selesai) dan menambahkannya ke peta
+}
+
+// Fungsi untuk menambahkan koordinat pada polygon yang sedang digambar
+function addCoordinateToPolygon(e) {
+    tempPolygonCoordinates.push(e.latlng); // Menambah koordinat baru ke dalam array sementara
+    tempPolygon.setLatLngs(tempPolygonCoordinates); // Menetapkan koordinat baru ke polyline (polygon yang belum selesai)
+}
+
+// Fungsi untuk menyelesaikan pembuatan polygon
+function finishDrawingPolygon() {
+    // Menghapus polyline (polygon yang belum selesai) dari peta
+    map.removeLayer(tempPolygon);
+
+    // Membuat polygon baru dari koordinat yang telah ditentukan
+    var drawnPolygon = L.polygon(tempPolygonCoordinates).addTo(map);
+
+    // Memperbarui koordinat polygon di elemen HTML
+    updatePolygonCoordinates(drawnPolygon);
+}
+
+// Menambahkan event listener untuk menggambar polygon dengan beberapa klik
+map.on('click', function(e) {
+    if (tempPolygonCoordinates.length === 0) {
+        startDrawingPolygon(); // Memulai pembuatan polygon jika belum ada koordinat yang ditambahkan
+    }
+
+    addCoordinateToPolygon(e); // Menambahkan koordinat saat pengguna mengklik peta
+});
+
+// Menambahkan tombol-tombol untuk mengontrol pembuatan polygon
+document.getElementById('startDrawingBtn').addEventListener('click', startDrawingPolygon);
+document.getElementById('finishDrawingBtn').addEventListener('click', finishDrawingPolygon);
+
+// Fungsi untuk menampilkan koordinat polygon di elemen HTML
+function updatePolygonCoordinates(polygon) {
+    var coordinates = polygon.getLatLngs(); // Mendapatkan array koordinat vertex polygon
+    var coordinateString = "";
+
+    // Mengonversi array koordinat menjadi string yang dapat dibaca
+    for (var i = 0; i < coordinates.length; i++) {
+        coordinateString += coordinates[i].lat + "," + coordinates[i].lng + "; ";
+    }
+
+    // Memasukkan string koordinat ke dalam elemen HTML
+    document.getElementById("polygonCoordinates").value = coordinateString;
+}
+
+// Menambahkan event listener untuk menggambar polygon dengan beberapa klik
+map.on('click', function(e) {
+    if (tempPolygonCoordinates.length === 0) {
+        startDrawingPolygon(); // Memulai pembuatan polygon jika belum ada koordinat yang ditambahkan
+    }
+
+    addCoordinateToPolygon(e); // Menambahkan koordinat saat pengguna mengklik peta
+    updatePolygonCoordinates(tempPolygon); // Memperbarui koordinat polygon di elemen HTML
+});
+
+// Fungsi untuk menyelesaikan pembuatan polygon
+function finishDrawingPolygon() {
+    // Menghapus polyline (polygon yang belum selesai) dari peta
+    map.removeLayer(tempPolygon);
+
+    // Membuat polygon baru dari koordinat yang telah ditentukan
+    var drawnPolygon = L.polygon(tempPolygonCoordinates).addTo(map);
+
+    // Memperbarui koordinat polygon di elemen HTML
+    updatePolygonCoordinates(drawnPolygon);
+}
+
+
+
+
+
+
 </script>
