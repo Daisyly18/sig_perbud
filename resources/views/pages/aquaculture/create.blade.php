@@ -80,15 +80,16 @@
           </div> 
           <div class="row mb-3">
             <div class="label col-sm-2 col-form-label">
-                <label style="font-weight:bold" class="text-nowrap" for="geojsonPonds">Data Geojson Tambak</label>
+              <label style="font-weight:bold" for="pondArea">Luas Tambak</label>
             </div>
             <div class="col-sm-10">
-                <textarea class="form-control @error('geojsonPonds') border-danger @enderror" id="geojsonPonds" name="geojsonPonds" rows="5">{{ old('geojsonPonds') }}</textarea>
-                @error('geojsonPonds')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
+              <input type="text" class="form-control @error('pondArea') border-danger @enderror" id="pondArea" 
+              name="pondArea" value="{{old('pondArea')}}">
+              @error('pondArea')
+              <span class="text-danger">{{ $message }}</span>
+              @enderror
             </div>
-          </div>           
+          </div>  
           <div class="row mb-3">
             <div class="label col-sm-2 col-form-label">
               <label style="font-weight:bold" for="imagePonds">Foto Tambak</label>
@@ -103,18 +104,6 @@
           </div>      
           <div class="row mb-3">
             <div class="label col-sm-2 col-form-label">
-              <label style="font-weight:bold" for="pondArea">Luas Tambak</label>
-            </div>
-            <div class="col-sm-10">
-              <input type="text" class="form-control @error('pondArea') border-danger @enderror" id="pondArea" 
-              name="pondArea" value="{{old('pondArea')}}">
-              @error('pondArea')
-              <span class="text-danger">{{ $message }}</span>
-              @enderror
-            </div>
-          </div>  
-          <div class="row mb-3">
-            <div class="label col-sm-2 col-form-label">
               <label style="font-weight:bold" for="status">Status</label>
             </div>
             <div class="col-sm-10">
@@ -123,7 +112,7 @@
               @error('status')
               <span class="text-danger">{{ $message }}</span>
               @enderror
-                <option>Aktif</option>
+              <option>Aktif</option>
                 <option>Tidak Aktif</option>
               </select>
             </div>
@@ -150,35 +139,35 @@
               @error('cultivationStage')
               <span class="text-danger">{{ $message }}</span>
               @enderror
-                <option>Tahap Awal</option>
-                <option>Tahap Pembesaran</option>
-                <option>Tahap Panen</option>
-              </select>
-            </div>
-          </div>          
-          <div class="row mb-3">
-            <div class="label col-sm-2 col-form-label">
-              <label style="font-weight:bold" for="number">Number</label>
-            </div>
-            <div class="col-sm-10">
-              <input type="text" class="form-control @error('number') border-danger @enderror" id="number" 
-              name="number" value="{{old('number')}}">
-              @error('number')
-              <span class="text-danger">{{ $message }}</span>
-              @enderror
-            </div>
+              <option>Tahap Awal</option>
+              <option>Tahap Pembesaran</option>
+              <option>Tahap Panen</option>
+            </select>
           </div>
-          <div class="card-footer text-right">
+        </div>       
+        <div class="card">
+          <div id="map" style="height: 500px">
+             @include('maps.maps')            
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="label col-sm-2 col-form-label">
+              <label style="font-weight:bold" class="text-nowrap" for="geojsonPonds">Data Geojson Tambak</label>
+          </div>
+          <div class="col-sm-10">
+              <textarea class="form-control @error('geojsonPonds') border-danger @enderror" id="geojsonPonds" name="geojsonPonds" rows="5">{{ old('geojsonPonds') }}</textarea>
+              @error('geojsonPonds')
+                  <span class="text-danger">{{ $message }}</span>
+              @enderror
+          </div>
+        </div>           
+        <div class="card-footer text-right">
             <button class="btn btn-primary mr-1" type="submit">Tambah</button>
             <button class="btn btn-danger" type="reset">Batal</button>
           </div>
         </form>
     </div>
 </div>  
-<div class="card">
-  <div id="map" style="height: 500px">
-     @include('maps.maps')
-  </div>
-</div>
 
 @endsection
+

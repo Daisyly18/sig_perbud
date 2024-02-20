@@ -37,18 +37,15 @@
                   <th>Pembudidaya</th>
                   <th class="text-nowrap">Jenis Kelamin</th>
                   <th>Kecamatan</th>
-                  <th>Desa/Keluarahan</th>
-                  <th class="text-nowrap">Data Geojson Tambak</th>
-                  <th class="text-nowrap">Foto Tambak</th>
-                  <th class="text-nowrap">Jenis Budidaya</th>
+                  <th>Desa/Keluarahan</th>              
                   <th class="text-nowrap">Luas Tambak</th>
-                  <th class="text-nowrap">Tahap Budi Daya</th>
                   <th>Status</th>
-                  <th>Number</th>
+                  <th class="text-nowrap">Jenis Budidaya</th>
+                  <th class="text-nowrap">Tahap Budi Daya</th>                  
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
+              {{-- <tbody>
                 @foreach ($aquacultures as $aquaculture)
                 <tr>  
                   <td>{{ $loop->iteration }}</td>
@@ -73,7 +70,7 @@
                   </td>                
                 </tr>
                 @endforeach
-              </tbody>
+              </tbody> --}}
               
             </table>
           </div>

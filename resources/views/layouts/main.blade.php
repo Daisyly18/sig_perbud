@@ -32,11 +32,9 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
-  <link rel="stylesheet" href="leaflet-search-master\leaflet-search-master\dist\leaflet-search.src.css">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
-  <script src="leaflet-search-master\leaflet-search-master\dist\leaflet-search.src.js"></script>
   <link rel="stylesheet" href="L.Control.ZoomMin.css" media="screen">
   <script src="L.Control.ZoomMin.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet.polylinemeasure/Leaflet.PolylineMeasure.css" />
@@ -44,6 +42,10 @@
   <script src="https://unpkg.com/leaflet.defaultextent/dist/leaflet-defaultextent.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.control.layers@3.4.2/dist/leaflet.control.layers.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-easybutton/src/easy-button.css">
+  <script src="https://unpkg.com/leaflet-easybutton/src/easy-button.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css">
 
   <!--Leaflet-Geodecor-->
   <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />

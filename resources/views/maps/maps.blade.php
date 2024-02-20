@@ -197,32 +197,10 @@ function startDrawingPolygon() {
 function addCoordinateToPolygon(e) {
     tempPolygonCoordinates.push(e.latlng); // Menambah koordinat baru ke dalam array sementara
     tempPolygon.setLatLngs(tempPolygonCoordinates); // Menetapkan koordinat baru ke polyline (polygon yang belum selesai)
+    
+    // Memperbarui koordinat polygon di elemen HTML setiap kali koordinat ditambahkan
+    updatePolygonCoordinates(tempPolygon);
 }
-
-// Fungsi untuk menyelesaikan pembuatan polygon
-function finishDrawingPolygon() {
-    // Menghapus polyline (polygon yang belum selesai) dari peta
-    map.removeLayer(tempPolygon);
-
-    // Membuat polygon baru dari koordinat yang telah ditentukan
-    var drawnPolygon = L.polygon(tempPolygonCoordinates).addTo(map);
-
-    // Memperbarui koordinat polygon di elemen HTML
-    updatePolygonCoordinates(drawnPolygon);
-}
-
-// Menambahkan event listener untuk menggambar polygon dengan beberapa klik
-map.on('click', function(e) {
-    if (tempPolygonCoordinates.length === 0) {
-        startDrawingPolygon(); // Memulai pembuatan polygon jika belum ada koordinat yang ditambahkan
-    }
-
-    addCoordinateToPolygon(e); // Menambahkan koordinat saat pengguna mengklik peta
-});
-
-// Menambahkan tombol-tombol untuk mengontrol pembuatan polygon
-document.getElementById('startDrawingBtn').addEventListener('click', startDrawingPolygon);
-document.getElementById('finishDrawingBtn').addEventListener('click', finishDrawingPolygon);
 
 // Fungsi untuk menampilkan koordinat polygon di elemen HTML
 function updatePolygonCoordinates(polygon) {
@@ -235,7 +213,7 @@ function updatePolygonCoordinates(polygon) {
     }
 
     // Memasukkan string koordinat ke dalam elemen HTML
-    document.getElementById("polygonCoordinates").value = coordinateString;
+    document.getElementById("geojsonPonds").value = coordinateString.trim(); // Menghilangkan spasi ekstra di akhir
 }
 
 // Menambahkan event listener untuk menggambar polygon dengan beberapa klik
@@ -245,8 +223,13 @@ map.on('click', function(e) {
     }
 
     addCoordinateToPolygon(e); // Menambahkan koordinat saat pengguna mengklik peta
-    updatePolygonCoordinates(tempPolygon); // Memperbarui koordinat polygon di elemen HTML
 });
+
+// Menambahkan event listener untuk tombol "Mulai Menggambar"
+document.getElementById('startDrawingBtn').addEventListener('click', startDrawingPolygon);
+
+// Menambahkan tombol-tombol untuk mengontrol pembuatan polygon
+document.getElementById('finishDrawingBtn').addEventListener('click', finishDrawingPolygon);
 
 // Fungsi untuk menyelesaikan pembuatan polygon
 function finishDrawingPolygon() {

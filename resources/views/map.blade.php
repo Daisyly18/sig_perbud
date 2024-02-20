@@ -51,6 +51,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet-easybutton/src/easy-button.css">
   <script src="https://unpkg.com/leaflet-easybutton/src/easy-button.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css">
+  <script src="https://unpkg.com/leaflet.pm"></script>
+
 
 
   <!--Leaflet-Geodecor-->
