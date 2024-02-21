@@ -25,7 +25,7 @@
           @method('PUT')
         <div class="row mb-3">
           <div class="label col-sm-2 col-form-label">
-            <label style="font-weight:bold" for="ponds">Pembudidaya</label>
+            <label style="font-weight:bold" for="ponds">Nama Pembudidaya</label>
           </div>
           <div class="col-sm-10">
             <input type="text" class="form-control @error('ponds') border-danger @enderror" id="ponds" name="ponds" value="{{$aquaculture->ponds}}">
@@ -69,24 +69,6 @@
         </div> 
         <div class="row mb-3">
           <div class="label col-sm-2 col-form-label">
-            <label style="font-weight:bold" class="text-nowrap" for="geojsonPonds">Data Geojson Tambak</label>
-          </div>
-          <div class="col-sm-10">
-            <input type="file" class="form-control @error('geojsonPonds') border-danger @enderror" id="geojsonPonds" accept=".geojson, .json. js"
-            name="geojsonPonds" value="{{$aquaculture->geojsonPonds}}">
-          </div>
-        </div>        
-        <div class="row mb-3">
-          <div class="label col-sm-2 col-form-label">
-            <label style="font-weight:bold" for="imagePonds">Foto Tambak</label>
-          </div>
-          <div class="col-sm-10">
-            <input type="file" class="form-control @error('imagePonds') border-danger @enderror" id="imagePonds" 
-            name="imagePonds" value="{{$aquaculture->imagePonds}}">
-          </div>
-        </div>        
-        <div class="row mb-3">
-          <div class="label col-sm-2 col-form-label">
             <label style="font-weight:bold" for="pondArea">Luas Tambak</label>
           </div>
           <div class="col-sm-10">
@@ -96,47 +78,61 @@
         </div>
         <div class="row mb-3">
           <div class="label col-sm-2 col-form-label">
+            <label style="font-weight:bold" for="imagePonds">Foto Tambak</label>
+          </div>
+          <div class="col-sm-10">
+            <input type="file" class="form-control @error('imagePonds') border-danger @enderror" id="imagePonds" 
+            name="imagePonds" value="{{$aquaculture->imagePonds}}">
+          </div>
+        </div>                
+        <div class="row mb-3">
+          <div class="label col-sm-2 col-form-label">
             <label style="font-weight:bold" for="status">Status</label>
           </div>
           <div class="col-sm-10">
             <select class="form-control @error('status') border-danger @enderror" id="status" 
             name="status" value="{{$aquaculture->status}}">        
-              <option>Aktif</option>
-              <option>Tidak Aktif</option>
-            </select>
-          </div>
+            <option>Aktif</option>
+            <option>Tidak Aktif</option>
+          </select>
         </div>
-        <div class="row mb-3">
-          <div class="col-sm-2">
-            <label style="font-weight:bold" for="cultivationType">Jenis Budi Daya</label>
-          </div>
-          <div class="col-sm-10">
-            <input type="text" class="form-control @error('cultivationType') border-danger @enderror" id="cultivationType" 
-            name="cultivationType" value="{{$aquaculture->cultivationType}}">
-          </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-2">
+          <label style="font-weight:bold" for="cultivationType">Jenis Budi Daya</label>
         </div>
-        <div class="row mb-3">
-          <div class="label col-sm-2 col-form-label">
-            <label style="font-weight:bold" for="cultivationStage">Tahap Budi Daya</label>
-          </div>
-          <div class="col-sm-10">
-            <select class="form-control @error('cultivationStage') border-danger @enderror" id="cultivationStage" 
-            name="cultivationStage" value="{{$aquaculture->cultivationStage}}">
-              <option>Tahap Awal</option>
-              <option>Tahap Pembesaran</option>
-              <option>Tahap Panen</option>
-            </select>
-          </div>
+        <div class="col-sm-10">
+          <input type="text" class="form-control @error('cultivationType') border-danger @enderror" id="cultivationType" 
+          name="cultivationType" value="{{$aquaculture->cultivationType}}">
         </div>
-        <div class="row mb-3">
-          <div class="label col-sm-2 col-form-label">
-            <label style="font-weight:bold" for="number">Number</label>
-          </div>
-          <div class="col-sm-10">
-            <input type="text" class="form-control @error('number') border-danger @enderror" id="number" 
-            name="number" value="{{$aquaculture->number}}">
-          </div>
+      </div>
+      <div class="row mb-3">
+        <div class="label col-sm-2 col-form-label">
+          <label style="font-weight:bold" for="cultivationStage">Tahap Budi Daya</label>
         </div>
+        <div class="col-sm-10">
+          <select class="form-control @error('cultivationStage') border-danger @enderror" id="cultivationStage" 
+          name="cultivationStage" value="{{$aquaculture->cultivationStage}}">
+          <option>Tahap Awal</option>
+          <option>Tahap Pembesaran</option>
+          <option>Tahap Panen</option>
+        </select>
+      </div>
+    </div>
+    <div class="card">
+      <div id="map" style="height: 500px">
+         @include('maps.maps')            
+      </div>
+    </div>      
+    <div class="row mb-3">
+      <div class="label col-sm-2 col-form-label">
+        <label style="font-weight:bold" class="text-nowrap" for="coordinate">Koordinat Tambak</label>
+      </div>
+      <div class="col-sm-10">
+        <textarea  class="form-control @error('coordinate') border-danger @enderror" id="coordinate" rows="5"
+        name="coordinate" value="{{$aquaculture->coordinate}}"></textarea>
+      </div>
+    </div>        
         <div class="card-footer text-right">
           <button class="btn btn-primary mr-1" type="submit">Update</button>
           <button class="btn btn-danger" type="reset">Batal</button>

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('status');  
             $table->string('cultivationType');
             $table->string('cultivationStage');                           
-            $table->longText('geojsonPonds');
+            $table->longText('coordinate');
             
             $table->timestamps();
         });

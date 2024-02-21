@@ -24,7 +24,7 @@
             @csrf
           <div class="row mb-3">
             <div class="label col-sm-2 col-form-label">
-              <label style="font-weight:bold" for="ponds">Pembudidaya</label>
+              <label style="font-weight:bold" for="ponds">Nama Pembudidaya</label>
             </div>
             <div class="col-sm-10">
               <input type="text" class="form-control @error('ponds') border-danger @enderror" id="ponds" name="ponds" value="{{old('ponds')}}">
@@ -147,16 +147,16 @@
         </div>       
         <div class="card">
           <div id="map" style="height: 500px">
-             @include('maps.maps')            
+             @include('maps.map')            
           </div>
         </div>
         <div class="row mb-3">
           <div class="label col-sm-2 col-form-label">
-              <label style="font-weight:bold" class="text-nowrap" for="geojsonPonds">Data Geojson Tambak</label>
+              <label style="font-weight:bold" class="text-nowrap" for="coordinate">Koordinat Tambak</label>
           </div>
           <div class="col-sm-10">
-              <textarea class="form-control @error('geojsonPonds') border-danger @enderror" id="geojsonPonds" name="geojsonPonds" rows="5">{{ old('geojsonPonds') }}</textarea>
-              @error('geojsonPonds')
+              <textarea class="form-control @error('coordinate') border-danger @enderror" id="coordinate" name="coordinate" rows="5">{{ old('coordinate') }}</textarea>
+              @error('coordinate')
                   <span class="text-danger">{{ $message }}</span>
               @enderror
           </div>

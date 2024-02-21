@@ -34,7 +34,7 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Pembudidaya</th>
+                  <th class="text-nowrap">Nama Pembudidaya</th>
                   <th class="text-nowrap">Jenis Kelamin</th>
                   <th>Kecamatan</th>
                   <th>Desa/Keluarahan</th>              
@@ -45,7 +45,7 @@
                   <th>Action</th>
                 </tr>
               </thead>
-              {{-- <tbody>
+              <tbody>
                 @foreach ($aquacultures as $aquaculture)
                 <tr>  
                   <td>{{ $loop->iteration }}</td>
@@ -53,13 +53,10 @@
                   <td>{{$aquaculture->gender}}</td>
                   <td>{{$aquaculture->district}}</td>
                   <td>{{$aquaculture->village}}</td>
-                  <td>{{$aquaculture->geojsonPonds}}</td>
-                  <td>{{$aquaculture->imagePonds}}</td>
-                  <td>{{$aquaculture->cultivationType}}</td>
                   <td>{{$aquaculture->pondArea}}</td>
-                  <td>{{$aquaculture->cultivationStage}}</td>
                   <td><div class="badge badge-success">{{$aquaculture->status}}</div></td>
-                  <td>{{$aquaculture->number}}</td>
+                  <td>{{$aquaculture->cultivationType}}</td>
+                  <td>{{$aquaculture->cultivationStage}}</td>                  
                   <td class="text-nowrap  d-flex align-items-center">
                     <a href="{{route('aquaculture.edit', $aquaculture->id) }}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-edit"></i></a>                
                     <form method="POST" action="{{ route('aquaculture.destroy', $aquaculture->id) }}">
@@ -70,8 +67,7 @@
                   </td>                
                 </tr>
                 @endforeach
-              </tbody> --}}
-              
+              </tbody>              
             </table>
           </div>
         </div>
@@ -93,11 +89,5 @@
         </nav>
       </div> --}}
     </div>
-  </div>
-  <div class="card">
-    <div id="map" style="height: 500px">
-       @include('maps.maps')
-    </div>
-  </div>
-    
+  </div>      
 @endsection

@@ -15,19 +15,14 @@
     minZoom: 10,
     zoomControl: true,   
   }).setView([0.7355793, 121.6739009], 10);
-  
-  //Search 
-  L.Control.geocoder({ position: 'topright'}).addTo(map);      
+     
             
   // Tile Layer
   const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
-  const Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-  attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-  });
-  Esri_WorldImagery.addTo(map);       
+
 
   //Batas Kabupaten
   const stylebataskab = {
@@ -61,14 +56,6 @@
   }).addTo(map);
 
 
-  //Kawasan Hutan
-  const stylekawasan = {
-      "color" : "#294B29"
-  }
-  const kawasan = L.geoJSON(kawasan_hutanJSON, {
-    style: stylekawasan
-  }).addTo(map);
-
   // //jalan
   const jalan = L.geoJSON(jalanJSON, {
     style: function(feature) {
@@ -81,64 +68,18 @@
     }
   }).addTo(map);
 
-  //Sungai 
-  const sungai = L.geoJSON(sungaiJSON).addTo(map);
-    
-  //Tambak
-  const styletambak = {
-    "color": "#706233",
-    "fillOpacity":0.9
-  };
-
-  // Fungsi untuk menampilkan popup dengan data dari database
-  function showPopup(feature, layer) {
-    const number = feature.properties.Number; // Ambil nomor dari atribut feature
-    fetch(`/tambak/${number}`) // Kirim permintaan ke endpoint backend server
-      .then(response => response.json())
-      .then(data => {
-        // Buat konten popup dengan informasi tambak
-        const popupContent = `
-          <b>Number:</b> ${number}<br>
-          <b>Nama Pembudidaya:</b> ${data.ponds}<br>
-          <b>Kecamatan:</b> ${data.district}<br>
-          <b>Desa:</b> ${data.village}<br>
-          <b>Gambar Tambak:</b> <img src="${data.imagePonds}" alt="Gambar Tambak" width="100"><br>
-          <b>Status:</b> ${data.status}<br>
-          <b>Jenis Budidaya:</b> ${data.cultivationType}<br>
-          <b>Tahap Budidaya:</b> ${data.cultivationStage}<br>
-        `;
-        // Tampilkan popup pada peta
-        layer.bindPopup(popupContent).openPopup();
-      })
-      .catch(error => console.error('Error:', error));
-  }
-
   
-  // Membuat layer GeoJSON dan menambahkan style dan fungsi onEachFeature
-  const tambak = L.geoJSON(tambakJSON, {
-    style: styletambak, 
-    onEachFeature: function (feature, layer) {
-      layer.on('click', function () {
-        showPopup(feature, layer); 
-      });
-    }
-  }).addTo(map);
 
   
   // LayerControl
   const baseLayers = {
       "OpenStreetMap": osm,
-      "Esri": Esri_WorldImagery
   };
   const overlays = {
-  "Tambak": tambak,
   "Adm Kabupaten": bataskab,
   "Adm Kecamatan": bataskec,
-  "Sungai": sungai,
   "Jalan": jalan,
-  "Kawasan Hutan": kawasan
 };
-
 
 L.control.layers(baseLayers, overlays).addTo(map);
             
@@ -180,38 +121,74 @@ const Measure = L.control.polylineMeasure({
         title: 'Measure'
 }).addTo(map);
 
-fetch('map')
-  .then(response => response.json())
-  .then(data => {
-    // Lakukan sesuatu dengan data GeoJSON yang telah diambil
-    // Panggil fungsi untuk menambahkan poligon ke peta Leaflet
-    addPolygonsToMap(data);
-  })
-  .catch(error => console.error('Error:', error));
+// Variabel global untuk menyimpan koordinat vertex polygon yang sedang digambar
+var tempPolygonCoordinates = [];
 
-  function addPolygonsToMap(data) {
-  // Membuat layer GeoJSON dari data poligon
-  const polygonsLayer = L.geoJSON(data).addTo(map);
-  
-  // Menambahkan layer ke peta
-  map.addLayer(polygonsLayer);
+// Variabel global untuk menyimpan polygon yang sedang digambar
+var tempPolygon;
+
+// Fungsi untuk memulai pembuatan polygon
+function startDrawingPolygon() {
+    tempPolygonCoordinates = []; // Mengosongkan array koordinat sementara
+    tempPolygon = L.polyline([]).addTo(map); // Membuat polyline baru (polygon yang belum selesai) dan menambahkannya ke peta
 }
-function addPolygonsToMap(data) {
-  const polygonsLayer = L.geoJSON(data, {
-    style: function (feature) {
-      return {
-        fillColor: 'green',
-        color: 'white',
-        weight: 2,
-        opacity: 1,
-        fillOpacity: 0.5
-      };
-    },
-    onEachFeature: function (feature, layer) {
-      layer.bindPopup('Ini adalah poligon'); // Menampilkan popup saat poligon diklik
+
+// Fungsi untuk menambahkan koordinat pada polygon yang sedang digambar
+function addCoordinateToPolygon(e) {
+    tempPolygonCoordinates.push(e.latlng); // Menambah koordinat baru ke dalam array sementara
+    tempPolygon.setLatLngs(tempPolygonCoordinates); // Menetapkan koordinat baru ke polyline (polygon yang belum selesai)
+}
+
+// Menambahkan event listener untuk menggambar polygon dengan beberapa klik
+map.on('click', function(e) {
+    if (tempPolygonCoordinates.length === 0) {
+        startDrawingPolygon(); // Memulai pembuatan polygon jika belum ada koordinat yang ditambahkan
     }
-  }).addTo(map);
+
+    addCoordinateToPolygon(e); // Menambahkan koordinat saat pengguna mengklik peta
+
+    // Memperbarui koordinat polygon di elemen HTML setiap kali koordinat ditambahkan
+    updatePolygonCoordinates();
+});
+
+// Menambahkan event listener untuk tombol "Mulai Menggambar"
+document.getElementById('startDrawingBtn').addEventListener('click', startDrawingPolygon);
+
+// Menambahkan tombol-tombol untuk mengontrol pembuatan polygon
+document.getElementById('finishDrawingBtn').addEventListener('click', finishDrawingPolygon);
+
+// Fungsi untuk menampilkan koordinat polygon di elemen HTML
+function updatePolygonCoordinates() {
+    var coordinateArray = [];
+
+    // Mengonversi array koordinat menjadi array JSON
+    for (var i = 0; i < tempPolygonCoordinates.length; i++) {
+        coordinateArray.push([tempPolygonCoordinates[i].lng, tempPolygonCoordinates[i].lat]);
+    }
+
+    // Menyiapkan objek JSON yang berisi koordinat polygon
+    var polygonJSON = {
+        "type": "Polygon",
+        "coordinates": [coordinateArray]
+    };
+
+    // Memasukkan string JSON ke dalam elemen HTML
+    document.getElementById("coordinate").value = JSON.stringify(polygonJSON);
 }
+
+// Fungsi untuk menyelesaikan pembuatan polygon
+function finishDrawingPolygon() {
+    // Menghapus polyline (polygon yang belum selesai) dari peta
+    map.removeLayer(tempPolygon);
+
+    // Membuat polygon baru dari koordinat yang telah ditentukan
+    var drawnPolygon = L.polygon(tempPolygonCoordinates).addTo(map);
+
+    // Memperbarui koordinat polygon di elemen HTML
+    updatePolygonCoordinates();
+}
+
+
 
 
 

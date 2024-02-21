@@ -21,6 +21,6 @@ class Aquaculture extends Model
         'status',
         'cultivationType',
         'cultivationStage',
-        'geojsonPonds',
+        'coordinate',
     ];
 }
