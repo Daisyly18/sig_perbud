@@ -130,7 +130,7 @@ var tempPolygon;
 // Fungsi untuk memulai pembuatan polygon
 function startDrawingPolygon() {
     tempPolygonCoordinates = []; // Mengosongkan array koordinat sementara
-    tempPolygon = L.polyline([]).addTo(map); // Membuat polyline baru (polygon yang belum selesai) dan menambahkannya ke peta
+    tempPolygon = L.polygon([]).addTo(map); // Membuat polyline baru (polygon yang belum selesai) dan menambahkannya ke peta
 }
 
 // Fungsi untuk menambahkan koordinat pada polygon yang sedang digambar
@@ -168,8 +168,8 @@ function updatePolygonCoordinates() {
 
     // Menyiapkan objek JSON yang berisi koordinat polygon
     var polygonJSON = {
-        "type": "Polygon",
-        "coordinates": [coordinateArray]
+        "type": "MultiPolygon",
+        "coordinates": [[coordinateArray]]
     };
 
     // Memasukkan string JSON ke dalam elemen HTML
@@ -180,6 +180,24 @@ function updatePolygonCoordinates() {
 function finishDrawingPolygon() {
     // Menghapus polyline (polygon yang belum selesai) dari peta
     map.removeLayer(tempPolygon);
+
+    // Memeriksa apakah jumlah koordinat yang ditambahkan cukup untuk membuat polygon
+    if (tempPolygonCoordinates.length < 3) {
+        alert('Minimal 3 titik koordinat diperlukan untuk membuat polygon.');
+        return;
+    }
+
+    // Memeriksa jarak antara koordinat pertama dan terakhir
+    var firstCoordinate = tempPolygonCoordinates[0];
+    var lastCoordinate = tempPolygonCoordinates[tempPolygonCoordinates.length - 1];
+    var distance = calculateDistance(firstCoordinate, lastCoordinate);
+
+    // Memeriksa apakah jarak antara koordinat pertama dan terakhir sesuai dengan yang diinginkan
+    var acceptableDistance = 0.1; // Ganti dengan jarak yang diinginkan (dalam satuan yang sesuai dengan proyek Anda)
+    if (distance > acceptableDistance) {
+        alert('Jarak antara titik koordinat pertama dan terakhir tidak sesuai.');
+        return;
+    }
 
     // Membuat polygon baru dari koordinat yang telah ditentukan
     var drawnPolygon = L.polygon(tempPolygonCoordinates).addTo(map);

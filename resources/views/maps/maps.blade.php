@@ -1,6 +1,5 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="crossorigin=""></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-{{-- <script src="https://cdn.jsdelivr.net/npm/@drustack/leaflet.resetview/dist/L.Control.ResetView.min.js"></script> --}}
 <script src="https://unpkg.com/leaflet.polylinemeasure/Leaflet.PolylineMeasure.js"></script>
 <script src="https://unpkg.com/leaflet.defaultextent/dist/leaflet-defaultextent.js"></script>    
 <script src="{{ asset('/geojson/batas_kec.js') }}"></script>
@@ -14,6 +13,8 @@
   const map = L.map('map', {
     minZoom: 10,
     zoomControl: true,   
+    dragging: true,
+    trackResize: true,
   }).setView([0.7355793, 121.6739009], 10);
   
   //Search 
@@ -28,6 +29,7 @@
   attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
   });
   Esri_WorldImagery.addTo(map);       
+
 
   //Batas Kabupaten
   const stylebataskab = {
@@ -57,7 +59,22 @@
         case 'POPAYATO BARAT' : return {fillColor: "#FFF47D", weight: 2, fillOpacity:0.7};
         case 'POPAYATO TIMUR' : return {fillColor: "#B1DEB1", weight: 2, fillOpacity:0.7};
       }
-    }
+    }, 
+    onEachFeature: function(feature, layer) {
+    // Menambahkan event handler mouseover
+    layer.on('mouseover', function() {
+      // Menampilkan popup ketika mouse di atas fitur jalan
+      const popupContent = `<b>${feature.properties.KECAMATAN}</b>`;
+      layer.bindPopup(popupContent).openPopup();
+    });
+
+    // Menambahkan event handler click
+    layer.on('click', function() {
+      // Menampilkan popup ketika fitur jalan di-klik
+      const popupContent = `<b>${feature.properties.KECAMATAN}</b>`;
+      layer.bindPopup(popupContent).openPopup();
+    });
+  }
   }).addTo(map);
 
 
@@ -78,60 +95,98 @@
         case 'Jalan Setapak': return {color: "#597E52"};
         case 'Jalan Lain': return {color: "#6B240C"}; 
       }
-    }
+    }, 
+    onEachFeature: function(feature, layer) {
+    // Menambahkan event handler mouseover
+    layer.on('mouseover', function() {
+      // Ubah warna fill atau stroke sesuai kebutuhan
+      layer.setStyle({ color: 'blue' }); // Contoh: Mengubah warna stroke menjadi biru saat mouseover
+      const popupContent = `<b>${feature.properties.REMARK}</b>`;
+      layer.bindPopup(popupContent).openPopup();
+    });  
+    layer.on('click', function() {
+      // Menampilkan popup ketika fitur jalan di-klik
+      const popupContent = `<b>${feature.properties.REMARK}</b>`;
+      layer.bindPopup(popupContent).openPopup();
+    });
+  }
   }).addTo(map);
 
   //Sungai 
-  const sungai = L.geoJSON(sungaiJSON).addTo(map);
-    
-  //Tambak
-  const styletambak = {
-    "color": "#706233",
-    "fillOpacity":0.9
-  };
+  const sungai = L.geoJSON(sungaiJSON).addTo(map);  
 
-  // Fungsi untuk menampilkan popup dengan data dari database
-  function showPopup(feature, layer) {
-    const number = feature.properties.Number; // Ambil nomor dari atribut feature
-    fetch(`/tambak/${number}`) // Kirim permintaan ke endpoint backend server
-      .then(response => response.json())
-      .then(data => {
-        // Buat konten popup dengan informasi tambak
-        const popupContent = `
-          <b>Number:</b> ${number}<br>
-          <b>Nama Pembudidaya:</b> ${data.ponds}<br>
-          <b>Kecamatan:</b> ${data.district}<br>
-          <b>Desa:</b> ${data.village}<br>
-          <b>Gambar Tambak:</b> <img src="${data.imagePonds}" alt="Gambar Tambak" width="100"><br>
-          <b>Status:</b> ${data.status}<br>
-          <b>Jenis Budidaya:</b> ${data.cultivationType}<br>
-          <b>Tahap Budidaya:</b> ${data.cultivationStage}<br>
-        `;
-        // Tampilkan popup pada peta
-        layer.bindPopup(popupContent).openPopup();
-      })
-      .catch(error => console.error('Error:', error));
+//Tambak
+const styletambak = {
+    "color": "#B70404",
+    "fillOpacity":0.9
   }
 
   
-  // Membuat layer GeoJSON dan menambahkan style dan fungsi onEachFeature
-  const tambak = L.geoJSON(tambakJSON, {
-    style: styletambak, 
-    onEachFeature: function (feature, layer) {
-      layer.on('click', function () {
-        showPopup(feature, layer); 
-      });
-    }
-  }).addTo(map);
+  let poligonData = {}; // Inisialisasi dengan objek kosong
 
-  
-  // LayerControl
-  const baseLayers = {
+const poligon = () => {
+  try {
+    return fetch('fetch/poligon') // Menggunakan return agar dapat menangkap hasil promise
+      .then(response => response.json())
+      .then(data => {
+        poligonData = data; // Mengisi data ke dalam poligonData (tanpa const)
+        console.log(poligonData); // Contoh: Menampilkan data ke konsol
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Memanggil fungsi poligon
+poligon()
+  .then(() => {
+    // Membuat layer GeoJSON dan menambahkan style dan fungsi onEachFeature
+    const tambak = L.geoJSON(poligonData, {
+      style: function (feature) {
+        return {
+          "color": "#B70404",
+          "fillOpacity":0.9
+        };
+      },
+      onEachFeature: function (feature, layer) {
+        // Menambahkan event handler mouseover
+        layer.on('mouseover', function () {
+          layer.setStyle({ fillColor: 'blue' }); // Contoh: Mengubah warna fill menjadi biru saat mouseover
+        });
+
+        // Menambahkan event handler mouseout
+        layer.on('mouseout', function () {
+          layer.setStyle({ fillColor: '#B70404' }); // Contoh: Mengembalikan warna fill menjadi semula saat mouseout
+        });
+
+        layer.on('click', function () {
+          showPopup(feature, layer); 
+        });
+      }
+    }).addTo(map);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+  function showPopup(feature, layer) {
+  // Ganti dengan konten popup yang sesuai dengan data poligon
+  const popupContent = `
+    <h3>${feature.properties.name}</h3>
+    <p>Informasi tambahan</p>
+  `;
+  layer.bindPopup(popupContent).openPopup();
+}
+
+
+// LayerControl
+const baseLayers = {
       "OpenStreetMap": osm,
       "Esri": Esri_WorldImagery
   };
   const overlays = {
-  "Tambak": tambak,
   "Adm Kabupaten": bataskab,
   "Adm Kecamatan": bataskec,
   "Sungai": sungai,
@@ -140,8 +195,7 @@
 };
 
 
-L.control.layers(baseLayers, overlays).addTo(map);
-            
+L.control.layers(baseLayers, overlays).addTo(map);          
 
 //Zoom Extent
 const customControl = L.Control.extend({
@@ -158,7 +212,7 @@ const customControl = L.Control.extend({
     button.title = 'Zoom Extent';
     button.innerHTML = '<i class="fas fa-expand-arrows-alt"></i>'; 
     button.style.backgroundColor = 'white';
-    button.style.padding = '5px';
+    button.style.padding = '7px';
     button.style.display = 'flex';
     button.style.justifyContent = 'center'; // Center horizontally
     button.style.alignItems = 'center'; // Center vertically
@@ -179,43 +233,6 @@ const Measure = L.control.polylineMeasure({
         position: 'topleft',
         title: 'Measure'
 }).addTo(map);
-
-fetch('map')
-  .then(response => response.json())
-  .then(data => {
-    // Lakukan sesuatu dengan data GeoJSON yang telah diambil
-    // Panggil fungsi untuk menambahkan poligon ke peta Leaflet
-    addPolygonsToMap(data);
-  })
-  .catch(error => console.error('Error:', error));
-
-  function addPolygonsToMap(data) {
-  // Membuat layer GeoJSON dari data poligon
-  const polygonsLayer = L.geoJSON(data).addTo(map);
-  
-  // Menambahkan layer ke peta
-  map.addLayer(polygonsLayer);
-}
-function addPolygonsToMap(data) {
-  const polygonsLayer = L.geoJSON(data, {
-    style: function (feature) {
-      return {
-        fillColor: 'green',
-        color: 'white',
-        weight: 2,
-        opacity: 1,
-        fillOpacity: 0.5
-      };
-    },
-    onEachFeature: function (feature, layer) {
-      layer.bindPopup('Ini adalah poligon'); // Menampilkan popup saat poligon diklik
-    }
-  }).addTo(map);
-}
-
-
-
-
 
 
 </script>

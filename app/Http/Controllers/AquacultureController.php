@@ -101,9 +101,51 @@ class AquacultureController extends Controller
 
 
     public function map()
-    {
-        $results = ModelsAquaculture::all();
-        return response()->json($results);
+{
+    $aquacultures = ModelsAquaculture::all();
+    $geojsonFeatures = [];
+
+    foreach ($aquacultures as $aquaculture) {
+        // Mengonversi string JSON koordinat menjadi array PHP
+        $coordinate = json_decode($aquaculture->coordinate, true);
+
+        // Pastikan koordinat dalam format yang sesuai dengan GeoJSON
+        $coordinates = $coordinate['coordinates'];
+
+        $geojsonFeatures[] = [
+            'type' => 'Feature',
+            'properties' => [
+                // Sesuaikan dengan properti yang sesuai dengan data aquaculture Anda
+                'ponds' => $aquaculture->ponds,
+                'gender' => $aquaculture->gender,
+                // Tambahkan properti lain yang diperlukan
+            ],
+            'geometry' => [
+                'type' => 'MultiPolygon',
+                'coordinates' => $coordinates
+            ]
+        ];
     }
+    // Jika permintaan datang dari rute '/map', render tampilan peta dan kirimkan data polygon ke tampilan
+    if (request()->is('map')) {
+        return view('map', [
+            'geojsonFeatures' => json_encode([
+                'type' => 'FeatureCollection',
+                'features' => $geojsonFeatures
+            ])
+        ]);
+    }
+
+
+    // Kembalikan data GeoJSON sebagai respons JSON
+    return response()->json([
+        'type' => 'FeatureCollection',
+        'features' => $geojsonFeatures
+    ]);
+
+    // Jika permintaan datang dari rute '/map', render tampilan peta dan kirimkan data polygon ke tampilan
+    
+}
+
 
 }

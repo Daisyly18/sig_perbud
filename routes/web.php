@@ -5,8 +5,8 @@ use App\Http\Controllers\Backend\DataController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',function () {return view('home'); })->name('home');
-// Route::get('/map', function () {return view('map'); })->name('map');
-Route::get('/map', [AquacultureController::class, 'map'])->name('map');
+Route::get('/map', function () {return view('map'); })->name('map');
+Route::get('/fetch/poligon', [AquacultureController::class, 'map'])->name('map');
 
 
 Route::get('/auth/login', function () {return view('auth.login'); })->name('login');
