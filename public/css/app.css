@@ -2916,7 +2916,7 @@ pre {
   width: 30px;
   background-color: #6777ef;
   display: inline-block;
-  float: left; 
+  /* float: left;  */
   margin-top: 6px;
   margin-right: 15px;
 }
@@ -3590,5 +3590,29 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
   animation-iteration-count: infinite;
   opacity: 1;
 }
+
+.leaflet-control-polyline-measure-toggle {
+  color: blue;
+}
+
+.layer-control-label {
+  display: flex;
+  align-items: center;
+  margin: 30px;
+}
+.layer-control-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+/* Memindahkan checkbox ke kanan */
+.leaflet-control-layers-list .leaflet-control-layers-selector {
+  float: right;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
 
   

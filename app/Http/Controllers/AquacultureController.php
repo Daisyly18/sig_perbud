@@ -115,10 +115,15 @@ class AquacultureController extends Controller
         $geojsonFeatures[] = [
             'type' => 'Feature',
             'properties' => [
-                // Sesuaikan dengan properti yang sesuai dengan data aquaculture Anda
+                'id' => $aquaculture->id,
                 'ponds' => $aquaculture->ponds,
-                'gender' => $aquaculture->gender,
-                // Tambahkan properti lain yang diperlukan
+                'district' => $aquaculture->district,
+                'village' => $aquaculture->village,
+                'pondArea' => $aquaculture-> pondArea,
+                'imagePonds' => $aquaculture->imagePonds,
+                'status' => $aquaculture->status,
+                'cultivationType' => $aquaculture->cultivationType,
+                'cultivationStage' => $aquaculture->cultivationStage,
             ],
             'geometry' => [
                 'type' => 'MultiPolygon',
@@ -142,10 +147,23 @@ class AquacultureController extends Controller
         'type' => 'FeatureCollection',
         'features' => $geojsonFeatures
     ]);
-
-    // Jika permintaan datang dari rute '/map', render tampilan peta dan kirimkan data polygon ke tampilan
     
 }
+public function fetchData($id)
+    {
+        dd($id);
+
+        // Ambil data dari model berdasarkan ID
+        $data = ModelsAquaculture::findOrFail($id);
+
+        // Jika data ditemukan, kirimkan sebagai respons JSON
+        if ($data) {
+            return response()->json($data);
+        }
+
+        // Jika data tidak ditemukan, kirimkan respons 404 Not Found
+        return response()->json(['message' => 'Data tidak ditemukan'], 404);
+    }
 
 
 }

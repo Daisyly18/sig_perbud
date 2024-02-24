@@ -33,12 +33,9 @@
 
   <!--Leaflet-->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-  <link rel="stylesheet" href="leaflet-search-master\leaflet-search-master\dist\leaflet-search.src.css">
+  {{-- <link rel="stylesheet" href="leaflet-search-master\leaflet-search-master\dist\leaflet-search.src.css"> --}}
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.0.0/leaflet.ajax.min.js"></script>
-  {{-- <script src="leaflet-search-master\leaflet-search-master\dist\leaflet-search.src.js"></script> --}}
-  {{-- <link rel="stylesheet" href="L.Control.ZoomMin.css" media="screen"> --}}
-  {{-- <script src="L.Control.ZoomMin.js"></script> --}}
   <link rel="stylesheet" href="https://unpkg.com/leaflet.polylinemeasure/Leaflet.PolylineMeasure.css" />
   <script src="https://unpkg.com/leaflet.polylinemeasure/Leaflet.PolylineMeasure.js"></script>
   <script src="https://unpkg.com/leaflet.defaultextent/dist/leaflet-defaultextent.js"></script>
@@ -50,6 +47,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css">
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- Leaflet Measure Control CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet-measure/dist/leaflet-measure.css" />
+
+<!-- Leaflet Measure Control JavaScript -->
+<script src="https://unpkg.com/leaflet-measure/dist/leaflet-measure.js"></script>
+
 
   <!--Leaflet-Geodecor-->
   <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />

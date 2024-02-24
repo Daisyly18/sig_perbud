@@ -1,6 +1,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="crossorigin=""></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-{{-- <script src="https://cdn.jsdelivr.net/npm/@drustack/leaflet.resetview/dist/L.Control.ResetView.min.js"></script> --}}
+<script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+<script src="https://unpkg.com/leaflet-draw-toolbar@1.0.4/dist/leaflet.draw.toolbar.js"></script>
 <script src="https://unpkg.com/leaflet.polylinemeasure/Leaflet.PolylineMeasure.js"></script>
 <script src="https://unpkg.com/leaflet.defaultextent/dist/leaflet-defaultextent.js"></script>    
 <script src="{{ asset('/geojson/batas_kec.js') }}"></script>
@@ -126,11 +127,14 @@ var tempPolygonCoordinates = [];
 
 // Variabel global untuk menyimpan polygon yang sedang digambar
 var tempPolygon;
+// Variabel global untuk menyimpan ID polygon yang sedang digambar
+var polygonIDCounter = 1;
 
 // Fungsi untuk memulai pembuatan polygon
 function startDrawingPolygon() {
     tempPolygonCoordinates = []; // Mengosongkan array koordinat sementara
     tempPolygon = L.polygon([]).addTo(map); // Membuat polyline baru (polygon yang belum selesai) dan menambahkannya ke peta
+    tempPolygon._polygonID = polygonIDCounter++; // Menetapkan ID otomatis ke polygon yang dibuat
 }
 
 // Fungsi untuk menambahkan koordinat pada polygon yang sedang digambar
@@ -151,11 +155,6 @@ map.on('click', function(e) {
     updatePolygonCoordinates();
 });
 
-// Menambahkan event listener untuk tombol "Mulai Menggambar"
-document.getElementById('startDrawingBtn').addEventListener('click', startDrawingPolygon);
-
-// Menambahkan tombol-tombol untuk mengontrol pembuatan polygon
-document.getElementById('finishDrawingBtn').addEventListener('click', finishDrawingPolygon);
 
 // Fungsi untuk menampilkan koordinat polygon di elemen HTML
 function updatePolygonCoordinates() {
@@ -175,7 +174,6 @@ function updatePolygonCoordinates() {
     // Memasukkan string JSON ke dalam elemen HTML
     document.getElementById("coordinate").value = JSON.stringify(polygonJSON);
 }
-
 // Fungsi untuk menyelesaikan pembuatan polygon
 function finishDrawingPolygon() {
     // Menghapus polyline (polygon yang belum selesai) dari peta
@@ -201,6 +199,7 @@ function finishDrawingPolygon() {
 
     // Membuat polygon baru dari koordinat yang telah ditentukan
     var drawnPolygon = L.polygon(tempPolygonCoordinates).addTo(map);
+    drawnPolygon._polygonID = tempPolygon._polygonID; // Mengatur ID polygon baru
 
     // Memperbarui koordinat polygon di elemen HTML
     updatePolygonCoordinates();

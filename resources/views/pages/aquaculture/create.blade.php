@@ -1,5 +1,9 @@
 @extends('layouts.main')
 @section('title', 'Tambah Data')
+@section('css')
+<link rel="stylesheet" href="https://unpkg.com/leaflet-draw@0.4.14/dist/leaflet.draw.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-toolbar/dist/leaflet.toolbar.css" />
+
 @section('content')
 @if ($errors->any())
     <div class="alert alert-danger alert-dismissible show fade">

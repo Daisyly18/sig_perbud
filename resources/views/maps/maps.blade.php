@@ -18,7 +18,7 @@
   }).setView([0.7355793, 121.6739009], 10);
   
   //Search 
-  L.Control.geocoder({ position: 'topright'}).addTo(map);      
+  const search = L.Control.geocoder({ position: 'topright'}).addTo(map);      
             
   // Tile Layer
   const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -32,48 +32,60 @@
 
 
   //Batas Kabupaten
-  const stylebataskab = {
-    "color" : "#F58B54",
-    "weight" : 5,
-    "fillOpacity" :0
-  }
-  const bataskab = L.geoJSON(batas_kabJSON, {
-    style: stylebataskab
-  }).addTo(map);
+  // const stylebataskab = {
+  //   "color" : "#65451F",
+  //   "weight" : 5,
+  
+  // }
+  // const bataskab = L.geoJSON(batas_kabJSON, {
+  //   style: stylebataskab
+  // }).addTo(map);
 
   //Batas Kecamatan
+  const stylebataskec = {
+    "color": "#FFA447", 
+    "dashArray": "10, 5, 2, 5, 2, 5"
+    
+  }
+
   const bataskec = L.geoJSON(batas_kecJSON, {
-    style: function(feature) {
-      switch (feature.properties.KECAMATAN) {
-        case 'PAGUAT' : return {fillColor: "#F28585", weight: 2, fillOpacity:0.7};
-        case 'DENGILO' : return {fillColor: "#FFA447", weight: 2, fillOpacity:0.7};
-        case 'MARISA' : return {fillColor: "#FFFC9B", weight: 2, fillOpacity:0.7};
-        case 'BUNTULIA' : return {fillColor: "#FF6B6B", weight: 2, fillOpacity:0.7};
-        case 'DUHIADAA' : return {fillColor: "#FFD93D", weight: 2, fillOpacity:0.7};
-        case 'PATILANGGIO' : return {fillColor: "#6BCB77", weight: 2, fillOpacity:0.7};
-        case 'TALUDITI' : return {fillColor: "#573391", weight: 2, fillOpacity:0.7};
-        case 'LEMITO' : return {fillColor: "#681313", weight: 2, fillOpacity:0.7};
-        case 'RANDANGAN' : return {fillColor: "#E1396C", weight: 2, fillOpacity:0.7};
-        case 'WANGGARASI' : return {fillColor: "#C3B9EA", weight: 2, fillOpacity:0.7};
-        case 'POPAYATO' : return {fillColor: "#A03C78", weight: 2, fillOpacity:0.7};
-        case 'POPAYATO BARAT' : return {fillColor: "#FFF47D", weight: 2, fillOpacity:0.7};
-        case 'POPAYATO TIMUR' : return {fillColor: "#B1DEB1", weight: 2, fillOpacity:0.7};
-      }
-    }, 
+    style: stylebataskec, 
+    // style: function(feature) {
+    //   switch (feature.properties.KECAMATAN) {
+    //     case 'PAGUAT' : return {fillColor: "#F28585", weight: 2, fillOpacity:0.7};
+    //     case 'DENGILO' : return {fillColor: "#FFA447", weight: 2, fillOpacity:0.7};
+    //     case 'MARISA' : return {fillColor: "#FFFC9B", weight: 2, fillOpacity:0.7};
+    //     case 'BUNTULIA' : return {fillColor: "#FF6B6B", weight: 2, fillOpacity:0.7};
+    //     case 'DUHIADAA' : return {fillColor: "#FFD93D", weight: 2, fillOpacity:0.7};
+    //     case 'PATILANGGIO' : return {fillColor: "#6BCB77", weight: 2, fillOpacity:0.7};
+    //     case 'TALUDITI' : return {fillColor: "#573391", weight: 2, fillOpacity:0.7};
+    //     case 'LEMITO' : return {fillColor: "#681313", weight: 2, fillOpacity:0.7};
+    //     case 'RANDANGAN' : return {fillColor: "#E1396C", weight: 2, fillOpacity:0.7};
+    //     case 'WANGGARASI' : return {fillColor: "#C3B9EA", weight: 2, fillOpacity:0.7};
+    //     case 'POPAYATO' : return {fillColor: "#A03C78", weight: 2, fillOpacity:0.7};
+    //     case 'POPAYATO BARAT' : return {fillColor: "#FFF47D", weight: 2, fillOpacity:0.7};
+    //     case 'POPAYATO TIMUR' : return {fillColor: "#B1DEB1", weight: 2, fillOpacity:0.7};
+    //   }
+    // }, 
     onEachFeature: function(feature, layer) {
     // Menambahkan event handler mouseover
     layer.on('mouseover', function() {
+      // Simpan style awal polygon
+      layer.originalStyle = layer.options.style || {};
+      
+      layer.setStyle({color: '#9A3B3B' }); // Contoh: Mengubah warna fill menjadi merah saat mouseover
+      
       // Menampilkan popup ketika mouse di atas fitur jalan
-      const popupContent = `<b>${feature.properties.KECAMATAN}</b>`;
+      const popupContent = `<b>KECAMATAN ${feature.properties.KECAMATAN}</b>`;
       layer.bindPopup(popupContent).openPopup();
     });
 
-    // Menambahkan event handler click
-    layer.on('click', function() {
-      // Menampilkan popup ketika fitur jalan di-klik
-      const popupContent = `<b>${feature.properties.KECAMATAN}</b>`;
-      layer.bindPopup(popupContent).openPopup();
+    // Menambahkan event handler mouseout
+    layer.on('mouseout', function () {
+      // Mengembalikan style polygon ke style semula
+      layer.setStyle(layer.originalStyle);
     });
+
   }
   }).addTo(map);
 
@@ -83,8 +95,16 @@
       "color" : "#294B29"
   }
   const kawasan = L.geoJSON(kawasan_hutanJSON, {
-    style: stylekawasan
+    style: stylekawasan,
+    onEachFeature: function(feature, layer) {
+        // Menampilkan popup ketika mouse di atas fitur
+        layer.on('mouseover', function(event) {
+            const popupContent = `<b>${feature.properties.nama_kawasan}</b>`;
+            layer.bindPopup(popupContent).openPopup();
+        });
+    }
   }).addTo(map);
+
 
   // //jalan
   const jalan = L.geoJSON(jalanJSON, {
@@ -104,6 +124,7 @@
       const popupContent = `<b>${feature.properties.REMARK}</b>`;
       layer.bindPopup(popupContent).openPopup();
     });  
+    
     layer.on('click', function() {
       // Menampilkan popup ketika fitur jalan di-klik
       const popupContent = `<b>${feature.properties.REMARK}</b>`;
@@ -113,16 +134,11 @@
   }).addTo(map);
 
   //Sungai 
-  const sungai = L.geoJSON(sungaiJSON).addTo(map);  
+  const sungai = L.geoJSON(sungaiJSON).addTo(map);
+    
 
 //Tambak
-const styletambak = {
-    "color": "#B70404",
-    "fillOpacity":0.9
-  }
-
-  
-  let poligonData = {}; // Inisialisasi dengan objek kosong
+let poligonData = {}; // Inisialisasi dengan objek kosong
 
 const poligon = () => {
   try {
@@ -172,32 +188,61 @@ poligon()
     console.log(error);
   });
   function showPopup(feature, layer) {
-  // Ganti dengan konten popup yang sesuai dengan data poligon
-  const popupContent = `
-    <h3>${feature.properties.name}</h3>
-    <p>Informasi tambahan</p>
-  `;
-  layer.bindPopup(popupContent).openPopup();
+  const id = feature.properties.id; 
+  const ponds = feature.properties.ponds; 
+  const district = feature.properties.district; 
+  const village = feature.properties.village; 
+  const pondArea = feature.properties.pondArea; 
+  const imagePonds = feature.properties.imagePonds; 
+  const status = feature.properties.status; 
+  const cultivationType = feature.properties.cultivationType; 
+  const cultivationStage = feature.properties.cultivationStage; 
+    // Buat konten popup dengan data yang diterima dari server
+    const popupContent = `
+      <img src="${imagePonds}" alt="Gambar Kolam"><br>
+      <b>Nama Pembudidaya : ${ponds}</b> <br>
+      Kecamatan : ${district} <br> 
+      Desa/Kelurahan : ${village} <br> 
+      Luas Tambak :  ${pondArea} <br>
+      Status : ${status} <br>
+      Jenis Budidaya :${cultivationType} <br>
+      Tahap Budidaya : ${cultivationStage} <br>      
+    `;
+    
+    // Bind popup dengan konten yang telah dibuat dan buka popup
+    layer.bindPopup(popupContent).openPopup();
+    // })
+    // .catch(error => {
+    //   console.error('Error:', error);
+    // });
 }
 
 
+
 // LayerControl
+
+// Membuat ikon untuk layer "Adm Kabupaten" menggunakan Font Awesome
+const kabupatenIcon = L.divIcon({
+    className: 'custom-icon', // Nama kelas CSS untuk gaya ikon
+    html: '<i class="fas fa-map-marker-alt"></i>', // Isi ikon berupa tag <> Font Awesome
+});
+
+
 const baseLayers = {
       "OpenStreetMap": osm,
       "Esri": Esri_WorldImagery
   };
   const overlays = {
-  "Adm Kabupaten": bataskab,
-  "Adm Kecamatan": bataskec,
-  "Sungai": sungai,
-  "Jalan": jalan,
-  "Kawasan Hutan": kawasan
+  // "<i class='fa-solid fa-square' style='color: #65451F;'></i> Adm Kabupaten": bataskab,
+  "<i class='fa-solid fa-square' style='color: #F58B54;'></i> Adm Kecamatan": bataskec,
+  "<i class='fa-solid fa-water' style= 'color: #1D24CA'></i>  Sungai": sungai,
+  "<i class='fa-solid fa-road'></i>   Jalan": jalan,
+  "<i class='fa-solid fa-tree'></i>   Kawasan Hutan": kawasan,
+
 };
-
-
 L.control.layers(baseLayers, overlays).addTo(map);          
 
-//Zoom Extent
+// Zoom Extent
 const customControl = L.Control.extend({
   options: {
     position: 'topleft'
@@ -208,14 +253,19 @@ const customControl = L.Control.extend({
 
     // Create button with custom icon
     const button = L.DomUtil.create('a', 'leaflet-control-zoom-extent', container);
-    button.href = '#';
     button.title = 'Zoom Extent';
     button.innerHTML = '<i class="fas fa-expand-arrows-alt"></i>'; 
     button.style.backgroundColor = 'white';
-    button.style.padding = '7px';
+    button.style.padding = '5px';
     button.style.display = 'flex';
-    button.style.justifyContent = 'center'; // Center horizontally
+    // button.style.justifyContent = 'center'; // Center horizontally
     button.style.alignItems = 'center'; // Center vertically
+
+
+    // Center icon vertically and horizontally
+    const icon = button.querySelector('i');
+    icon.style.display = 'inline-block';
+    icon.style.verticalAlign = 'middle';
 
     // Set onclick event for the button
     L.DomEvent.on(button, 'click', function(e) {
@@ -228,11 +278,14 @@ const customControl = L.Control.extend({
 });
 map.addControl(new customControl());
 
+
 //Measure (Titik Jarak)
 const Measure = L.control.polylineMeasure({
         position: 'topleft',
         title: 'Measure'
 }).addTo(map);
+
+
 
 
 </script>
