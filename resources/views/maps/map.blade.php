@@ -116,47 +116,52 @@ const customControl = L.Control.extend({
 });
 map.addControl(new customControl());
 
-//Measure (Titik Jarak)
-const Measure = L.control.polylineMeasure({
-        position: 'topleft',
-        title: 'Measure'
-}).addTo(map);
+// //Measure (Titik Jarak)
+// const Measure = L.control.polylineMeasure({
+//         position: 'topleft',
+//         title: 'Measure'
+// }).addTo(map);
 
-// Variabel global untuk menyimpan koordinat vertex polygon yang sedang digambar
+// Variabel global untuk menyimpan koordinat vertex poligon yang sedang digambar
 var tempPolygonCoordinates = [];
-
-// Variabel global untuk menyimpan polygon yang sedang digambar
+// Variabel global untuk menyimpan poligon yang sedang digambar
 var tempPolygon;
-// Variabel global untuk menyimpan ID polygon yang sedang digambar
+// Variabel global untuk menyimpan ID poligon yang sedang digambar
 var polygonIDCounter = 1;
+// Variabel global untuk menentukan apakah penggambaran sedang diaktifkan
+var drawingEnabled = true; // Diaktifkan secara default
 
-// Fungsi untuk memulai pembuatan polygon
+// Fungsi untuk memulai pembuatan poligon
 function startDrawingPolygon() {
     tempPolygonCoordinates = []; // Mengosongkan array koordinat sementara
-    tempPolygon = L.polygon([]).addTo(map); // Membuat polyline baru (polygon yang belum selesai) dan menambahkannya ke peta
-    tempPolygon._polygonID = polygonIDCounter++; // Menetapkan ID otomatis ke polygon yang dibuat
+    tempPolygon = L.polygon([]).addTo(map); // Membuat poligon baru dan menambahkannya ke peta
+    tempPolygon._polygonID = polygonIDCounter++; // Menetapkan ID otomatis untuk poligon yang dibuat
+
+    // Memperbarui status penggambaran menjadi aktif
+    drawingEnabled = true;
 }
 
-// Fungsi untuk menambahkan koordinat pada polygon yang sedang digambar
+// Fungsi untuk menambahkan koordinat ke poligon yang sedang digambar
 function addCoordinateToPolygon(e) {
-    tempPolygonCoordinates.push(e.latlng); // Menambah koordinat baru ke dalam array sementara
-    tempPolygon.setLatLngs(tempPolygonCoordinates); // Menetapkan koordinat baru ke polyline (polygon yang belum selesai)
+    tempPolygonCoordinates.push(e.latlng); // Menambahkan koordinat baru ke dalam array sementara
+    tempPolygon.setLatLngs(tempPolygonCoordinates); // Menetapkan koordinat baru ke poligon yang belum selesai
+
+    // Memperbarui koordinat poligon di elemen HTML setiap kali koordinat ditambahkan
+    updatePolygonCoordinates();
 }
 
-// Menambahkan event listener untuk menggambar polygon dengan beberapa klik
+// Event listener untuk menggambar poligon dengan beberapa klik
 map.on('click', function(e) {
-    if (tempPolygonCoordinates.length === 0) {
-        startDrawingPolygon(); // Memulai pembuatan polygon jika belum ada koordinat yang ditambahkan
+    if (drawingEnabled) {
+        if (tempPolygonCoordinates.length === 0) {
+            startDrawingPolygon(); // Memulai pembuatan poligon jika belum ada koordinat yang ditambahkan
+        }
+
+        addCoordinateToPolygon(e); // Menambahkan koordinat saat pengguna mengklik peta
     }
-
-    addCoordinateToPolygon(e); // Menambahkan koordinat saat pengguna mengklik peta
-
-    // Memperbarui koordinat polygon di elemen HTML setiap kali koordinat ditambahkan
-    updatePolygonCoordinates();
 });
 
-
-// Fungsi untuk menampilkan koordinat polygon di elemen HTML
+// Function untuk memperbarui koordinat poligon di elemen HTML
 function updatePolygonCoordinates() {
     var coordinateArray = [];
 
@@ -165,7 +170,7 @@ function updatePolygonCoordinates() {
         coordinateArray.push([tempPolygonCoordinates[i].lng, tempPolygonCoordinates[i].lat]);
     }
 
-    // Menyiapkan objek JSON yang berisi koordinat polygon
+    // Menyiapkan objek JSON yang berisi koordinat poligon
     var polygonJSON = {
         "type": "MultiPolygon",
         "coordinates": [[coordinateArray]]
@@ -204,6 +209,68 @@ function finishDrawingPolygon() {
     // Memperbarui koordinat polygon di elemen HTML
     updatePolygonCoordinates();
 }
+
+// Create delete polygon control
+const deleteControl = L.control({
+    position: 'topleft'
+});
+
+// Function to set up delete control
+deleteControl.onAdd = function() {
+    const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+
+    // Create button for deleting polygon with custom icon
+    const deleteButton = L.DomUtil.create('a', 'leaflet-control-delete', container);
+    deleteButton.href = '#';
+    deleteButton.title = 'Delete Polygon';
+    deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+    deleteButton.style.backgroundColor = 'white';
+    deleteButton.style.padding = '5px';
+    deleteButton.style.display = 'flex';
+    deleteButton.style.alignItems = 'center';
+
+    // Set onclick event for the delete button
+    L.DomEvent.on(deleteButton, 'click', function(e) {
+        L.DomEvent.preventDefault(e); // Prevent the default anchor link behavior
+        deletePolygon();                  
+        // Set drawingEnabled to false to disable drawing after deletion
+        drawingEnabled = false;     
+        L.DomEvent.stopPropagation(e);  
+        // Tambahkan event listener ke peta untuk menanggapi klik pengguna setelah penghapusan poligon
+        map.once('click', function(e) {
+            // Mulai menggambar poligon baru dari titik klik pengguna
+            startDrawingPolygon();
+            addCoordinateToPolygon(e);
+    })   ;
+    });
+
+    return container;
+};
+
+// Add control to the map
+deleteControl.addTo(map);
+
+
+// Function untuk menghapus poligon
+function deletePolygon() {
+    if (tempPolygon) {
+        map.removeLayer(tempPolygon); // Menghapus poligon yang sedang digambar dari peta
+        tempPolygon = null; // Mengatur nilai tempPolygon menjadi null untuk menghapus referensi
+        tempPolygonCoordinates = []; // Mengosongkan array koordinat sementara        
+        // Menghapus isi textarea
+        document.getElementById("coordinate").value = "";   
+        
+      }
+}
+
+
+
+
+
+
+ 
+
+
 
 
 

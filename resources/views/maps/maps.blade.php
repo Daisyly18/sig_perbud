@@ -221,13 +221,6 @@ poligon()
 
 // LayerControl
 
-// Membuat ikon untuk layer "Adm Kabupaten" menggunakan Font Awesome
-const kabupatenIcon = L.divIcon({
-    className: 'custom-icon', // Nama kelas CSS untuk gaya ikon
-    html: '<i class="fas fa-map-marker-alt"></i>', // Isi ikon berupa tag <> Font Awesome
-});
-
-
 const baseLayers = {
       "OpenStreetMap": osm,
       "Esri": Esri_WorldImagery
@@ -258,7 +251,6 @@ const customControl = L.Control.extend({
     button.style.backgroundColor = 'white';
     button.style.padding = '5px';
     button.style.display = 'flex';
-    // button.style.justifyContent = 'center'; // Center horizontally
     button.style.alignItems = 'center'; // Center vertically
 
 
