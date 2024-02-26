@@ -163,7 +163,7 @@ poligon()
     const tambak = L.geoJSON(poligonData, {
       style: function (feature) {
         return {
-          "color": "#B70404",
+          "color": "#42E6A4",
           "fillOpacity":0.9
         };
       },
@@ -175,7 +175,7 @@ poligon()
 
         // Menambahkan event handler mouseout
         layer.on('mouseout', function () {
-          layer.setStyle({ fillColor: '#B70404' }); // Contoh: Mengembalikan warna fill menjadi semula saat mouseout
+          layer.setStyle({ fillColor: '#42E6A4' }); // Contoh: Mengembalikan warna fill menjadi semula saat mouseout
         });
 
         layer.on('click', function () {
@@ -193,13 +193,14 @@ poligon()
   const district = feature.properties.district; 
   const village = feature.properties.village; 
   const pondArea = feature.properties.pondArea; 
-  const imagePonds = feature.properties.imagePonds; 
   const status = feature.properties.status; 
   const cultivationType = feature.properties.cultivationType; 
   const cultivationStage = feature.properties.cultivationStage; 
+  const imagePonds = feature.properties.imagePonds; 
+
     // Buat konten popup dengan data yang diterima dari server
     const popupContent = `
-      <img src="${imagePonds}" alt="Gambar Kolam"><br>
+    <img src="${imagePonds}" alt="Gambar Tambak" style="max-width:200px; max-height:200px;"> <br>
       <b>Nama Pembudidaya : ${ponds}</b> <br>
       Kecamatan : ${district} <br> 
       Desa/Kelurahan : ${village} <br> 
@@ -211,16 +212,11 @@ poligon()
     
     // Bind popup dengan konten yang telah dibuat dan buka popup
     layer.bindPopup(popupContent).openPopup();
-    // })
-    // .catch(error => {
-    //   console.error('Error:', error);
-    // });
 }
 
 
 
 // LayerControl
-
 const baseLayers = {
       "OpenStreetMap": osm,
       "Esri": Esri_WorldImagery
@@ -231,7 +227,6 @@ const baseLayers = {
   "<i class='fa-solid fa-water' style= 'color: #1D24CA'></i>  Sungai": sungai,
   "<i class='fa-solid fa-road'></i>   Jalan": jalan,
   "<i class='fa-solid fa-tree'></i>   Kawasan Hutan": kawasan,
-
 };
 L.control.layers(baseLayers, overlays).addTo(map);          
 

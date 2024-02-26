@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAquacultureRequest;
 use App\Http\Requests\UpdateAquacultureRequest;
 use App\Models\Aquaculture as ModelsAquaculture;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,10 @@ class AquacultureController extends Controller
     public function store(StoreAquacultureRequest $request):RedirectResponse
     {
         try {
-            $imagePath = $request->file('imagePonds')->store('image', 'public');  
+            $image = $request->file('imagePonds');
+
+            // Simpan gambar dengan nama aslinya
+            $imagePath = $image->storeAs('public/images', $image->getClientOriginalName());
 
             ModelsAquaculture::create([
                 'ponds' => $request->ponds,
@@ -75,7 +79,7 @@ class AquacultureController extends Controller
 
             if ($hasImage) {
                 // Menyimpan file gambar
-                $imagePath = $request->file('imagePonds')->store('image', 'public');
+                $imagePath = $request->file('imagePonds')->store('public/images');
                 $aquaculture->imagePonds = $imagePath;
             }
 
@@ -112,6 +116,9 @@ class AquacultureController extends Controller
         // Pastikan koordinat dalam format yang sesuai dengan GeoJSON
         $coordinates = $coordinate['coordinates'];
 
+         // Mendapatkan URL gambar menggunakan Storage::url()
+        $imageUrl = Storage::url($aquaculture->imagePonds);
+
         $geojsonFeatures[] = [
             'type' => 'Feature',
             'properties' => [
@@ -120,7 +127,7 @@ class AquacultureController extends Controller
                 'district' => $aquaculture->district,
                 'village' => $aquaculture->village,
                 'pondArea' => $aquaculture-> pondArea,
-                'imagePonds' => $aquaculture->imagePonds,
+                'imagePonds' => $imageUrl,
                 'status' => $aquaculture->status,
                 'cultivationType' => $aquaculture->cultivationType,
                 'cultivationStage' => $aquaculture->cultivationStage,
@@ -151,18 +158,17 @@ class AquacultureController extends Controller
 }
 public function fetchData($id)
     {
-        dd($id);
+        // Ambil data gambar dari basis data berdasarkan ID
+    $aquaculture = ModelsAquaculture::findOrFail($id);
 
-        // Ambil data dari model berdasarkan ID
-        $data = ModelsAquaculture::findOrFail($id);
+    // Ambil data gambar dari kolom 'imagePonds'
+    $imageData = $aquaculture->imagePonds;
 
-        // Jika data ditemukan, kirimkan sebagai respons JSON
-        if ($data) {
-            return response()->json($data);
-        }
+    // Konversi data gambar yang diambil dari basis data ke dalam format gambar yang sesuai
+    $image = 'data:image/png;base64,' . base64_encode($imageData);
 
-        // Jika data tidak ditemukan, kirimkan respons 404 Not Found
-        return response()->json(['message' => 'Data tidak ditemukan'], 404);
+    // Kemudian, kembalikan tampilan (misalnya dalam bentuk JSON jika Anda menggunakan AJAX)
+    return response()->json(['image' => $image]);
     }
 
 
