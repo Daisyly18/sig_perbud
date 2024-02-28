@@ -23,6 +23,18 @@
       <form action="{{route('aquaculture.update', $aquaculture->id) }}" method="post" enctype="multipart/form-data">
           @csrf
           @method('PUT')
+          <div class="row mb-3">
+            <div class="label col-sm-2 col-form-label">
+              <label style="font-weight:bold" class="text-nowrap" for="geojsonPonds">Data Geojson Tambak</label>
+            </div>
+            <div class="col-sm-10">
+              <input type="file" class="form-control @error('geojsonPonds') border-danger @enderror" id="geojsonPonds" accept=".geojson, .json. js"
+              name="geojsonPonds" value="{{$aquaculture->geojsonPonds}}">
+              @error('geojsonPonds')
+              <span class="text-danger">{{ $message }}</span>
+              @enderror
+            </div>
+          </div>
         <div class="row mb-3">
           <div class="label col-sm-2 col-form-label">
             <label style="font-weight:bold" for="ponds">Nama Pembudidaya</label>
@@ -119,25 +131,11 @@
         </select>
       </div>
     </div>
-    <div class="card">
-      <div id="map" style="height: 500px">
-         @include('maps.maps')            
-      </div>
-    </div>      
-    <div class="row mb-3">
-      <div class="label col-sm-2 col-form-label">
-        <label style="font-weight:bold" class="text-nowrap" for="coordinate">Koordinat Tambak</label>
-      </div>
-      <div class="col-sm-10">
-        <textarea  class="form-control @error('coordinate') border-danger @enderror" id="coordinate" rows="5"
-        name="coordinate" value="{{$aquaculture->coordinate}}"></textarea>
-      </div>
-    </div>        
-        <div class="card-footer text-right">
-          <button class="btn btn-primary mr-1" type="submit">Update</button>
-          <button class="btn btn-danger" type="reset">Batal</button>
-        </div>
-      </form>
+    <div class="card-footer text-right">
+      <button class="btn btn-primary mr-1" type="submit">Update</button>
+      <button class="btn btn-danger" type="reset">Batal</button>
+    </div>
+  </form>
   </div>
 </div>
     

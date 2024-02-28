@@ -153,7 +153,7 @@ fetch('/fetch/poligon')
             onEachFeature: function(feature, layer) {
                 // Tambahkan popup ke setiap fitur
                 const popupContent = 
-                  "<img src='" + feature.properties.imageUrl + "' width='200'>"; +
+                  "<img src='" + feature.properties.imageUrl + "' width='200'>" + "<br>" +
                   "<b>Nama Pembudidaya:</b> " + feature.properties.ponds + "<br>" ;  
                                                
                 layer.bindPopup(popupContent);

@@ -4,8 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateAquacultureRequest extends FormRequest
+class UpdatePondsProgressRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     */
     public function authorize(): bool
     {
         return true;
@@ -14,13 +17,9 @@ class UpdateAquacultureRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'uuid' => 'exclude',
-            'geojsonPonds' => 'required|file|mimetypes:application/json',
+            'uuid' => 'exclude',           
             'ponds' => 'required',
             'gender' => 'required',
-            'district' => 'required',
-            'village' => 'required',
-            'pondArea'  => 'required',
             'imagePonds' => 'required|image|mimes:jpeg,jpg,png',
             'status'  => 'required',
             'cultivationType'  => 'required',            
@@ -31,15 +30,11 @@ class UpdateAquacultureRequest extends FormRequest
     {
         return [
             'ponds.required' => 'Pembudidaya harus diisi',
-            'gender.required' => 'Jenis Kelamin harus diisi',
-            'district.required' => 'Kecamatan harus diisi',
-            'village.required' => 'Desa/Kelurahan harus diisi',
-            'pondArea.required' => 'Luas Tambak harus diisi',
+            'gender.required' => 'Jenis Kelamin harus diisi',            
             'imagePonds.required' => 'Gambar harus diisi',
             'status.required' => 'Status harus diisi',
             'cultivationType.required' => 'Jenis Budidaya harus diisi',
-            'cultivationStage.required' => 'Tahap Budidaya harus diisi',
-            'geojsonPonds.required' => 'File Geojson harus diisi',            
+            'cultivationStage.required' => 'Tahap Budidaya harus diisi',   
         ];
     }
 }

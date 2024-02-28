@@ -70,42 +70,42 @@ class AquacultureController extends Controller
     }
 
     public function update(UpdateAquacultureRequest $request, ModelsAquaculture $aquaculture)
-{
-    try {
-        $image = $request->file('imagePonds');
-        $geoJSON = $request->file('geojsonPonds');
+    {
+        try {
+            $image = $request->file('imagePonds');
+            $geoJSON = $request->file('geojsonPonds');
 
-        $aquaculture->ponds = $request->ponds;
-        $aquaculture->gender = $request->gender;
-        $aquaculture->district = $request->district;
-        $aquaculture->village = $request->village;
-        $aquaculture->pondArea = $request->pondArea;
+            $aquaculture->ponds = $request->ponds;
+            $aquaculture->gender = $request->gender;
+            $aquaculture->district = $request->district;
+            $aquaculture->village = $request->village;
+            $aquaculture->pondArea = $request->pondArea;
 
-        if ($image) {
-            // Simpan gambar dengan nama aslinya
-            $imagePath = $image->storeAs('public/images', $image->getClientOriginalName());
-            $aquaculture->imagePonds = $imagePath;
+            if ($image) {
+                // Simpan gambar dengan nama aslinya
+                $imagePath = $image->storeAs('public/images', $image->getClientOriginalName());
+                $aquaculture->imagePonds = $imagePath;
+            }
+
+            if ($geoJSON) {
+                // Simpan file GeoJSON dengan nama aslinya
+                $geojsonPath = $geoJSON->storeAs('public/geojson', $geoJSON->getClientOriginalName());
+                $aquaculture->geojsonPonds = $geojsonPath;
+            }
+
+            $aquaculture->status = $request->status;
+            $aquaculture->cultivationType = $request->cultivationType;
+            $aquaculture->cultivationStage = $request->cultivationStage;
+
+
+            $aquaculture->save();
+
+            return redirect()->route('aquaculture.index')->with(['success' => 'Data Berhasil Diupdate!']);
+
+        } catch (\Throwable $th) {
+            return redirect()->back()->withInput()->withErrors($th->getMessage());
         }
-
-        if ($geoJSON) {
-            // Simpan file GeoJSON dengan nama aslinya
-            $geojsonPath = $geoJSON->storeAs('public/geojson', $geoJSON->getClientOriginalName());
-            $aquaculture->geojsonPonds = $geojsonPath;
-        }
-
-        $aquaculture->status = $request->status;
-        $aquaculture->cultivationType = $request->cultivationType;
-        $aquaculture->cultivationStage = $request->cultivationStage;
-        $aquaculture->coordinate = $request->coordinate;
-
-        $aquaculture->save();
-
-        return redirect()->route('aquaculture.index')->with(['success' => 'Data Berhasil Diupdate!']);
-
-    } catch (\Throwable $th) {
-        return redirect()->back()->withInput()->withErrors($th->getMessage());
     }
-}
 
     public function destroy(ModelsAquaculture $aquaculture)
     {
@@ -131,7 +131,14 @@ class AquacultureController extends Controller
 
             // Menambahkan properti nama dan deskripsi ke setiap fitur GeoJSON
             foreach ($geojsonContent['features'] as &$feature) {
+                $feature['properties']['id'] = $aquaculture->id;
                 $feature['properties']['ponds'] = $aquaculture->ponds;
+                $feature['properties']['district'] = $aquaculture->district;
+                $feature['properties']['village'] = $aquaculture->village;
+                $feature['properties']['pondArea'] = $aquaculture->pondArea;
+                $feature['properties']['status'] = $aquaculture->status;
+                $feature['properties']['cultivationType'] = $aquaculture->cultivationType;
+                $feature['properties']['cultivationStage'] = $aquaculture->cultivationStage;
                 $feature['properties']['imageUrl'] = $imageUrl;
             }
 
