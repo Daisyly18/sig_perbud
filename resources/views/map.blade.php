@@ -3,12 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Peta &mdash; SIGPERBUD</title>
 
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"><!-- Tambahkan referensi ke Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Tambahkan referensi ke Bootstrap JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  
 
   <!-- Bootstrap JavaScript -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -65,16 +71,23 @@
 </head>
 <body class="index-page" data-bs-spy="scroll" data-bs-target="#navmenu">
   <nav class="d-flex justify-content-between align-items-center text-center px-3 py-1 navbar-light bg-primary">
-      <div class="nav-logo">
-        <img src="{{ asset('/img/logo_pohuwato.png') }}" alt="Logo" width="65px" />
-      </div>
-      <div class="nav-header flex-grow-1">
-        <h4 style="color: #FFFFFF">Peta</h4>
-        <h4 style="color: #FFFFFF">Persebaran Perikanan Budi Daya Kabupaten Pohuwato </h4>
-      </div>
-      <div class="header-container"></div>
-      <div></div>
-    </nav>
+    <div class="nav-logo">
+      <img src="{{ asset('/img/logo_pohuwato.png') }}" alt="Logo" width="65px" />
+    </div>
+    <div class="nav-header flex-grow-1">
+      <h4 style="color: #FFFFFF">Peta</h4>
+      <h4 style="color: #FFFFFF">Persebaran Perikanan Budi Daya Kabupaten Pohuwato </h4>
+    </div>
+    <div class="header-container">
+      <button class="btn btn-primary" type="button" id="dropdownMenuButton1">
+        <i class="fa-solid fa-bars"></i> <!-- Ganti dengan ikon bars -->
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="{{route('home')}}">Home</a></li>
+        <li><a class="dropdown-item" href="{{route('login')}}">Login</a></li>        
+      </ul>
+    </div>
+  </nav>
   <div id="map" style="height: 560px">
     @include('maps.maps')
   </div>
@@ -88,4 +101,23 @@
     </div>
   </footer>
 </body>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var toggleButton = document.getElementById('dropdownMenuButton1');
+    var dropdownMenu = document.querySelector('.dropdown-menu');
+
+    toggleButton.addEventListener('click', function () {
+      if (dropdownMenu.style.display === 'block') {
+        dropdownMenu.style.display = 'none';
+      } else {
+        dropdownMenu.style.display = 'block';
+        dropdownMenu.style.top = toggleButton.offsetHeight + 'px'; // Set posisi top sesuai dengan tinggi tombol
+      }
+    });
+  });
+</script>
+
+
+
+
 

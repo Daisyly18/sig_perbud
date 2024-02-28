@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Login &mdash; Stisla</title>
+  <title>Login &mdash; SIGPERBUD</title>
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -22,10 +22,11 @@
     <section class="section">
       <div class="d-flex flex-wrap align-items-stretch">
         <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
-          <div class="p-4 m-3">
-            <img src="{{ asset('/img/logo.png') }}" alt="logo" width="80" class=" mb-5 mt-2">    
-            {{-- <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">Stisla</span></h4>
-            <p class="text-muted">Before you get started, you must login or register if you don't already have an account.</p> --}}
+          <div class="p-4 m-5">
+            <div style="display: flex; align-items: center;margin-bottom: 50px;">
+              <img src="{{ asset('/img/logo_pohuwato.png') }}" alt="logo" width="80">
+              <h2 style="margin-left: 10px;">SIGPERBUD</h2>
+            </div>                      
             <form method="POST" action="#" class="needs-validation" novalidate="">
               <div class="form-group">
                 <label for="email">Email</label>

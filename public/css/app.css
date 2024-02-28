@@ -1627,13 +1627,13 @@ h6 .badge {
   border-color: #0B60B0;
 }
 .btn-primary:focus, .btn-primary.disabled:focus {
-  background-color: #394eea !important;
+  background-color: #0B60B0 !important;
 }
 .btn-primary:focus:active, .btn-primary.disabled:focus:active {
-  background-color: #394eea !important;
+  background-color: #0B60B0 !important;
 }
 .btn-primary:active, .btn-primary:hover, .btn-primary.disabled:active, .btn-primary.disabled:hover {
-  background-color: #394eea !important;
+  background-color: #0B60B0 !important;
 }
 
 .btn-outline-primary, .btn-outline-primary.disabled {
@@ -3611,6 +3611,36 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
   display: flex;
   justify-content: space-between;
 }
+
+.header-container {
+  position: relative; /* Menambahkan posisi relative pada navbar */
+}
+
+.fa-bars {
+  font-size: 20px; /* Ubah ukuran ikon bars sesuai kebutuhan */
+}
+
+.main-content {
+  margin-bottom: 100px; /* Sesuaikan dengan tinggi dropdown menu */
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%; /* Geser menu ke bawah tombol */
+  right: 0; /* Geser menu ke kiri jika terlalu ke kanan */
+  left: auto;
+  background-color: #fff;
+  min-width: 160px; /* Tetapkan lebar minimum */
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 2000; /* Atur z-index yang lebih tinggi */
+}
+.btn {
+  box-shadow: none; /* Menghilangkan shadow pada tombol */
+}
+
+
+
 
 
 
