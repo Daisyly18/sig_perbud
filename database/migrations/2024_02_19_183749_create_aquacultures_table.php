@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('aquacultures', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->default(\Illuminate\Support\Str::uuid());    
+            $table->longText('geojsonPonds');
             $table->string('ponds');
             $table->string('gender');
             $table->string('district');
@@ -23,7 +24,6 @@ return new class extends Migration
             $table->string('status');  
             $table->string('cultivationType');
             $table->string('cultivationStage');                           
-            $table->longText('coordinate');
             
             $table->timestamps();
         });

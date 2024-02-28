@@ -92,7 +92,7 @@
 
   //Kawasan Hutan
   const stylekawasan = {
-      "color" : "#294B29"
+      "color" : "#42E6A4"
   }
   const kawasan = L.geoJSON(kawasan_hutanJSON, {
     style: stylekawasan,
@@ -137,82 +137,108 @@
   const sungai = L.geoJSON(sungaiJSON).addTo(map);
     
 
-//Tambak
-let poligonData = {}; // Inisialisasi dengan objek kosong
-
-const poligon = () => {
-  try {
-    return fetch('fetch/poligon') // Menggunakan return agar dapat menangkap hasil promise
-      .then(response => response.json())
-      .then(data => {
-        poligonData = data; // Mengisi data ke dalam poligonData (tanpa const)
-        console.log(poligonData); // Contoh: Menampilkan data ke konsol
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-// Memanggil fungsi poligon
-poligon()
-  .then(() => {
-    // Membuat layer GeoJSON dan menambahkan style dan fungsi onEachFeature
-    const tambak = L.geoJSON(poligonData, {
-      style: function (feature) {
-        return {
-          "color": "#42E6A4",
-          "fillOpacity":0.9
-        };
-      },
-      onEachFeature: function (feature, layer) {
-        // Menambahkan event handler mouseover
-        layer.on('mouseover', function () {
-          layer.setStyle({ fillColor: 'blue' }); // Contoh: Mengubah warna fill menjadi biru saat mouseover
+// Mendapatkan data URL file GeoJSON dari endpoint URL
+// Memanggil controller untuk mendapatkan data GeoJSON
+fetch('/fetch/poligon')
+        .then(response => response.json())
+        .then(data => {
+            // Panggil fungsi untuk menampilkan GeoJSON pada peta
+            displayGeoJSON(data.geojsonData);
         });
 
-        // Menambahkan event handler mouseout
-        layer.on('mouseout', function () {
-          layer.setStyle({ fillColor: '#42E6A4' }); // Contoh: Mengembalikan warna fill menjadi semula saat mouseout
+    // Fungsi untuk menampilkan GeoJSON pada peta Leaflet
+    function displayGeoJSON(geojsonData) {
+        geojsonData.forEach(function(geojson) {
+          L.geoJSON(geojson, {
+            onEachFeature: function(feature, layer) {
+                // Tambahkan popup ke setiap fitur
+                const popupContent = 
+                  "<img src='" + feature.properties.imageUrl + "' width='200'>"; +
+                  "<b>Nama Pembudidaya:</b> " + feature.properties.ponds + "<br>" ;  
+                                               
+                layer.bindPopup(popupContent);
+            }
+        }).addTo(map);
         });
+    }
 
-        layer.on('click', function () {
-          showPopup(feature, layer); 
-        });
-      }
-    }).addTo(map);
-  })
-  .catch(error => {
-    console.log(error);
-  });
-  function showPopup(feature, layer) {
-  const id = feature.properties.id; 
-  const ponds = feature.properties.ponds; 
-  const district = feature.properties.district; 
-  const village = feature.properties.village; 
-  const pondArea = feature.properties.pondArea; 
-  const status = feature.properties.status; 
-  const cultivationType = feature.properties.cultivationType; 
-  const cultivationStage = feature.properties.cultivationStage; 
-  const imagePonds = feature.properties.imagePonds; 
 
-    // Buat konten popup dengan data yang diterima dari server
-    const popupContent = `
-    <img src="${imagePonds}" alt="Gambar Tambak" style="max-width:200px; max-height:200px;"> <br>
-      <b>Nama Pembudidaya : ${ponds}</b> <br>
-      Kecamatan : ${district} <br> 
-      Desa/Kelurahan : ${village} <br> 
-      Luas Tambak :  ${pondArea} <br>
-      Status : ${status} <br>
-      Jenis Budidaya :${cultivationType} <br>
-      Tahap Budidaya : ${cultivationStage} <br>      
-    `;
+//Tambak gambar langsung 
+// let poligonData = {}; // Inisialisasi dengan objek kosong
+
+// const poligon = () => {
+//   try {
+//     return fetch('fetch/poligon') // Menggunakan return agar dapat menangkap hasil promise
+//       .then(response => response.json())
+//       .then(data => {
+//         poligonData = data; // Mengisi data ke dalam poligonData (tanpa const)
+//         console.log(poligonData); // Contoh: Menampilkan data ke konsol
+//       })
+//       .catch(error => {
+//         console.log(error);
+//       });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// // Memanggil fungsi poligon
+// poligon()
+//   .then(() => {
+//     // Membuat layer GeoJSON dan menambahkan style dan fungsi onEachFeature
+//     const tambak = L.geoJSON(poligonData, {
+//       style: function (feature) {
+//         return {
+//           "color": "#42E6A4",
+//           "fillOpacity":0.9
+//         };
+//       },
+//       onEachFeature: function (feature, layer) {
+//         // Menambahkan event handler mouseover
+//         layer.on('mouseover', function () {
+//           layer.setStyle({ fillColor: 'blue' }); // Contoh: Mengubah warna fill menjadi biru saat mouseover
+//         });
+
+//         // Menambahkan event handler mouseout
+//         layer.on('mouseout', function () {
+//           layer.setStyle({ fillColor: '#42E6A4' }); // Contoh: Mengembalikan warna fill menjadi semula saat mouseout
+//         });
+
+//         layer.on('click', function () {
+//           showPopup(feature, layer); 
+//         });
+//       }
+//     }).addTo(map);
+//   })
+//   .catch(error => {
+//     console.log(error);
+//   });
+//   function showPopup(feature, layer) {
+//   const id = feature.properties.id; 
+//   const ponds = feature.properties.ponds; 
+//   const district = feature.properties.district; 
+//   const village = feature.properties.village; 
+//   const pondArea = feature.properties.pondArea; 
+//   const status = feature.properties.status; 
+//   const cultivationType = feature.properties.cultivationType; 
+//   const cultivationStage = feature.properties.cultivationStage; 
+//   const imagePonds = feature.properties.imagePonds; 
+
+//     // Buat konten popup dengan data yang diterima dari server
+//     const popupContent = `
+//     <img src="${imagePonds}" alt="Gambar Tambak" style="max-width:200px; max-height:200px;"> <br>
+//       <b>Nama Pembudidaya : ${ponds}</b> <br>
+//       Kecamatan : ${district} <br> 
+//       Desa/Kelurahan : ${village} <br> 
+//       Luas Tambak :  ${pondArea} <br>
+//       Status : ${status} <br>
+//       Jenis Budidaya :${cultivationType} <br>
+//       Tahap Budidaya : ${cultivationStage} <br>      
+//     `;
     
-    // Bind popup dengan konten yang telah dibuat dan buka popup
-    layer.bindPopup(popupContent).openPopup();
-}
+//     // Bind popup dengan konten yang telah dibuat dan buka popup
+//     layer.bindPopup(popupContent).openPopup();
+// }
 
 
 

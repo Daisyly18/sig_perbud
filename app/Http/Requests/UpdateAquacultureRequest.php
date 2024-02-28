@@ -15,6 +15,16 @@ class UpdateAquacultureRequest extends FormRequest
     {
         return [
             'uuid' => 'exclude',
+            'geojsonPonds' => ['required', function ($attribute, $value, $fail) {
+                // Validate GeoJSON format
+                $geojson = json_decode($value, true);
+                if ($geojson === null || json_last_error() !== JSON_ERROR_NONE) {
+                    $fail('The '.$attribute.' must be a valid GeoJSON.');
+                    return;
+                }
+    
+                // Add more specific validation rules here if needed
+            }],
             'ponds' => 'required',
             'gender' => 'required',
             'district' => 'required',
@@ -24,7 +34,6 @@ class UpdateAquacultureRequest extends FormRequest
             'status'  => 'required',
             'cultivationType'  => 'required',            
             'cultivationStage'  => 'required',
-            'coordinate' => 'required', 
             
             
         ];
@@ -41,7 +50,7 @@ class UpdateAquacultureRequest extends FormRequest
             'status.required' => 'Status harus diisi',
             'cultivationType.required' => 'Jenis Budidaya harus diisi',
             'cultivationStage.required' => 'Tahap Budidaya harus diisi',
-            'coordinate.required' => 'File Geojson harus diisi',            
+            'geojsonPonds.required' => 'File Geojson harus diisi',            
         ];
     }
 }

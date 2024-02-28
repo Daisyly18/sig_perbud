@@ -12,6 +12,7 @@ class Aquaculture extends Model
     protected $fillable = [ 
         'id',
         'uuid',
+        'geojsonPonds',
         'ponds',
         'gender',
         'district',
@@ -21,6 +22,5 @@ class Aquaculture extends Model
         'status',
         'cultivationType',
         'cultivationStage',
-        'coordinate',
     ];
 }

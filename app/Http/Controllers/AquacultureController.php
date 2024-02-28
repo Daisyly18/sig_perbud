@@ -27,11 +27,14 @@ class AquacultureController extends Controller
     {
         try {
             $image = $request->file('imagePonds');
+            $geoJSON = $request->file('geojsonPonds');
 
             // Simpan gambar dengan nama aslinya
             $imagePath = $image->storeAs('public/images', $image->getClientOriginalName());
+            $geojsonPath = $geoJSON->storeAs('public/geojson', $geoJSON->getClientOriginalName());
 
             ModelsAquaculture::create([
+                'geojsonPonds' => $geojsonPath,
                 'ponds' => $request->ponds,
                 'gender' => $request->gender,
                 'district' => $request->district,
@@ -67,34 +70,42 @@ class AquacultureController extends Controller
     }
 
     public function update(UpdateAquacultureRequest $request, ModelsAquaculture $aquaculture)
-    {
-        try {
-            $hasImage = $request->hasFile('imagePonds');
+{
+    try {
+        $image = $request->file('imagePonds');
+        $geoJSON = $request->file('geojsonPonds');
 
-            $aquaculture->ponds = $request->ponds;
-            $aquaculture->gender = $request->gender;
-            $aquaculture->district = $request->district;
-            $aquaculture->village = $request->village;
-            $aquaculture->pondArea = $request->pondArea;
+        $aquaculture->ponds = $request->ponds;
+        $aquaculture->gender = $request->gender;
+        $aquaculture->district = $request->district;
+        $aquaculture->village = $request->village;
+        $aquaculture->pondArea = $request->pondArea;
 
-            if ($hasImage) {
-                // Menyimpan file gambar
-                $imagePath = $request->file('imagePonds')->store('public/images');
-                $aquaculture->imagePonds = $imagePath;
-            }
-
-            $aquaculture->status = $request->status;
-            $aquaculture->cultivationType = $request->cultivationType;
-            $aquaculture->cultivationStage = $request->cultivationStage;
-            $aquaculture->coordinate = $request->coordinate;
-
-            return redirect()->route('aquaculture.index')->with(['success' => 'Data Berhasil Diupdate!']);
-
-        } catch (\Throwable $th) {
-            return redirect()->back()->withInput()->withErrors($th->getMessage());
-
+        if ($image) {
+            // Simpan gambar dengan nama aslinya
+            $imagePath = $image->storeAs('public/images', $image->getClientOriginalName());
+            $aquaculture->imagePonds = $imagePath;
         }
+
+        if ($geoJSON) {
+            // Simpan file GeoJSON dengan nama aslinya
+            $geojsonPath = $geoJSON->storeAs('public/geojson', $geoJSON->getClientOriginalName());
+            $aquaculture->geojsonPonds = $geojsonPath;
+        }
+
+        $aquaculture->status = $request->status;
+        $aquaculture->cultivationType = $request->cultivationType;
+        $aquaculture->cultivationStage = $request->cultivationStage;
+        $aquaculture->coordinate = $request->coordinate;
+
+        $aquaculture->save();
+
+        return redirect()->route('aquaculture.index')->with(['success' => 'Data Berhasil Diupdate!']);
+
+    } catch (\Throwable $th) {
+        return redirect()->back()->withInput()->withErrors($th->getMessage());
     }
+}
 
     public function destroy(ModelsAquaculture $aquaculture)
     {
@@ -105,71 +116,32 @@ class AquacultureController extends Controller
 
 
     public function map()
-{
-    $aquacultures = ModelsAquaculture::all();
-    $geojsonFeatures = [];
+    {
+        $aquacultures = ModelsAquaculture::all();
+        $geojsonData = [];
 
-    foreach ($aquacultures as $aquaculture) {
-        // Mengonversi string JSON koordinat menjadi array PHP
-        $coordinate = json_decode($aquaculture->coordinate, true);
+        foreach ($aquacultures as $aquaculture) {
+            // Mendapatkan path file GeoJSON dari atribut model
+            $geojsonPath = $aquaculture->geojsonPonds;
 
-        // Pastikan koordinat dalam format yang sesuai dengan GeoJSON
-        $coordinates = $coordinate['coordinates'];
+            // Mendapatkan isi file GeoJSON
+            $geojsonContent = json_decode(Storage::get($geojsonPath), true);
 
-         // Mendapatkan URL gambar menggunakan Storage::url()
-        $imageUrl = Storage::url($aquaculture->imagePonds);
+            $imageUrl = Storage::url($aquaculture->imagePonds);
 
-        $geojsonFeatures[] = [
-            'type' => 'Feature',
-            'properties' => [
-                'id' => $aquaculture->id,
-                'ponds' => $aquaculture->ponds,
-                'district' => $aquaculture->district,
-                'village' => $aquaculture->village,
-                'pondArea' => $aquaculture-> pondArea,
-                'imagePonds' => $imageUrl,
-                'status' => $aquaculture->status,
-                'cultivationType' => $aquaculture->cultivationType,
-                'cultivationStage' => $aquaculture->cultivationStage,
-            ],
-            'geometry' => [
-                'type' => 'MultiPolygon',
-                'coordinates' => $coordinates
-            ]
-        ];
-    }
-    // Jika permintaan datang dari rute '/map', render tampilan peta dan kirimkan data polygon ke tampilan
-    if (request()->is('map')) {
-        return view('map', [
-            'geojsonFeatures' => json_encode([
-                'type' => 'FeatureCollection',
-                'features' => $geojsonFeatures
-            ])
+            // Menambahkan properti nama dan deskripsi ke setiap fitur GeoJSON
+            foreach ($geojsonContent['features'] as &$feature) {
+                $feature['properties']['ponds'] = $aquaculture->ponds;
+                $feature['properties']['imageUrl'] = $imageUrl;
+            }
+
+            $geojsonData[] = $geojsonContent;
+            }
+
+        // Kembalikan data GeoJSON sebagai respons JSON
+        return response()->json([
+            'geojsonData' => $geojsonData
         ]);
     }
-
-
-    // Kembalikan data GeoJSON sebagai respons JSON
-    return response()->json([
-        'type' => 'FeatureCollection',
-        'features' => $geojsonFeatures
-    ]);
-    
-}
-public function fetchData($id)
-    {
-        // Ambil data gambar dari basis data berdasarkan ID
-    $aquaculture = ModelsAquaculture::findOrFail($id);
-
-    // Ambil data gambar dari kolom 'imagePonds'
-    $imageData = $aquaculture->imagePonds;
-
-    // Konversi data gambar yang diambil dari basis data ke dalam format gambar yang sesuai
-    $image = 'data:image/png;base64,' . base64_encode($imageData);
-
-    // Kemudian, kembalikan tampilan (misalnya dalam bentuk JSON jika Anda menggunakan AJAX)
-    return response()->json(['image' => $image]);
-    }
-
 
 }
