@@ -11,7 +11,7 @@ Route::get('/map', function () {return view('map'); })->name('map');
 Route::get('/fetch/poligon', [AquacultureController::class, 'map']);
 
 Route::resource('/aquaculture', AquacultureController::class)->names('aquaculture');
-Route::resource('/pondsProgress', PondsProgressController::class)->names('pondsProgress');
+Route::resource('/pondsProgress', PondsProgressController::class)->names('pondsProgress'); 
 Route::resource('/dashboard', DashboardController::class)->names('dashboard');
 
 

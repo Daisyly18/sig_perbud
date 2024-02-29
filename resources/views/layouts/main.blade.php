@@ -28,39 +28,12 @@
   <!-- General CSS Files -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-
-  <!--Leaflet-->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.0.0/leaflet.ajax.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.polylinemeasure/Leaflet.PolylineMeasure.css" />
-  <script src="https://unpkg.com/leaflet.polylinemeasure/Leaflet.PolylineMeasure.js"></script>
-  <script src="https://unpkg.com/leaflet.defaultextent/dist/leaflet-defaultextent.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/leaflet.control.layers@3.4.2/dist/leaflet.control.layers.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-easybutton/src/easy-button.css">
-  <script src="https://unpkg.com/leaflet-easybutton/src/easy-button.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css">
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-draw@0.4.14/dist/leaflet.draw.css"/>
-  <script src="https://unpkg.com/leaflet-draw@0.4.14/dist/leaflet.draw.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-toolbar/dist/leaflet.toolbar.css" />
-  <script src="https://unpkg.com/leaflet-draw-toolbar@1.0.4/dist/leaflet.draw.toolbar.js"></script>
-  <!-- Leaflet Measure Control CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-measure/dist/leaflet-measure.css" /> 
-  <!--Leaflet-Geodecor-->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-
-
   <!-- Template CSS -->
   @stack('style')
-
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('css/components.css') }}">
+
 
 </head>
 
@@ -93,21 +66,17 @@
       </footer>
     </div>
   </div>
-
   <!-- General JS Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  <script src="../assets/js/stisla.js"></script>
-
-  <!-- JS Libraies -->
 
   <!-- Template JS File -->
   <script src="{{ asset('/js/scripts.js')}}"></script>
   <script src="{{ asset('/js/custom.js')}}"></script> 
+  {{-- <script src="{{ asset('js/stisla.js') }}"></script> --}}
 
-  <!-- Page Specific JS File -->
 </body>
 </html>
