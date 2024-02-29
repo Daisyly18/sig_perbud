@@ -23,7 +23,6 @@
           <li class="nav-item">
             <a href="#" class="nav-link" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Data Users</span></a>
           </li>
-      
-
+      </ul>
     </aside>
   </div>
