@@ -54,7 +54,13 @@
                   <td>{{$aquaculture->district}}</td>
                   <td>{{$aquaculture->village}}</td>
                   <td>{{$aquaculture->pondArea}}</td>
-                  <td><div class="badge badge-success">{{$aquaculture->status}}</div></td>
+                  <td>
+                    @if($aquaculture->status == 'Aktif')
+                        <div class="badge badge-success">{{ $aquaculture->status }}</div>
+                    @else
+                        <div class="badge badge-danger">{{ $aquaculture->status }}</div>
+                    @endif
+                </td>
                   <td>{{$aquaculture->cultivationType}}</td>
                   <td>{{$aquaculture->cultivationStage}}</td>                  
                   <td class="text-nowrap  d-flex align-items-center">
