@@ -7,18 +7,16 @@
       
     </form>
     <ul class="navbar-nav navbar-right">
-      <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-        <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle mr-1">
-        <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
+      <li class="dropdown">
+        <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user"> 
+          <img alt="image" src="{{ asset('img/avatar/avatar-3.png') }}" class="rounded-circle mr-1">
+          <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->username }}</div>
+        </a>
         <div class="dropdown-menu dropdown-menu-right">
-          <a href="features-profile.html" class="dropdown-item has-icon">
-            <i class="far fa-user"></i> Profile
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item has-icon text-danger">
-            <i class="fas fa-sign-out-alt"></i> Logout
-          </a>
-        </div>
+          <a href="#" class="dropdown-item has-icon"><i class="fas fa-user"></i>
+              Profile</a>
+          <a href="{{ route('logout')}}" class="dropdown-item has-icon"><i class="fas fa-sign-out-alt"></i>Logout</a>
+      </div>
       </li>
     </ul>
   </nav>
