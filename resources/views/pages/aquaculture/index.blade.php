@@ -28,10 +28,10 @@
           <a href="#" class="btn btn-sm btn-success"><i class="fas fa-file-export"></i> Eksport</a>
         </div>
       </div>
-        <div class="card-body p-0">
+        <div class="card-body p-2">
           <div class="table-responsive">
-            <table class="table table-striped"> 
-              <thead>
+            <table id="datatable" class="table table-striped display nowrap"> 
+              <thead >
                 <tr>
                   <th>#</th>
                   <th class="text-nowrap">Nama Pembudidaya</th>
@@ -60,10 +60,10 @@
                     @else
                         <div class="badge badge-danger">{{ $aquaculture->status }}</div>
                     @endif
-                </td>
+                  </td>
                   <td>{{$aquaculture->cultivationType}}</td>
                   <td>{{$aquaculture->cultivationStage}}</td>                  
-                  <td class="text-nowrap  d-flex align-items-center">
+                  <td class="d-flex align-items-center">
                     <a href="{{route('aquaculture.edit', $aquaculture->id) }}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-edit"></i></a>                
                     <form method="POST" action="{{ route('aquaculture.destroy', $aquaculture->id) }}">
                       @csrf

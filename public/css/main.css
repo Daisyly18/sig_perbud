@@ -74,7 +74,11 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-primary);
+  font-family: var(--font-default);
+}
+
+h1,h3 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 }
 
 section {

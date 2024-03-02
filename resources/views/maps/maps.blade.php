@@ -75,9 +75,9 @@
       
       layer.setStyle({color: '#9A3B3B' }); // Contoh: Mengubah warna fill menjadi merah saat mouseover
       
-      // Menampilkan popup ketika mouse di atas fitur jalan
-      const popupContent = `<b>KECAMATAN ${feature.properties.KECAMATAN}</b>`;
-      layer.bindPopup(popupContent).openPopup();
+      // // Menampilkan popup ketika mouse di atas fitur jalan
+      // const popupContent = `<b>KECAMATAN ${feature.properties.KECAMATAN}</b>`;
+      // layer.bindPopup(popupContent).openPopup();
     });
 
     // Menambahkan event handler mouseout
@@ -138,29 +138,43 @@
     
 
 // Mendapatkan data URL file GeoJSON dari endpoint URL
-// Memanggil controller untuk mendapatkan data GeoJSON
-fetch('/fetch/poligon')
-        .then(response => response.json())
-        .then(data => {
-            // Panggil fungsi untuk menampilkan GeoJSON pada peta
-            displayGeoJSON(data.geojsonData);
-        });
+    fetch('/fetch/poligon')
+    .then(response => response.json())
+    .then(data => {
+        // Panggil fungsi untuk menampilkan GeoJSON pada peta
+        displayGeoJSON(data.geojsonData);
+    });
 
-    // Fungsi untuk menampilkan GeoJSON pada peta Leaflet
-    function displayGeoJSON(geojsonData) {
-        geojsonData.forEach(function(geojson) {
-          L.geoJSON(geojson, {
+// Fungsi untuk menampilkan GeoJSON pada peta Leaflet
+function displayGeoJSON(geojsonData) {
+    geojsonData.forEach(function(geojson) {
+        L.geoJSON(geojson, {
+            style: function(feature) {
+                return {
+                    color: '#AE431E',
+                    fillColor: '#AE431E', // Warna isian
+                    fillOpacity: 0.5 // Opasitas isian
+                };
+            },
             onEachFeature: function(feature, layer) {
                 // Tambahkan popup ke setiap fitur
-                const popupContent = 
-                  "<img src='" + feature.properties.imageUrl + "' width='200'>" + "<br>" +
-                  "<b>Nama Pembudidaya:</b> " + feature.properties.ponds + "<br>" ;  
-                                               
+                const popupContent =
+                    "<img src='" + feature.properties.imageUrl + "' width='200'>" + "<br>" +
+                    "<b>Nama Pembudidaya:</b> " + feature.properties.ponds + "<br>" +
+                    "<b>Kecamatan:</b> " + feature.properties.district + "<br>" +
+                    "<b>Desa/Kelurahan:</b> " + feature.properties.village + "<br>" +
+                    "<b>Luas Tambak:</b> " + feature.properties.pondArea + " m^2" + "<br>" +
+                    "<b>Status:</b> " + feature.properties.status + "<br>" +
+                    "<b>Jenis Budidaya:</b> " + feature.properties.cultivationType + "<br>" +
+                    "<b>Tahap Budidaya:</b> " + feature.properties.cultivationStage + "<br>";
+
                 layer.bindPopup(popupContent);
             }
         }).addTo(map);
-        });
-    }
+    });
+}
+
+
 
 
 //Tambak gambar langsung 

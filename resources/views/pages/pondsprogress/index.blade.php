@@ -28,9 +28,9 @@
           <a href="#" class="btn btn-sm btn-success"><i class="fas fa-file-export"></i> Eksport</a>
         </div>
       </div>
-        <div class="card-body p-0">
+        <div class="card-body p-2">
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped" id="datatable">
               <thead>
                 <tr>
                   <th>#</th>
@@ -54,16 +54,17 @@
                   <td>{{$aquaculture->district}}</td>
                   <td>{{$aquaculture->village}}</td>
                   <td>{{$aquaculture->pondArea}}</td>
-                  <td><div class="badge badge-success">{{$aquaculture->status}}</div></td>
+                  <td>
+                    @if($aquaculture->status == 'Aktif')
+                        <div class="badge badge-success">{{ $aquaculture->status }}</div>
+                    @else
+                        <div class="badge badge-danger">{{ $aquaculture->status }}</div>
+                    @endif
+                  </td>
                   <td>{{$aquaculture->cultivationType}}</td>
                   <td>{{$aquaculture->cultivationStage}}</td>                  
                   <td class="text-nowrap  d-flex align-items-center">
-                    <a href="{{route('pondsProgress.edit', $aquaculture->id) }}" class="btn btn-warning">Update</a>                
-                    {{-- <form method="POST" action="{{ route('aquaculture.destroy', $aquaculture->id) }}">
-                      @csrf
-                      @method('DELETE')
-                      <button type="submit" class="btn btn-icon icon-left btn-danger"><i class="fas fa-trash"></i></button>
-                  </form>           --}}
+                    <a href="{{route('pondsProgress.edit', $aquaculture->id) }}" class="btn btn-warning">Update</a>                                    
                   </td>                
                 </tr>
                 @endforeach
@@ -71,23 +72,6 @@
             </table>
           </div>
         </div>
-      {{-- <div class="card-footer text-right">
-        <nav class="d-inline-block">
-          <ul class="pagination mb-0">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>
-            </li>
-            <li class="page-item active"><a class="page-link" href="#">1 <span class="sr-only">(current)</span></a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
-            </li>
-          </ul>
-        </nav>
-      </div> --}}
     </div>
   </div>         
 @endsection
