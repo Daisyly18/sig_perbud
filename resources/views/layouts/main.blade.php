@@ -79,9 +79,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   
   <script>
-    let table = new DataTable('#datatable', {
+    let datatable = new DataTable('#datatable', {
       scrollX: true
     });
+  </script>
+  <script>
+    let table = new DataTable('#table');
   </script>
 
   <!-- Template JS File -->

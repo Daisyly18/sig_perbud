@@ -26,8 +26,8 @@
               <i class="fas fa-water"></i> <span>Perkembangan Tambak</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link" data-toggle="dropdown"><i class="fas fa-users">
+          <li class="nav-item {{Request::is('user*')?'active':'';}}">
+            <a href="{{url('user')}}" class="nav-link"><i class="fas fa-users">
               </i> <span>Data Users</span>
             </a>
           </li>
