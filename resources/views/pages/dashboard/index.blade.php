@@ -7,14 +7,14 @@
         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
             <div class="card card-statistic-1">
             <div class="card-icon bg-primary">
-                <i class="far fa-user"></i>
+              <i class="far fa-user"></i>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
                 <h4>Total Penyuluh</h4>
                 </div>
                 <div class="card-body">
-                10
+                  {{ $penyuluh }}
                 </div>
             </div>
             </div>
@@ -22,14 +22,14 @@
         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
             <div class="card card-statistic-1">
             <div class="card-icon bg-danger">
-                <i class="far fa-newspaper"></i>
+                <i class="far fa-user"></i>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
                 <h4>Total Pembudidaya</h4>
                 </div>
                 <div class="card-body">
-                42
+                  {{ $pembudidaya }}
                 </div>
             </div>
             </div>
@@ -37,14 +37,14 @@
         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
             <div class="card card-statistic-1">
             <div class="card-icon bg-warning">
-                <i class="far fa-file"></i>
+              <i class="far fa-bell"></i>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
                 <h4>Total Perikanan Budidaya Aktif</h4>
                 </div>
                 <div class="card-body">
-                1,201
+                  {{ $status }}
                 </div>
             </div>
             </div>
@@ -58,50 +58,99 @@
             </div>
             <div class="card-body">
               <div class="mb-4">
-                <div class="text-small float-right font-weight-bold text-muted">2,100</div>
-                <div class="font-weight-bold mb-1">Google</div>
+                <div class="text-small float-right font-weight-bold text-muted">{{ $paguat }}</div>
+                <div class="font-weight-bold mb-1">Paguat</div>
                 <div class="progress" data-height="3">
-                  <div class="progress-bar" role="progressbar" data-width="80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" role="progressbar" style="width: {{ $paguat }}%;" aria-valuenow="{{ $paguat }}" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
 
               <div class="mb-4">
-                <div class="text-small float-right font-weight-bold text-muted">1,880</div>
-                <div class="font-weight-bold mb-1">Facebook</div>
+                <div class="text-small float-right font-weight-bold text-muted">{{ $duhiadaa }}</div>
+                <div class="font-weight-bold mb-1">Duhiadaa</div>
                 <div class="progress" data-height="3">
-                  <div class="progress-bar" role="progressbar" data-width="67%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" role="progressbar" style="width: {{ $duhiadaa }}%;" aria-valuenow="{{ $duhiadaa }}" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
 
               <div class="mb-4">
-                <div class="text-small float-right font-weight-bold text-muted">1,521</div>
-                <div class="font-weight-bold mb-1">Bing</div>
+                <div class="text-small float-right font-weight-bold text-muted">{{ $lemito }}</div>
+                <div class="font-weight-bold mb-1">Lemito</div>
                 <div class="progress" data-height="3">
-                  <div class="progress-bar" role="progressbar" data-width="58%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" role="progressbar" style="width: {{ $lemito }}%;" aria-valuenow="{{ $lemito }}" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
 
               <div class="mb-4">
-                <div class="text-small float-right font-weight-bold text-muted">884</div>
-                <div class="font-weight-bold mb-1">Yahoo</div>
+                <div class="text-small float-right font-weight-bold text-muted">{{ $patilanggio }}</div>
+                <div class="font-weight-bold mb-1">Patilanggio</div>
                 <div class="progress" data-height="3">
-                  <div class="progress-bar" role="progressbar" data-width="36%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" role="progressbar" style="width: {{ $patilanggio }}%;" aria-valuenow="{{ $patilanggio }}" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
 
               <div class="mb-4">
-                <div class="text-small float-right font-weight-bold text-muted">473</div>
-                <div class="font-weight-bold mb-1">Kodinger</div>
+                <div class="text-small float-right font-weight-bold text-muted">{{ $popayato }}</div>
+                <div class="font-weight-bold mb-1">Popayato</div>
                 <div class="progress" data-height="3">
-                  <div class="progress-bar" role="progressbar" data-width="28%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" role="progressbar" style="width: {{ $popayato }}%;" aria-valuenow="{{ $popayato }}" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
 
               <div class="mb-4">
-                <div class="text-small float-right font-weight-bold text-muted">418</div>
-                <div class="font-weight-bold mb-1">Multinity</div>
+                <div class="text-small float-right font-weight-bold text-muted">{{ $popayatoTim }}</div>
+                <div class="font-weight-bold mb-1">Popayato Timur</div>
                 <div class="progress" data-height="3">
-                  <div class="progress-bar" role="progressbar" data-width="20%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" role="progressbar" style="width: {{ $popayatoTim }}%;" aria-valuenow="{{ $popayatoTim }}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+              <div class="mb-4">
+                <div class="text-small float-right font-weight-bold text-muted">{{ $popayatoBar }}</div>
+                <div class="font-weight-bold mb-1">Popayato Barat</div>
+                <div class="progress" data-height="3">
+                  <div class="progress-bar" role="progressbar" style="width: {{ $popayatoBar }}%;" aria-valuenow="{{ $popayatoBar }}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+              <div class="mb-4">
+                <div class="text-small float-right font-weight-bold text-muted">{{ $randangan }}</div>
+                <div class="font-weight-bold mb-1">Randangan</div>
+                <div class="progress" data-height="3">
+                  <div class="progress-bar" role="progressbar" style="width: {{ $randangan }}%;" aria-valuenow="{{ $randangan }}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+              <div class="mb-4">
+                <div class="text-small float-right font-weight-bold text-muted">{{ $wanggarasi }}</div>
+                <div class="font-weight-bold mb-1">Wanggarasi</div>
+                <div class="progress" data-height="3">
+                  <div class="progress-bar" role="progressbar" style="width: {{ $wanggarasi }}%;" aria-valuenow="{{ $wanggarasi }}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+              <div class="mb-4">
+                <div class="text-small float-right font-weight-bold text-muted">{{ $buntulia }}</div>
+                <div class="font-weight-bold mb-1">Buntulia</div>
+                <div class="progress" data-height="3">
+                  <div class="progress-bar" role="progressbar" style="width: {{ $buntulia }}%;" aria-valuenow="{{ $buntulia }}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+              <div class="mb-4">
+                <div class="text-small float-right font-weight-bold text-muted">{{ $marisa }}</div>
+                <div class="font-weight-bold mb-1">Marisa</div>
+                <div class="progress" data-height="3">
+                  <div class="progress-bar" role="progressbar" style="width: {{ $marisa }}%;" aria-valuenow="{{ $marisa }}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+              <div class="mb-4">
+                <div class="text-small float-right font-weight-bold text-muted">{{ $dengilo }}</div>
+                <div class="font-weight-bold mb-1">Dengilo</div>
+                <div class="progress" data-height="3">
+                  <div class="progress-bar" role="progressbar" style="width: {{ $dengilo }}%;" aria-valuenow="{{ $dengilo }}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+              <div class="mb-4">
+                <div class="text-small float-right font-weight-bold text-muted">{{ $taluditi }}</div>
+                <div class="font-weight-bold mb-1">Taluditi</div>
+                <div class="progress" data-height="3">
+                  <div class="progress-bar" role="progressbar" style="width: {{ $taluditi }}%;" aria-valuenow="{{ $taluditi }}" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
             </div>
@@ -114,35 +163,32 @@
               </div>
               <div class="card-body">
                 <div class="mb-4">
-                  <div class="text-small float-right font-weight-bold text-muted">2,100</div>
+                  <div class="text-small float-right font-weight-bold text-muted">{{ $stage1 }}</div>
                   <div class="font-weight-bold mb-1">Tahap Awal</div>
                   <div class="progress" data-height="3">
-                    <div class="progress-bar" role="progressbar" data-width="80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar" role="progressbar" style="width: {{ $stage1 }}%;" aria-valuenow="{{ $stage1 }}" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
-                </div>
+              </div>
+              
                 <div class="mb-4">
-                  <div class="text-small float-right font-weight-bold text-muted">1,880</div>
+                  <div class="text-small float-right font-weight-bold text-muted">{{ $stage2 }}</div>
                   <div class="font-weight-bold mb-1">Tahap Pembesaran</div>
                   <div class="progress" data-height="3">
-                    <div class="progress-bar" role="progressbar" data-width="67%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar" role="progressbar" style="width: {{ $stage2 }}%;" aria-valuenow="{{ $stage2 }}" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
                 <div class="mb-4">
-                  <div class="text-small float-right font-weight-bold text-muted">1,521</div>
+                  <div class="text-small float-right font-weight-bold text-muted">{{ $stage3 }}</div>
                   <div class="font-weight-bold mb-1">Tahap Panen</div>
                   <div class="progress" data-height="3">
-                    <div class="progress-bar" role="progressbar" data-width="58%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar" role="progressbar" style="width: {{ $stage3 }}%;" aria-valuenow="{{ $stage3 }}" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
   
               </div>
             </div>       
           </div>        
-    </div>       
-    <div class="row">
-             
-    </div>       
-    
+    </div>                
 </div>
 
      
