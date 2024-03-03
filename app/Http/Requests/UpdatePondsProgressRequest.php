@@ -22,8 +22,8 @@ class UpdatePondsProgressRequest extends FormRequest
             'gender' => 'required',
             'imagePonds' => 'required|image|mimes:jpeg,jpg,png',
             'status'  => 'required',
-            'cultivationType'  => 'required',            
-            'cultivationStage'  => 'required',                        
+            // 'cultivationType'  => 'required',            
+            // 'cultivationStage'  => 'required',                        
         ];
     }
     public function messages(): array
@@ -33,8 +33,8 @@ class UpdatePondsProgressRequest extends FormRequest
             'gender.required' => 'Jenis Kelamin harus diisi',            
             'imagePonds.required' => 'Gambar harus diisi',
             'status.required' => 'Status harus diisi',
-            'cultivationType.required' => 'Jenis Budidaya harus diisi',
-            'cultivationStage.required' => 'Tahap Budidaya harus diisi',   
+            // 'cultivationType.required' => 'Jenis Budidaya harus diisi',
+            // 'cultivationStage.required' => 'Tahap Budidaya harus diisi',   
         ];
     }
 }

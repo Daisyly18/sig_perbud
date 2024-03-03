@@ -53,7 +53,7 @@
                   <td>{{$aquaculture->gender}}</td>
                   <td>{{$aquaculture->district}}</td>
                   <td>{{$aquaculture->village}}</td>
-                  <td>{{$aquaculture->pondArea}}</td>
+                  <td class="text-center">{{$aquaculture->pondArea}}</td>
                   <td>
                     @if($aquaculture->status == 'Aktif')
                         <div class="badge badge-success">{{ $aquaculture->status }}</div>
@@ -61,8 +61,8 @@
                         <div class="badge badge-danger">{{ $aquaculture->status }}</div>
                     @endif
                   </td>
-                  <td>{{$aquaculture->cultivationType}}</td>
-                  <td>{{$aquaculture->cultivationStage}}</td>                  
+                  <td class="text-nowrap text-center">{{$aquaculture->cultivationType}}</td>
+                  <td class="text-nowrap text-center">{{$aquaculture->cultivationStage}}</td>                  
                   <td class="d-flex align-items-center">
                     <a href="{{route('aquaculture.edit', $aquaculture->id) }}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-edit"></i></a>                
                     <form method="POST" action="{{ route('aquaculture.destroy', $aquaculture->id) }}">

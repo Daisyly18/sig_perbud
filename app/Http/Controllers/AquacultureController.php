@@ -42,9 +42,9 @@ class AquacultureController extends Controller
                 'pondArea' => $request->pondArea,
                 'imagePonds' => $imagePath,
                 'status' => $request->status,
-                'cultivationType' => $request->cultivationType,
-                'cultivationStage' => $request->cultivationStage,
-                'coordinate' => $request->coordinate,                
+                // 'cultivationType' => $request->cultivationType,
+                // 'cultivationStage' => $request->cultivationStage,
+                               
 
             ]);
             return redirect()->route('aquaculture.index')->with(['success' => 'Data Berhasil Disimpan!']);

@@ -38,8 +38,8 @@
           <div class="col-sm-10">
             <select class="form-control @error('gender') border-danger @enderror" id="gender" 
             name="gender" value="{{$aquaculture->gender}}">
-              <option>Laki-laki</option>
-              <option>Perempuan</option>
+              <option>Pria</option>
+              <option>Wanita</option>
             </select>
           </div>
         </div>        
@@ -51,40 +51,48 @@
             <input type="file" class="form-control @error('imagePonds') border-danger @enderror" id="imagePonds" 
             name="imagePonds" value="{{$aquaculture->imagePonds}}">
           </div>
-        </div>                
+        </div>  
         <div class="row mb-3">
           <div class="label col-sm-2 col-form-label">
-            <label style="font-weight:bold" for="status">Status</label>
+              <label style="font-weight:bold" for="status">Status</label>
           </div>
           <div class="col-sm-10">
-            <select class="form-control @error('status') border-danger @enderror" id="status" 
-            name="status" value="{{$aquaculture->status}}">        
-            <option>Aktif</option>
-            <option>Tidak Aktif</option>
-          </select>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-sm-2">
-          <label style="font-weight:bold" for="cultivationType">Jenis Budi Daya</label>
-        </div>
-        <div class="col-sm-10">
-          <input type="text" class="form-control @error('cultivationType') border-danger @enderror" id="cultivationType" 
-          name="cultivationType" value="{{$aquaculture->cultivationType}}">
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="label col-sm-2 col-form-label">
-          <label style="font-weight:bold" for="cultivationStage">Tahap Budi Daya</label>
-        </div>
-        <div class="col-sm-10">
-          <select class="form-control @error('cultivationStage') border-danger @enderror" id="cultivationStage" 
-          name="cultivationStage" value="{{$aquaculture->cultivationStage}}">
-          <option>Tahap Awal</option>
-          <option>Tahap Pembesaran</option>
-          <option>Tahap Panen</option>
-        </select>
-      </div>
+              <select class="form-control @error('status') border-danger @enderror" id="status" name="status" value="{{$aquaculture->status}}">
+                  @error('status')
+                  <span class="text-danger">{{ $message }}</span>
+                  @enderror
+                  <option>Tidak Aktif</option>
+                  <option>Aktif</option>
+              </select>
+          </div>
+        </div>                            
+        <div class="row mb-3" >
+          <div class="col-sm-2 col-form-label">
+              <label style="font-weight:bold" for="cultivationType" id="cultivationType">Jenis Budi Daya</label>
+          </div>
+          <div class="col-sm-10">
+              <input type="text" class="form-control @error('cultivationType') border-danger @enderror" id="cultivationTypeInput" name="cultivationType" value="{{$aquaculture->cultivationType}}">
+              @error('cultivationType')
+              <span class="text-danger">{{ $message }}</span>
+              @enderror
+          </div>
+        </div>      
+        <div class="row mb-3" >
+            <div class="label col-sm-2 col-form-label">
+                <label style="font-weight:bold" for="cultivationStage" id="cultivationStage" >Tahap Budi Daya</label>
+            </div>
+            <div class="col-sm-10">
+                <select class="form-control @error('cultivationStage') border-danger @enderror" id="cultivationStageSelect" name="cultivationStage" value="{{$aquaculture->cultivationStage}}">
+                    @error('cultivationStage')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <option value="">Pilih Tahap Budidaya</option>
+                    <option>Tahap Awal</option>
+                    <option>Tahap Pembesaran</option>
+                    <option>Tahap Panen</option>
+                </select>
+            </div>
+        </div>      
     </div>
     <div class="card-footer text-right">
       <button class="btn btn-primary mr-1" type="submit">Update</button>
@@ -93,5 +101,36 @@
   </form>
   </div>
 </div>
+<script>
+  //event Listener form status 
+  document.addEventListener('DOMContentLoaded', function() {
+          const status = document.getElementById('status').value;
+          toggleForms(status);
+      });
+  
+      document.getElementById('status').addEventListener('change', function() {
+          const status = this.value;
+          toggleForms(status);
+      });
+  
+      function toggleForms(status) {
+          const cultivationType = document.getElementById('cultivationType');
+          const cultivationTypeInput = document.getElementById('cultivationTypeInput');
+          const cultivationStage = document.getElementById('cultivationStage');
+          const cultivationStageSelect = document.getElementById('cultivationStageSelect');
+  
+          if (status === 'Aktif') {
+            cultivationType.style.display = 'block';
+            cultivationTypeInput.style.display = 'block';
+            cultivationStage.style.display = 'block';
+            cultivationStageSelect.style.display = 'block';
+          } else {
+            cultivationType.style.display = 'none';
+            cultivationTypeInput.style.display = 'none';
+            cultivationStage.style.display = 'none';
+            cultivationStageSelect.style.display = 'none';
+          }
+      }
+</script>
     
 @endsection

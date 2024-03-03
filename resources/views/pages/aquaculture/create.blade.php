@@ -71,19 +71,19 @@
               <span class="text-danger">{{ $message }}</span> 
               @enderror
               <option value="">Pilih Kecamatan</option>
-              <option value="kecamatan1">Buntulia</option>
-              <option value="kecamatan2">Dengilo</option>
-              <option value="kecamatan3">Paguat</option>
-              <option value="kecamatan4">Marisa</option>
-              <option value="kecamatan5">Duhiadaa</option>
-              <option value="kecamatan6">Lemito</option>
-              <option value="kecamatan7">Taluditi</option>
-              <option value="kecamatan8">Randangan</option>
-              <option value="kecamatan9">Wanggarasi</option>
-              <option value="kecamatan10">Popayato</option>
-              <option value="kecamatan11">Popayato Timur</option>
-              <option value="kecamatan12">Popayato Barat</option>
-              <option value="kecamatan13">Patilanggio</option>
+              <option value="Kecamatan 1">Buntulia</option>
+              <option value="Dengilo">Dengilo</option>
+              <option value="Paguat">Paguat</option>
+              <option value="Marisa">Marisa</option>
+              <option value="Duhiadaa">Duhiadaa</option>
+              <option value="Lemito">Lemito</option>
+              <option value="Taluditi">Taluditi</option>
+              <option value="Randangan">Randangan</option>
+              <option value="Wanggarasi">Wanggarasi</option>
+              <option value="Popayato">Popayato</option>
+              <option value="Popayato Timur">Popayato Timur</option>
+              <option value="Popayato Barat">Popayato Barat</option>
+              <option value="Patilanggio">Patilanggio</option>
               </select>
             </div>
           </div>
@@ -138,7 +138,7 @@
                     <option>Aktif</option>
                 </select>
             </div>
-        </div>        
+          </div>        
         <div class="row mb-3" >
             <div class="col-sm-2 col-form-label">
                 <label style="font-weight:bold" for="cultivationType" id="cultivationType">Jenis Budi Daya</label>
@@ -159,6 +159,7 @@
                     @error('cultivationStage')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
+                    <option value="">Pilih Tahap Budidaya</option>
                     <option>Tahap Awal</option>
                     <option>Tahap Pembesaran</option>
                     <option>Tahap Panen</option>
@@ -176,40 +177,40 @@
 
 <script>
 // Objek untuk menyimpan desa/kelurahan untuk setiap kecamatan
-var villagesByDistrict = {
-        kecamatan1: ['Desa Buntulia Tengah', 'Desa 2', 'Desa 3'],
-        kecamatan2: ['Desa A', 'Desa B', 'Desa C'],        
-        kecamatan3: ['Desa A', 'Desa B', 'Desa C'],        
-        kecamatan4: ['Desa A', 'Desa B', 'Desa C'],        
-        kecamatan5: ['Desa A', 'Desa B', 'Desa C'],        
-        kecamatan6: ['Desa A', 'Desa B', 'Desa C'],        
-        kecamatan7: ['Desa A', 'Desa B', 'Desa C'],        
-        kecamatan8: ['Desa A', 'Desa B', 'Desa C'],        
-        kecamatan9: ['Desa A', 'Desa B', 'Desa C'],        
-        kecamatan10: ['Desa A', 'Desa B', 'Desa C'],        
-        kecamatan11: ['Desa A', 'Desa B', 'Desa C'],        
-        kecamatan12: ['Desa A', 'Desa B', 'Desa C'],        
-        kecamatan13: ['Desa A', 'Desa B', 'Desa C'],        
-    };
+const villagesByDistrict = {
+    "Buntulia": ['Buntulia Tengah', 'Buntulia Utara', 'Hulawa', 'Karya Indah', 'Sipatana', 'Taluduyunu', 'Taluduyunu Utara'],
+    "Dengilo": ['Hutamoputi', 'Karangetang', 'Karya Baru', 'Padengo', 'Popaya'],        
+    "Paguat": ['Molamahu', 'Bunuyo', 'Kemiri', 'Bumbulan', 'Sipayo', 'Soginti', 'Buhu Jaya', 'Maleo', 'Kelurahan Pentadu', 'Kelurahan Siduan', 'Kelurahan Libuo'],        
+    "Marisa": ['Botubilitahu', 'Bulangito', 'Marisa Selatan', 'Marisa Utara', 'Palopo', 'Pohuwato', 'Pohuwato Timur', 'Teratai'],        
+    "Duhiadaa": ['Bulili', 'Buntulia Barat', 'Buntulia Jaya', 'Buntulia Selatan', 'Duhiadaa', 'Mekar Jaya', 'Mootilango', 'Padengo'],        
+    "Lemito": ['Bobalonge', 'Kenari', 'Lemito', 'Lemito Utara', 'Lomuli', 'Suka Damai', 'Wanggarasi Barat', 'Wanggarasi Tengah'],        
+    "Taluditi": ['Kalimas', 'Makarti Jaya', 'Malango', 'Marisa IV', 'Pancakarsa I', 'Pancakarsa II', 'Tirto Asri'],        
+    "Randangan": ['Ayula', 'Banuraja', 'Huyula', 'Imbodu', 'Manunggal Karya', 'Motolohu', 'Motolohu Selatan', 'Omayuwa', 'Patuhu', 'Pelambane', 'Sari Murni', 'Sido Rukun', 'Sidowonge'],        
+    "Wanggarasi": ['Bohusami', 'Bukit Harapan', 'Lembah Permai', 'Limbula', 'Tuweya', 'Wanggarasi Timur', 'Yipilo'],        
+    "Popayato": ['Bumi Baharani', 'Bukit Tingki', 'Dambalo', 'Popayato', 'Telaga', 'Telaga Biru', 'Torosiaje', 'Torosiaje Jaya', 'Trikora', 'Tunas Harapan'],        
+    "Popayato Timur": ['Bunto', 'Kelapa Lima', 'Londoun', 'Maleo', 'Marisa', 'Milangodaa','Tahele'],        
+    "Popayato Barat": ['Butungale', 'Dudewulo', 'Molosifat', 'Molosifat Utara', 'Padengo', 'Persatuan', 'Tunas Jaya'],        
+    "Patilanggio": ['Balayo', 'Dulomo', 'Dudepa', 'Iloheluma', 'Manawa', 'Suka Makmur']
+};
 
-    document.getElementById('district').addEventListener('change', function () {
-        var district = this.value;
-        var villageSelect = document.getElementById('village');
-        villageSelect.innerHTML = ''; // Clear existing options
-        
-        if (district && villagesByDistrict[district]) {
-            villagesByDistrict[district].forEach(function (village) {
-                var option = document.createElement('option');
-                option.text = village;
-                option.value = village;
-                villageSelect.appendChild(option);
-            });
-        } else {
+document.getElementById('district').addEventListener('change', function () {
+    var district = this.value;
+    var villageSelect = document.getElementById('village');
+    villageSelect.innerHTML = ''; // Clear existing options
+    
+    if (district && villagesByDistrict[district]) {
+        villagesByDistrict[district].forEach(function (village) {
             var option = document.createElement('option');
-            option.text = 'Pilih Desa/Kelurahan';
+            option.text = village;
+            option.value = village; // Atur nilainya sesuai teks yang ditampilkan
             villageSelect.appendChild(option);
-        }
-    });
+        });
+    } else {
+        var option = document.createElement('option');
+        option.text = 'Pilih Desa/Kelurahan';
+        villageSelect.appendChild(option);
+    }
+});
 
   //event Listener form status 
    document.addEventListener('DOMContentLoaded', function() {

@@ -22,8 +22,8 @@ return new class extends Migration
             $table->float('pondArea');
             $table->string('imagePonds');        
             $table->string('status');  
-            $table->string('cultivationType');
-            $table->string('cultivationStage');                           
+            $table->string('cultivationType')->nullable();
+            $table->string('cultivationStage')->nullable();                           
             
             $table->timestamps();
         });

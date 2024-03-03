@@ -26,8 +26,8 @@ class StoreAquacultureRequest extends FormRequest
             'pondArea'  => 'required',
             'imagePonds' => 'required|image|mimes:jpeg,jpg,png',
             'status'  => 'required',
-            'cultivationType'  => 'required',            
-            'cultivationStage'  => 'required',
+            // 'cultivationType'  => 'required',            
+            // 'cultivationStage'  => 'required',
             
             
         ];
@@ -42,9 +42,9 @@ class StoreAquacultureRequest extends FormRequest
             'pondArea.required' => 'Luas Tambak harus diisi',
             'imagePonds.required' => 'Gambar harus diisi',
             'status.required' => 'Status harus diisi',
-            'cultivationType.required' => 'Jenis Budidaya harus diisi',
-            'cultivationStage.required' => 'Tahap Budidaya harus diisi',
             'geojsonPonds.required' => 'File Geojson harus diisi',            
+            // 'cultivationType.required' => 'Jenis Budidaya harus diisi',
+            // 'cultivationStage.required' => 'Tahap Budidaya harus diisi',
         ];
     }
 }

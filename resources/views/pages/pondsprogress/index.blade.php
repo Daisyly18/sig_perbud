@@ -36,10 +36,10 @@
                   <th>#</th>
                   <th class="text-nowrap">Nama Pembudidaya</th>
                   <th class="text-nowrap">Jenis Kelamin</th>
-                  <th>Kecamatan</th>
-                  <th>Desa/Keluarahan</th>              
+                  <th class="text-nowrap">Kecamatan</th>
+                  <th class="text-nowrap">Desa/Keluarahan</th>              
                   <th class="text-nowrap">Luas Tambak</th>
-                  <th>Status</th>
+                  <th class="text-nowrap text-center">Status</th>
                   <th class="text-nowrap">Jenis Budidaya</th>
                   <th class="text-nowrap">Tahap Budi Daya</th>                  
                   <th>Action</th>
@@ -51,18 +51,18 @@
                   <td>{{ $loop->iteration }}</td>
                   <td class="text-nowrap">{{$aquaculture->ponds}}</td>
                   <td>{{$aquaculture->gender}}</td>
-                  <td>{{$aquaculture->district}}</td>
+                  <td >{{$aquaculture->district}}</td>
                   <td>{{$aquaculture->village}}</td>
-                  <td>{{$aquaculture->pondArea}}</td>
-                  <td>
+                  <td class="text-center text-nowrap">{{$aquaculture->pondArea}}</td>
+                  <td class="text-center text-nowrap">
                     @if($aquaculture->status == 'Aktif')
                         <div class="badge badge-success">{{ $aquaculture->status }}</div>
                     @else
                         <div class="badge badge-danger">{{ $aquaculture->status }}</div>
                     @endif
                   </td>
-                  <td>{{$aquaculture->cultivationType}}</td>
-                  <td>{{$aquaculture->cultivationStage}}</td>                  
+                  <td class="text-nowrap">{{$aquaculture->cultivationType}}</td>
+                  <td class="text-nowrap">{{$aquaculture->cultivationStage}}</td>                  
                   <td class="text-nowrap  d-flex align-items-center">
                     <a href="{{route('pondsProgress.edit', $aquaculture->id) }}" class="btn btn-warning">Update</a>                                    
                   </td>                
