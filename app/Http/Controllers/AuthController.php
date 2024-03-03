@@ -11,6 +11,9 @@ class AuthController extends Controller
 {
     public function login () 
     {
+        if(Auth::check()) {
+            return redirect()->route('dashboard.index'); // atau sesuaikan dengan nama rute dashboard jika berbeda
+        }
         return view('pages.auth.login');
     }
 

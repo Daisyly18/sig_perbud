@@ -18,6 +18,9 @@
 </head>
 
 <body>
+@if(Auth::check())
+  <script>window.location = "{{ route('dashboard.index') }}";</script>
+@endif
   <div id="app">
     <section class="section">      
       <div class="d-flex flex-wrap align-items-stretch">
