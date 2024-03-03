@@ -1,5 +1,5 @@
-@extends('layouts.main')
-@section('title','Daftar Perikanan Budidaya')
+@extends('layouts.mainmap')
+@section('title','Peta Perikanan Budidaya')
 @section('content')
 @if (session()->has('success'))
     <div class="alert alert-success alert-dismissible show fade">
@@ -19,6 +19,10 @@
             {{ session('error') }}
         </div>
     </div>
-    @endif
-       
+@endif
+<div id="map" style="height: 450px">
+    @include('maps.maps')
+  </div>
+            
+  
 @endsection

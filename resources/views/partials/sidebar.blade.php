@@ -31,6 +31,11 @@
               </i> <span>Data Users</span>
             </a>
           </li>
+          <li class="nav-item {{Request::is('mapview*')?'active':'';}}">
+            <a href="{{url('mapview')}}" class="nav-link"><i class="fa-solid fa-map">
+              </i> <span>Map</span>
+            </a>
+          </li>
       </ul> 
     </aside>
   </div>
