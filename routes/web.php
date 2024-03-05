@@ -22,6 +22,8 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::resource('/dashboard', DashboardController::class)->names('dashboard');    
     Route::resource('/aquaculture', AquacultureController::class)->names('aquaculture');
+    Route::get('/aquaculture/export', [AquacultureController::class, 'export'])->name('aquaculture.export');
+
     Route::resource('/pondsProgress', PondsProgressController::class)->names('pondsProgress'); 
     Route::resource('/user', UserController::class)->names('user');    
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.edit');

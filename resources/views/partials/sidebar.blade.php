@@ -18,7 +18,7 @@
           </li>
           <li class="nav-item {{Request::is('aquaculture*')?'active':'';}}">
             <a href="{{ url('aquaculture') }}" class="nav-link">
-              <i class="fas fa-fish"></i> <span>Perikanan Budi daya</span>
+              <i class="fas fa-fish"></i> <span>Perikanan Budi Daya</span>
             </a>
           </li>
           <li class="nav-item {{Request::is('pondsProgress*')?'active':'';}}">
@@ -33,7 +33,7 @@
           </li>
           <li class="nav-item {{Request::is('mapview*')?'active':'';}}">
             <a href="{{url('mapview')}}" class="nav-link"><i class="fa-solid fa-map">
-              </i> <span>Map</span>
+              </i> <span>Pemetaan</span>
             </a>
           </li>
       </ul> 

@@ -1,5 +1,5 @@
 @extends('layouts.mainmap')
-@section('title','Peta Perikanan Budidaya')
+@section('title','Pemetaan Perikanan Budidaya')
 @section('content')
 @if (session()->has('success'))
     <div class="alert alert-success alert-dismissible show fade">

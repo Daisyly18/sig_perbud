@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Exports\AquacultureExport;
 use App\Http\Requests\StoreAquacultureRequest;
 use App\Http\Requests\UpdateAquacultureRequest;
 use App\Models\Aquaculture as ModelsAquaculture;
@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AquacultureController extends Controller
 {
@@ -151,4 +152,10 @@ class AquacultureController extends Controller
         ]);
     }
 
+    public function export()
+    {
+        $aquacultures = ModelsAquaculture::orderBy('district')->get();
+        return Excel::download(new AquacultureExport($aquacultures), 'Daftar_Perikanan_Budidaya.xlsx');
+        
+    }
 }
