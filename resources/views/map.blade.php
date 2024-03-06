@@ -66,6 +66,7 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
   <link rel="stylesheet" href="{{ asset('css/components.css') }}">
+  
 
 </head>
 <body class="index-page" data-bs-spy="scroll" data-bs-target="#navmenu">

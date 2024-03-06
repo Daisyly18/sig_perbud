@@ -50,10 +50,8 @@
                         class="mb-md-0 w-100 mb-2 text-start">Role</label></div>
                 <div class="col-12 col-md-9">
                     <select class="form-control w-100" name="role" id="role" required>
-
-                        <option value="Penyuluh" {{ $user->role == 'Penyuluh' ? 'selected' : '' }}>Penyuluh
-                        </option>
-                        <option value="Pimpinan" {{ $user->role == 'Pimpinan' ? 'selected' : '' }}>Kepala Dinas</option>                                   
+                        <option value="Penyuluh" {{ $user->role == 'Penyuluh' ? 'selected' : '' }}>Penyuluh</option>
+                        <option value="Pimpinan" {{ $user->role == 'Pimpinan' ? 'selected' : '' }}>Kepala Dinas</option>                                                                    
                     </select>
                     @error('role')
                     <span class="text-danger">{{ $message }}</span>

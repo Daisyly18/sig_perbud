@@ -15,6 +15,7 @@ const map = L.map('map', {
   zoomControl: true,   
   dragging: true,
   trackResize: true,
+  measureControl: true
 }).setView([0.7355793, 121.6739009], 10);
 
 //Search 
@@ -161,10 +162,16 @@ function displayGeoJSON(geojsonData) {
     geojsonData.forEach(function(geojson) {
         L.geoJSON(geojson, {
             style: function(feature) {
+              let color;
+                if (feature.properties.status === "Aktif") {
+                    color = '#00FF00'; // Hijau untuk Aktif
+                } else {
+                    color = '#FF0000'; // Merah untuk Tidak Aktif
+                }
                 return {
-                    color: '#AE431E',
-                    fillColor: '#AE431E', // Warna isian
-                    fillOpacity: 0.5 // Opasitas isian
+                    color: color,
+                    fillColor: color,
+                    fillOpacity: 0.5
                 };
             },
             onEachFeature: function(feature, layer) {
@@ -213,14 +220,11 @@ const customControl = L.Control.extend({
     // Create button with custom icon
     const button = L.DomUtil.create('a', 'leaflet-control-zoom-extent', container);
     button.title = 'Zoom Extent';
-    button.innerHTML = '<i class="fas fa-expand-arrows-alt"></i>'; 
+    button.innerHTML = '<i class="fas fa-expand-arrows-alt" style="color: #000"></i>'; 
     button.style.backgroundColor = 'white';
     button.style.padding = '5px';
     button.style.display = 'flex';
     button.style.alignItems = 'center'; // Center vertically
-
-
-    // Center icon vertically and horizontally
     const icon = button.querySelector('i');
     icon.style.display = 'inline-block';
     icon.style.verticalAlign = 'middle';
@@ -238,44 +242,41 @@ map.addControl(new customControl());
 
 
 //Measure (Titik Jarak)
-const Measure = L.control.polylineMeasure({
-        position: 'topleft',
-        title: 'Measure'
+const measure = L.control.polylineMeasure({
+    primaryLengthUnit: 'kilometers', // Satuan panjang default
+    secondaryLengthUnit: 'meters', // Satuan panjang sekunder
+    primaryAreaUnit: 'hectares', // Satuan area default
+    secondaryAreaUnit: 'sqmeters', // Satuan area sekunder
+    position: 'topleft', // Posisi kontrol di peta
+    title: 'Measure',
+    
 }).addTo(map);
 
 // Membuat kontrol legenda kustom dengan latar belakang putih
-var legendControl = L.control({position: 'bottomleft'});
+const legendControl = L.control({position: 'bottomleft'});
 
 // Menambahkan metode onAdd untuk menampilkan legenda
 legendControl.onAdd = function (map) {
-    var div = L.DomUtil.create('div', 'info legend');
+    const div = L.DomUtil.create('div', 'info legend');
     div.style.backgroundColor = 'white'; // Memberikan latar belakang putih
     div.style.width = '170px'; // Menyesuaikan lebar legenda
     div.style.padding = '5px'; // Menambahkan jarak dari tepi
-    div.style.borderRadius = '10px'; // Memberikan sudut bulat
-    
+    div.style.borderRadius = '10px'; // Memberikan sudut bulat    
     // Menambahkan judul legenda
-    div.innerHTML += '<h6 style="color:black; font-style:arial;">Legenda</h6>';
-    
+    div.innerHTML += '<h6 style="color:black; font-style:arial;">Legenda</h6>';  
     // Menambahkan informasi Batas Kecamatan
-    div.innerHTML += '<div style="margin-bottom: 5px;"><svg height="20" width="20"><line x1="0" y1="10" x2="20" y2="10" stroke="#FFA447" stroke-width="3" stroke-dasharray="4, 4" /></svg> Batas Kecamatan</div>';
-    
+    div.innerHTML += '<div style="margin-bottom: 5px;"><svg height="20" width="20"><line x1="0" y1="10" x2="20" y2="10" stroke="#FFA447" stroke-width="3" stroke-dasharray="4, 4" /></svg> Batas Kecamatan</div>';    
     // Menambahkan informasi Jalan
-    div.innerHTML += '<div style="margin-bottom: 5px;"><svg height="20" width="20"><line x1="0" y1="10" x2="20" y2="10" stroke="#F78CA2" stroke-width="3" /></svg> Jalan</div>';
-    
+    div.innerHTML += '<div style="margin-bottom: 5px;"><svg height="20" width="20"><line x1="0" y1="10" x2="20" y2="10" stroke="#F78CA2" stroke-width="3" /></svg> Jalan</div>';    
     // Menambahkan informasi Sungai
-    div.innerHTML += '<div style="margin-bottom: 5px;"><svg height="20" width="20"><line x1="0" y1="10" x2="20" y2="10" stroke="#387ADF" stroke-width="3" /></svg> Sungai</div>';
-    
+    div.innerHTML += '<div style="margin-bottom: 5px;"><svg height="20" width="20"><line x1="0" y1="10" x2="20" y2="10" stroke="#387ADF" stroke-width="3" /></svg> Sungai</div>';    
     // Menambahkan informasi Lahan Tambak
-    div.innerHTML += '<div style="margin-bottom: 5px;"><svg height="20" width="20"><rect x="0" y="0" width="20" height="20" fill="#AE431E" /></svg> Lahan Tambak</div>';
-    
+    div.innerHTML += '<div style="margin-bottom: 5px;"><svg height="20" width="20"><rect x="0" y="0" width="20" height="20" fill="#AE431E" /></svg> Lahan Tambak</div>';  
     // Menambahkan informasi Kawasan Hutan
     div.innerHTML += '<div style="margin-bottom: 5px;"><svg height="20" width="20"><rect x="0" y="0" width="20" height="20" fill="#42E6A4" /></svg> Kawasan Hutan</div>';
     
     return div;
 };
-
-// Menambahkan kontrol legenda ke peta
 legendControl.addTo(map);
 
 

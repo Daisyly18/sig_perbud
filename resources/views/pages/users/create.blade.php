@@ -51,7 +51,7 @@
                 <div class="col-12 col-md-9">
                     <select class="form-control w-100" name="role" id="role" required>                                    
                         <option value="Penyuluh" {{ old('role')=='Penyuluh' ? 'selected' : '' }}>Penyuluh</option>
-                        <option value="Pimpinan" {{ old('role')=='Pimpinan' ? 'selected' : '' }}>Kepala Dinas</option>                                   
+                        <option value="Pimpinan" {{ old('role')=='Pimpinan' ? 'selected' : '' }}>Kepala Dinas</option>                                                                                             
                     </select>
                     @error('role')
                     <span class="text-danger">{{ $message }}</span>

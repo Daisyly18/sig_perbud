@@ -4,54 +4,107 @@
 @section('content')
 <div class="section-body">
     <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-            <div class="card card-statistic-1">
-            <div class="card-icon bg-primary">
-              <i class="far fa-user"></i>
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-3 col-md-6">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-primary">
+                  <i class="far fa-user"></i>
+                </div>
+                <div class="card-wrap">
+                    <div class="card-header">
+                    <h4>Total Penyuluh</h4>
+                    </div>
+                    <div class="card-body">
+                      {{ $penyuluh }}
+                    </div>
+                </div>
+                </div>
             </div>
-            <div class="card-wrap">
+            <div class="col-3 col-md-6 ">
+              <div class="card card-statistic-1">
+              <div class="card-icon bg-danger">
+                  <i class="far fa-user"></i>
+              </div>
+              <div class="card-wrap">
+                  <div class="card-header">
+                  <h4>Total Pembudidaya</h4>
+                  </div>
+                  <div class="card-body">
+                    {{ $pembudidaya }}
+                  </div>
+              </div>
+              </div>
+            </div>
+          </div>  
+          <div class="row">
+            <div class="col-3 col-md-6 ">
+              <div class="card card-statistic-1">
+              <div class="card-icon bg-warning">
+                <i class="far fa-bell"></i>
+              </div>
+              <div class="card-wrap">
+                  <div class="card-header">
+                  <h4>Perikanan Budidaya Aktif</h4>
+                  </div>
+                  <div class="card-body">
+                    {{ $statusAktif }}
+                  </div>
+              </div>
+              </div>
+            </div>          
+            <div class="col-3 col-md-6">
+                <div class="card card-statistic-1">
+                <div class="card-icon bg-warning">
+                  <i class="far fa-bell"></i>
+                </div>
+                <div class="card-wrap">
+                    <div class="card-header">
+                    <h4>Perikanan Budidaya Tidak Aktif</h4>
+                    </div>
+                    <div class="card-body">
+                      {{ $statusTidakAktif }}
+                    </div>
+                </div>
+                </div>
+            </div>
+          </div> 
+          <div class="row">
+            <div class="col-6 col-md-12">
+              <div class="card">
                 <div class="card-header">
-                <h4>Total Penyuluh</h4>
+                  <h4>Tahap Perikanan Budidaya</h4>
                 </div>
                 <div class="card-body">
-                  {{ $penyuluh }}
+                  <div class="mb-4">
+                    <div class="text-small float-right font-weight-bold text-muted">{{ $stage1 }}</div>
+                    <div class="font-weight-bold mb-1">Tahap Awal</div>
+                    <div class="progress" data-height="3">
+                        <div class="progress-bar" role="progressbar" style="width: {{ $stage1 }}%;" aria-valuenow="{{ $stage1 }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
                 </div>
-            </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-            <div class="card card-statistic-1">
-            <div class="card-icon bg-danger">
-                <i class="far fa-user"></i>
-            </div>
-            <div class="card-wrap">
-                <div class="card-header">
-                <h4>Total Pembudidaya</h4>
+                
+                  <div class="mb-4">
+                    <div class="text-small float-right font-weight-bold text-muted">{{ $stage2 }}</div>
+                    <div class="font-weight-bold mb-1">Tahap Pembesaran</div>
+                    <div class="progress" data-height="3">
+                      <div class="progress-bar" role="progressbar" style="width: {{ $stage2 }}%;" aria-valuenow="{{ $stage2 }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                  <div class="mb-4">
+                    <div class="text-small float-right font-weight-bold text-muted">{{ $stage3 }}</div>
+                    <div class="font-weight-bold mb-1">Tahap Panen</div>
+                    <div class="progress" data-height="3">
+                      <div class="progress-bar" role="progressbar" style="width: {{ $stage3 }}%;" aria-valuenow="{{ $stage3 }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+    
                 </div>
-                <div class="card-body">
-                  {{ $pembudidaya }}
-                </div>
+              </div>
             </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-            <div class="card card-statistic-1">
-            <div class="card-icon bg-warning">
-              <i class="far fa-bell"></i>
-            </div>
-            <div class="card-wrap">
-                <div class="card-header">
-                <h4>Total Perikanan Budidaya Aktif</h4>
-                </div>
-                <div class="card-body">
-                  {{ $status }}
-                </div>
-            </div>
-            </div>
-        </div>          
-    </div>   
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-12">
+          </div>         
+        </div>   
+        <div class="col-lg-6 col-md-6">
           <div class="card">
             <div class="card-header">
               <h4>Perikanan Budidaya</h4>
@@ -155,40 +208,8 @@
               </div>
             </div>
           </div>       
-        </div> 
-        <div class="col-lg-6 col-md-6 col-12">
-            <div class="card">
-              <div class="card-header">
-                <h4>Tahap Perikanan Budidaya</h4>
-              </div>
-              <div class="card-body">
-                <div class="mb-4">
-                  <div class="text-small float-right font-weight-bold text-muted">{{ $stage1 }}</div>
-                  <div class="font-weight-bold mb-1">Tahap Awal</div>
-                  <div class="progress" data-height="3">
-                      <div class="progress-bar" role="progressbar" style="width: {{ $stage1 }}%;" aria-valuenow="{{ $stage1 }}" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-              </div>
-              
-                <div class="mb-4">
-                  <div class="text-small float-right font-weight-bold text-muted">{{ $stage2 }}</div>
-                  <div class="font-weight-bold mb-1">Tahap Pembesaran</div>
-                  <div class="progress" data-height="3">
-                    <div class="progress-bar" role="progressbar" style="width: {{ $stage2 }}%;" aria-valuenow="{{ $stage2 }}" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-                <div class="mb-4">
-                  <div class="text-small float-right font-weight-bold text-muted">{{ $stage3 }}</div>
-                  <div class="font-weight-bold mb-1">Tahap Panen</div>
-                  <div class="progress" data-height="3">
-                    <div class="progress-bar" role="progressbar" style="width: {{ $stage3 }}%;" aria-valuenow="{{ $stage3 }}" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-  
-              </div>
-            </div>       
-          </div>        
-    </div>                
+        </div>
+    </div>       
 </div>
 
      

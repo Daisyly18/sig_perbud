@@ -52,7 +52,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <!-- Leaflet Measure Control CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-measure/dist/leaflet-measure.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-measure/dist/leaflet-measure.css" />    
   <!-- Leaflet Measure Control JavaScript -->
   <script src="https://unpkg.com/leaflet-measure/dist/leaflet-measure.js"></script>
   <!--Leaflet-Geodecor-->
@@ -63,7 +63,7 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">  
   <link rel="stylesheet" href="{{ asset('css/components.css') }}">
-
+ 
 
 </head>
 

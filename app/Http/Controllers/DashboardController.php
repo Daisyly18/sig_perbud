@@ -12,11 +12,12 @@ class DashboardController extends Controller
     {
         $pembudidaya = Aquaculture::count();
         $penyuluh = User::where('role', 'Penyuluh')->count();
-        $status = Aquaculture::where('status', 'Aktif')->count();
+        $statusAktif = Aquaculture::where('status', 'Aktif')->count();
+        $statusTidakAktif = Aquaculture::where('status', 'Tidak Aktif')->count();
 
-        $stage1 = Aquaculture::where('cultivationType', 'Tahap Awal')->count();
-        $stage2 = Aquaculture::where('cultivationType', 'Tahap Pembesaran')->count();
-        $stage3 = Aquaculture::where('cultivationType', 'Tahap Panen')->count();
+        $stage1 = Aquaculture::where('cultivationStage', 'Tahap Awal')->count();
+        $stage2 = Aquaculture::where('cultivationStage', 'Tahap Pembesaran')->count();
+        $stage3 = Aquaculture::where('cultivationStage', 'Tahap Panen')->count();
 
         $paguat = Aquaculture::where('district', 'paguat')->count();
         $duhiadaa = Aquaculture::where('district', 'duhiadaa')->count();
@@ -35,7 +36,8 @@ class DashboardController extends Controller
         return view('pages.dashboard.index', compact(
             'pembudidaya', 
             'penyuluh', 
-            'status', 
+            'statusAktif', 
+            'statusTidakAktif',
             'paguat',
             'duhiadaa',
             'lemito',

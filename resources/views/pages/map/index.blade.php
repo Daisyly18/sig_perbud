@@ -20,9 +20,12 @@
         </div>
     </div>
 @endif
-<div id="map" style="height: 450px">
-    @include('maps.maps')
-  </div>
+<div class="card">
+    <div id="map" style="height: 450px">
+        @include('maps.maps')
+    </div>
+</div>
+
             
   
 @endsection
