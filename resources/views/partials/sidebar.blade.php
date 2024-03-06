@@ -32,7 +32,7 @@
             </a>
           </li>
           <li class="nav-item {{Request::is('mapview*')?'active':'';}}">
-            <a href="{{url('mapview')}}" class="nav-link"><i class="fa-solid fa-map">
+            <a href="{{url('mapview')}}" class="nav-link"><i class="fas fa-map">
               </i> <span>Pemetaan</span>
             </a>
           </li>

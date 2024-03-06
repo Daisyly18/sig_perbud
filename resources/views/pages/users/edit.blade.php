@@ -53,7 +53,7 @@
 
                         <option value="Penyuluh" {{ $user->role == 'Penyuluh' ? 'selected' : '' }}>Penyuluh
                         </option>
-                        <option value="Pimpinan" {{ $user->role == 'Pimpinan' ? 'selected' : '' }}>Pimpinan</option>                                   
+                        <option value="Pimpinan" {{ $user->role == 'Pimpinan' ? 'selected' : '' }}>Kepala Dinas</option>                                   
                     </select>
                     @error('role')
                     <span class="text-danger">{{ $message }}</span>

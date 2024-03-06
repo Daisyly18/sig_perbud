@@ -43,8 +43,8 @@ class AquacultureController extends Controller
                 'pondArea' => $request->pondArea,
                 'imagePonds' => $imagePath,
                 'status' => $request->status,
-                // 'cultivationType' => $request->cultivationType,
-                // 'cultivationStage' => $request->cultivationStage,
+                'cultivationType' => $request->cultivationType,
+                'cultivationStage' => $request->cultivationStage,
                                
 
             ]);

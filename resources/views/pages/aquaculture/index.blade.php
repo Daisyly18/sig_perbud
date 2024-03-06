@@ -25,7 +25,7 @@
       <div class="card-header">
         <div class="buttons">
           <a href="{{route('aquaculture.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah</a> 
-          <a href="{{ route('aquaculture.export')}}" class="btn  btn-success"><i class="fas fa-file-export"></i> Eksport</a>
+          <a href="/export" class="btn  btn-success"><i class="fas fa-file-export"></i> Eksport</a>
         </div>
       </div>
         <div class="card-body p-2">

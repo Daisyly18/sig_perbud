@@ -62,8 +62,7 @@
 
   <!--Leaflet-Geodecor-->
   <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-
-
+  
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
   <link rel="stylesheet" href="{{ asset('css/components.css') }}">
@@ -75,7 +74,7 @@
       <img src="{{ asset('/img/logo_pohuwato.png') }}" alt="Logo" width="65px" />
     </div>
     <div class="nav-header flex-grow-1">
-      <h4 style="color: #FFFFFF">Peta</h4>
+      <h4 style="color: #FFFFFF">Sistem Informasi Geografis</h4>
       <h4 style="color: #FFFFFF">Persebaran Perikanan Budi Daya Kabupaten Pohuwato </h4>
     </div>
     <div class="header-container">

@@ -28,8 +28,8 @@ class AquacultureExport implements FromCollection, WithEvents, WithStyles
                 'Desa' =>  $aquaculture->village,
                 'Luas Tambak'  => $aquaculture->pondArea,
                 'status' => $aquaculture->status,
-                // 'Jenis Budidaya' => $aquaculture->cultivationType,
-                // 'Tahap Budidaya' => $aquaculture->cultivationStage
+                'Jenis Budidaya' => $aquaculture->cultivationType,
+                'Tahap Budidaya' => $aquaculture->cultivationStage
             ];
         });
     }
@@ -50,8 +50,8 @@ class AquacultureExport implements FromCollection, WithEvents, WithStyles
         $sheet->getColumnDimension('E')->setWidth(12);
         $sheet->getColumnDimension('F')->setWidth(18);
         $sheet->getColumnDimension('G')->setWidth(12);
-        // $sheet->getColumnDimension('H')->setWidth(20);
-        // $sheet->getColumnDimension('I')->setWidth(20);
+        $sheet->getColumnDimension('H')->setWidth(20);
+        $sheet->getColumnDimension('I')->setWidth(20);
     }
 
     public function registerEvents() : array
@@ -66,8 +66,8 @@ class AquacultureExport implements FromCollection, WithEvents, WithStyles
                 $sheet->getColumnDimension('E')->setAutoSize(true);
                 $sheet->getColumnDimension('F')->setAutoSize(true);
                 $sheet->getColumnDimension('G')->setAutoSize(true);
-                // $sheet->getColumnDimension('H')->setAutoSize(true);
-                // $sheet->getColumnDimension('I')->setAutoSize(true);
+                $sheet->getColumnDimension('H')->setAutoSize(true);
+                $sheet->getColumnDimension('I')->setAutoSize(true);
 
                 $sheet->setCellValue('A1', 'Daftar Perikanan Budi Daya');
 
@@ -79,10 +79,10 @@ class AquacultureExport implements FromCollection, WithEvents, WithStyles
                 $sheet->setCellValue('E2', 'Desa');
                 $sheet->setCellValue('F2', 'Luas Tambak');
                 $sheet->setCellValue('G2', 'Status');
-                // $sheet->setCellValue('H2', 'Jenis Budi Daya');
-                // $sheet->setCellValue('I2', 'Tahap Budi Daya');
+                $sheet->setCellValue('H2', 'Jenis Budi Daya');
+                $sheet->setCellValue('I2', 'Tahap Budi Daya');
 
-                $row = 4;
+                $row = 3;
                 $no = 1;
 
                 //Ambil data perikanan budi daya berdasarkan kecamatan dan urutkan sesuai kecamatan
@@ -96,8 +96,8 @@ class AquacultureExport implements FromCollection, WithEvents, WithStyles
                     $sheet->setCellValue('E' . $row, $aquaculture->village);
                     $sheet->setCellValue('F' . $row, $aquaculture->pondArea);
                     $sheet->setCellValue('G' . $row, $aquaculture->status);
-                    // $sheet->setCellValue('H' . $row, $aquaculture->cultivationType);
-                    // $sheet->setCellValue('I' . $row, $aquaculture->cultivationStage);
+                    $sheet->setCellValue('H' . $row, $aquaculture->cultivationType);
+                    $sheet->setCellValue('I' . $row, $aquaculture->cultivationStage);
 
                     $sheet->getStyle('A3:I' .$row)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                     $row++;
