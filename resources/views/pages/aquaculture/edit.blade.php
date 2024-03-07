@@ -109,9 +109,9 @@
           <div class="label col-sm-2 col-form-label">
             <label style="font-weight:bold" for="imagePonds">Foto Tambak</label>
           </div>
-          <div class="col-sm-10">
+          <div class="col-sm-10">            
             <input type="file" class="form-control @error('imagePonds') border-danger @enderror" id="imagePonds" 
-            name="imagePonds" value="{{$aquaculture->imagePonds}}">
+            name="imagePonds" value="{{$aquaculture->imagePonds}}" >
           </div>
         </div>   
         <div class="row mb-3">

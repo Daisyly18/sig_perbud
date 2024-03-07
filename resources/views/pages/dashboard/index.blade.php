@@ -23,8 +23,8 @@
             </div>
             <div class="col-3 col-md-6 ">
               <div class="card card-statistic-1">
-              <div class="card-icon bg-danger">
-                  <i class="far fa-user"></i>
+              <div class="card-icon bg-warning">
+                  <i class="fas fa-users"></i>
               </div>
               <div class="card-wrap">
                   <div class="card-header">
@@ -40,12 +40,12 @@
           <div class="row">
             <div class="col-3 col-md-6 ">
               <div class="card card-statistic-1">
-              <div class="card-icon bg-warning">
+              <div class="card-icon bg-success">
                 <i class="far fa-bell"></i>
               </div>
               <div class="card-wrap">
                   <div class="card-header">
-                  <h4>Perikanan Budidaya Aktif</h4>
+                  <h4>Lahan Tambak Aktif</h4>
                   </div>
                   <div class="card-body">
                     {{ $statusAktif }}
@@ -55,12 +55,12 @@
             </div>          
             <div class="col-3 col-md-6">
                 <div class="card card-statistic-1">
-                <div class="card-icon bg-warning">
+                <div class="card-icon bg-danger">
                   <i class="far fa-bell"></i>
                 </div>
                 <div class="card-wrap">
                     <div class="card-header">
-                    <h4>Perikanan Budidaya Tidak Aktif</h4>
+                    <h4>Lahan Tambak Tidak Aktif</h4>
                     </div>
                     <div class="card-body">
                       {{ $statusTidakAktif }}

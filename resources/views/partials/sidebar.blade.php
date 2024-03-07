@@ -21,14 +21,16 @@
               <i class="fas fa-fish"></i> <span>Perikanan Budi Daya</span>
             </a>
           </li>
+          @if (Auth::user()->role != 'Kepala Dinas')
           <li class="nav-item {{Request::is('pondsProgress*')?'active':'';}}">
             <a href="{{ url('pondsProgress') }}" class="nav-link">
               <i class="fas fa-water"></i> <span>Perkembangan Tambak</span>
             </a>
           </li>
+          @endif
           <li class="nav-item {{Request::is('mapview*')?'active':'';}}">
             <a href="{{url('mapview')}}" class="nav-link"><i class="fas fa-map">
-              </i> <span>Pemetaan</span>
+              </i> <span>Pemetaan </span>
             </a>
           </li>
           @if (Auth::user()->role == 'Admin')

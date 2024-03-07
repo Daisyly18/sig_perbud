@@ -24,7 +24,9 @@
     <div class="card">
       <div class="card-header">
         <div class="buttons">
+          @if (Auth::user()->role != 'Kepala Dinas')
           <a href="{{route('aquaculture.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah</a> 
+          @endif
           <a href="/export" class="btn  btn-success"><i class="fas fa-file-export"></i> Eksport</a>
         </div>
       </div>
@@ -41,8 +43,10 @@
                   <th class="text-nowrap">Luas Tambak</th>
                   <th>Status</th>
                   <th class="text-nowrap">Jenis Budidaya</th>
-                  <th class="text-nowrap">Tahap Budi Daya</th>                  
-                  <th>Action</th>
+                  <th class="text-nowrap">Tahap Budi Daya</th>
+                  @if (Auth::user()->role != 'Kepala Dinas')
+                  <th>Aksi</th>
+                  @endif
                 </tr>
               </thead>
               <tbody>
@@ -62,7 +66,8 @@
                     @endif
                   </td>
                   <td class="text-nowrap text-center">{{$aquaculture->cultivationType}}</td>
-                  <td class="text-nowrap text-center">{{$aquaculture->cultivationStage}}</td>                  
+                  <td class="text-nowrap text-center">{{$aquaculture->cultivationStage}}</td>  
+                  @if (Auth::user()->role != 'Kepala Dinas')
                   <td class="d-flex align-items-center">
                     <a href="{{route('aquaculture.edit', $aquaculture->id) }}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-edit"></i></a>                
                     <form method="POST" action="{{ route('aquaculture.destroy', $aquaculture->id) }}">
@@ -70,7 +75,8 @@
                       @method('DELETE')
                       <button type="submit" class="btn btn-icon icon-left btn-danger"><i class="fas fa-trash"></i></button>
                   </form>          
-                  </td>                
+                  </td>     
+                  @endif     
                 </tr>
                 @endforeach
               </tbody>              
