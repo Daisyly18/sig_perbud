@@ -57,7 +57,7 @@
         <div class="card-header">
             <div class="buttons">
                 <a href="{{ route('user.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah</a>            
-                <a href="#" class="btn  btn-success"><i class="fas fa-file-export"></i> Eksport</a>
+                <a href="{{route('user.export')}}" class="btn  btn-success"><i class="fas fa-file-export"></i> Eksport</a>
             </div>
           </div>
         <div class="card-body">

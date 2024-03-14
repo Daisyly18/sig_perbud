@@ -27,7 +27,7 @@
           @if (Auth::user()->role != 'Kepala Dinas')
           <a href="{{route('aquaculture.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah</a> 
           @endif
-          <a href="/export" class="btn  btn-success"><i class="fas fa-file-export"></i> Eksport</a>
+          <a href="{{route('aquaculture.export')}}" class="btn  btn-success"><i class="fas fa-file-export"></i> Eksport</a>
         </div>
       </div>
         <div class="card-body p-2">
@@ -38,14 +38,14 @@
                   <th>#</th>
                   <th class="text-nowrap">Nama Pembudidaya</th>
                   <th class="text-nowrap">Jenis Kelamin</th>
-                  <th>Kecamatan</th>
-                  <th>Desa/Keluarahan</th>              
+                  <th class="text-nowrap text-center">Kecamatan</th>
+                  <th class="text-nowrap text-center">Desa/Keluarahan</th>              
                   <th class="text-nowrap">Luas Tambak</th>
-                  <th>Status</th>
+                  <th class="text-nowrap text-center">Status</th>
                   <th class="text-nowrap">Jenis Budidaya</th>
                   <th class="text-nowrap">Tahap Budi Daya</th>
                   @if (Auth::user()->role != 'Kepala Dinas')
-                  <th>Aksi</th>
+                  <th class="text-nowrap text-center">Aksi</th>
                   @endif
                 </tr>
               </thead>
@@ -54,11 +54,11 @@
                 <tr>  
                   <td>{{ $loop->iteration }}</td>
                   <td class="text-nowrap">{{$aquaculture->ponds}}</td>
-                  <td>{{$aquaculture->gender}}</td>
-                  <td>{{$aquaculture->district}}</td>
-                  <td>{{$aquaculture->village}}</td>
+                  <td class="text-nowrap text-center">{{$aquaculture->gender}}</td>
+                  <td class="text-nowrap text-center">{{$aquaculture->district}}</td>
+                  <td class="text-nowrap text-center">{{$aquaculture->village}}</td>
                   <td class="text-center">{{$aquaculture->pondArea}}</td>
-                  <td>
+                  <td class="text-nowrap text-center">
                     @if($aquaculture->status == 'Aktif')
                         <div class="badge badge-success">{{ $aquaculture->status }}</div>
                     @else

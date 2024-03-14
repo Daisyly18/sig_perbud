@@ -66,7 +66,7 @@
             <span class="text-danger">{{ $message }}</span> 
             @enderror
             <option value="">Pilih Kecamatan</option>
-            <option value="Kecamatan 1">Buntulia</option>
+            <option value="Buntulia">Buntulia</option>
             <option value="Dengilo">Dengilo</option>
             <option value="Paguat">Paguat</option>
             <option value="Marisa">Marisa</option>

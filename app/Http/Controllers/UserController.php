@@ -6,6 +6,8 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -73,5 +75,11 @@ class UserController extends Controller
         $user->delete();
         
         return redirect()->route('user.index')->with('success', 'Data user berhasil dihapus.');
+    }
+
+    public function export()
+    {
+        $users = User::orderBy('username')->get();
+        return Excel::download(new UsersExport($users), 'Daftar Pengguna.xlsx');
     }
 }
