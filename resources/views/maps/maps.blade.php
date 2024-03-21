@@ -18,6 +18,8 @@ const map = L.map('map', {
   measureControl: true
 }).setView([0.7355793, 121.6739009], 10);
 
+
+
 //Search 
 const search = L.Control.geocoder({ position: 'topright'}).addTo(map);      
           
@@ -154,7 +156,7 @@ fetch('/fetch/poligon')
 .then(response => response.json())
 .then(data => {
     // Panggil fungsi untuk menampilkan GeoJSON pada peta
-    displayGeoJSON(data.geojsonData);
+    displayGeoJSON(data.geojsonData);    
 });
 
 // Fungsi untuk menampilkan GeoJSON pada peta Leaflet
@@ -252,8 +254,48 @@ const measure = L.control.polylineMeasure({
     
 }).addTo(map);
 
+
+// Membuat ikon untuk menampilkan atau menyembunyikan legenda
+const legendIcon = L.Control.extend({
+    options: {
+        position: 'topleft'
+    },
+    onAdd: function(map) {
+        const container = L.DomUtil.create('div', 'legend-icon');
+
+        const legendIcon = L.DomUtil.create('a', 'legend', container);
+        legendIcon.title = 'Legend';
+        legendIcon.innerHTML = '<i class="fa-solid fa-list" style="color: #000"></i>'; // Menambahkan ikon
+        legendIcon.style.backgroundColor = 'white';
+        legendIcon.style.padding = '9px';
+        legendIcon.style.display = 'flex';
+        legendIcon.style.alignItems = 'center'; // Center vertically
+        legendIcon.style.borderRadius = '9%'; // Menetapkan radius sudut
+        legendIcon.style.marginLeft = '2px'; // Menetapkan margin kiri sebesar 30px  
+        
+
+        // Menambahkan event listener dengan L.DomEvent
+        L.DomEvent.on(container, 'click', function() {
+            if (map.legendControl) {
+                map.removeControl(map.legendControl);
+                map.legendControl = null; // Hapus referensi ke kontrol legenda
+            } else {
+                map.legendControl = legendControl.addTo(map);
+            }
+        });
+
+        return container;
+    }
+});
+
+
+// Tambahkan ikon legend ke peta
+new legendIcon().addTo(map);
+
 // Membuat kontrol legenda kustom dengan latar belakang putih
-const legendControl = L.control({position: 'bottomleft'});
+const legendControl = L.control({
+    position: 'bottomleft'
+});
 
 // Menambahkan metode onAdd untuk menampilkan legenda
 legendControl.onAdd = function (map) {
@@ -271,13 +313,15 @@ legendControl.onAdd = function (map) {
     // Menambahkan informasi Sungai
     div.innerHTML += '<div style="margin-bottom: 5px;"><svg height="20" width="20"><line x1="0" y1="10" x2="20" y2="10" stroke="#387ADF" stroke-width="3" /></svg> Sungai</div>';    
     // Menambahkan informasi Lahan Tambak
-    div.innerHTML += '<div style="margin-bottom: 5px;"><svg height="20" width="20"><rect x="0" y="0" width="20" height="20" fill="#AE431E" /></svg> Lahan Tambak</div>';  
+    div.innerHTML += '<div style="margin-bottom: 5px;"><svg height="20" width="20"><rect x="0" y="0" width="20" height="20" fill="#00ff00" /></svg> Lahan Tambak</div>';  
+    // Menambahkan informasi Lahan Tambak
+    div.innerHTML += '<div style="margin-bottom: 5px;"><svg height="20" width="20"><rect x="0" y="0" width="20" height="20" fill="#ff0000" /></svg> Lahan Tambak Tidak Aktif</div>';  
     // Menambahkan informasi Kawasan Hutan
     div.innerHTML += '<div style="margin-bottom: 5px;"><svg height="20" width="20"><rect x="0" y="0" width="20" height="20" fill="#42E6A4" /></svg> Kawasan Hutan</div>';
     
     return div;
 };
-legendControl.addTo(map);
+
 
 
 
