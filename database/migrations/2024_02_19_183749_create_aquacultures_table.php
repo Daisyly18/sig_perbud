@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('imagePonds');        
             $table->string('status');  
             $table->string('cultivationType')->nullable();
-            $table->string('cultivationStage')->nullable();                           
+            $table->string('cultivationStage')->nullable();  
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');                         
             
             $table->timestamps();
         });

@@ -23,7 +23,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('/aquaculture', AquacultureController::class)->names('aquaculture');
     Route::get('/export', [AquacultureController::class, 'export'])->name('aquaculture.export');
     Route::get('/exportUsers', [UserController::class, 'export'])->name('user.export');
-
     Route::resource('/pondsProgress', PondsProgressController::class)->names('pondsProgress'); 
     Route::resource('/user', UserController::class)->names('user');    
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.edit');
@@ -31,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/mapview', MapController::class)->names('mapview');    
 
 });
+
 
 
 

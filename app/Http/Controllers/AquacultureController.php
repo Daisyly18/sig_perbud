@@ -8,15 +8,32 @@ use App\Http\Requests\UpdateAquacultureRequest;
 use App\Models\Aquaculture as ModelsAquaculture;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 
 class AquacultureController extends Controller
 {
     public function index()
     {
-        $aquacultures = ModelsAquaculture::orderBy('created_at', 'DESC')->get();
+            
+       // Mendapatkan pengguna yang sedang login
+        $user = Auth::user();
+
+        // Inisialisasi query untuk mengambil data perikanan budidaya
+        $aquaculturesQuery = ModelsAquaculture::query();
+
+        // Jika pengguna memiliki peran sebagai Admin atau Pimpinan, ambil semua data
+        if ($user->role == 'Admin' || $user->role == 'Kepala Dinas') {
+            $aquacultures = $aquaculturesQuery->get();
+        } else {
+            // Jika bukan Admin atau Pimpinan, ambil hanya data milik pengguna yang sedang login
+            $aquacultures = $aquaculturesQuery->where('user_id', $user->id)->get();
+        }
+
+        // Mengirimkan data perikanan budidaya ke tampilan
         return view('pages.aquaculture.index', compact('aquacultures'));
     }
 
@@ -45,6 +62,7 @@ class AquacultureController extends Controller
                 'status' => $request->status,
                 'cultivationType' => $request->cultivationType,
                 'cultivationStage' => $request->cultivationStage,
+                'user_id' => Auth::id(),
                                
 
             ]);
@@ -96,7 +114,7 @@ class AquacultureController extends Controller
 
             $aquaculture->status = $request->status;
             $aquaculture->cultivationType = $request->cultivationType;
-            $aquaculture->cultivationStage = $request->cultivationStage;
+            $aquaculture->cultivationStage = $request->cultivationStage; 
 
 
             $aquaculture->save();
