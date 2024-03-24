@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Manajemen User')
+@section('title', 'Data User')
 @section('content')
 
 @if (session()->has('success'))
